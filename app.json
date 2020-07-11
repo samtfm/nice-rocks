@@ -1,0 +1,12 @@
+{
+  "name": "nice-rocks-native",
+  "displayName": "nice-rocks-native",
+  "expo": {
+    "name": "nice-rocks-native",
+    "slug": "nice-rocks-native",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
