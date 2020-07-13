@@ -4,7 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import rootReducer from './reducers/rootReducer';
 import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
+import '@react-native-firebase/auth';
 import { createStore, compose } from 'redux'
+import { Provider } from 'react-redux'
 import { ReactReduxFirebaseProvider, firebaseReducer } from 'react-redux-firebase'
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
 
@@ -18,9 +20,17 @@ const fakeRock = {
 }
 //
 
+// https://rnfirebase.io/reference/app/firebaseappoptions
 const fbConfig = {
+  androidClientId: undefined, // iOS only
   apiKey: "AIzaSyCyjvCW1nT4qQszuOf0N42Umw3wMWh6SYQ",
+  appId: "1:342705485686:android:dc57ec593a1b9a95deac57",
+  clientId: undefined, // iOS only
   databaseURL: "https://nice-rocks.firebaseio.com",
+  deepLinkURLScheme: undefined, // iOS only
+  gaTrackingId: undefined,
+  messagingSenderId: "342705485686",
+  projectId: "nice-rocks",
   storageBucket: "nice-rocks.appspot.com",
 }
 
@@ -48,7 +58,7 @@ const rrfProps = {
  createFirestoreInstance, // <- needed if using firestore
 }
 
-export default App = () => {
+const App = () => {
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
@@ -69,3 +79,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
