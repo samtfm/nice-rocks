@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:342705485686:android:dc57ec593a1b9a95deac57",
+        "mobilesdk_app_id": "1:342705485686:android:98b6ee6c26ed1d04deac57",
         "android_client_info": {
-          "package_name": "com.example.nice_rocks"
+          "package_name": "com.nice_rocks"
         }
       },
       "oauth_client": [
         {
-          "client_id": "342705485686-f63ln9nju8noh4gsf7g4n1hpjjkm4r2p.apps.googleusercontent.com",
+          "client_id": "342705485686-rah975l5v8nq9c1clakd1oimancphvbu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.nice_rocks",
+            "package_name": "com.nice_rocks",
             "certificate_hash": "b72d6abea49fc91eb720618c362f579ad67eda1b"
           }
         },

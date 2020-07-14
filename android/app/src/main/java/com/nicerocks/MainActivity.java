@@ -1,4 +1,4 @@
-package com.nicerocksnative;
+package com.nice_rocks;
 
 import android.os.Bundle;
 

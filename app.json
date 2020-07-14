@@ -1,9 +1,9 @@
 {
-  "name": "nice-rocks",
-  "displayName": "nice-rocks",
+  "name": "nicerocks",
+  "displayName": "nice rocks",
   "expo": {
-    "name": "nice-rocks",
-    "slug": "nice-rocks",
+    "name": "nicerocks",
+    "slug": "nicerocks",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

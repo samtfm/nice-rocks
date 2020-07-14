@@ -1,4 +1,4 @@
-package com.nicerocksnative.generated;
+package com.nice_rocks.generated;
 
 import java.util.Arrays;
 import java.util.List;

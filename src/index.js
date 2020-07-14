@@ -24,7 +24,7 @@ const fakeRock = {
 const fbConfig = {
   androidClientId: undefined, // iOS only
   apiKey: "AIzaSyCyjvCW1nT4qQszuOf0N42Umw3wMWh6SYQ",
-  appId: "1:342705485686:android:dc57ec593a1b9a95deac57",
+  appId: "1:342705485686:android:98b6ee6c26ed1d04deac57",
   clientId: undefined, // iOS only
   databaseURL: "https://nice-rocks.firebaseio.com",
   deepLinkURLScheme: undefined, // iOS only
@@ -41,7 +41,9 @@ const rrfConfig = {
 }
 
 // Initialize firebase instance
-RNFirebase.initializeApp(fbConfig)
+if (RNFirebase.apps.length == 0){
+  RNFirebase.initializeApp(fbConfig)
+}
 
 // Initialize other services on firebase instance
 RNFirebase.firestore() // <- needed if using firestore
