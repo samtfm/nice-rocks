@@ -1,11 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Linking } from 'react-native';
 import { relativeTimeFromEpoch } from '../util/time';
+import { useSelector } from 'react-redux'
+import { useFirestoreConnect } from 'react-redux-firebase'
 
 const RockPreview = ({title, url, note, timestamp}) => {
   return (
     <View style={styles.rockItem}>
-      <Text style={styles.title}>{title || url}</Text>
+      {url ? (
+        <Text style={styles.title}
+              onPress={() => Linking.openURL(url)}>
+          {title || url}
+        </Text>
+      ) : (
+        <Text style={styles.title}>{title || url}</Text>
+      )}
       <Text style={styles.description}>{note}</Text>
       <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp)}</Text>
     </View>

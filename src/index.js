@@ -11,7 +11,7 @@ import { ReactReduxFirebaseProvider, firebaseReducer } from 'react-redux-firebas
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
 
 // Temporary test code
-import RockPreview from './components/RockPreview.component'
+import RockList from './components/RockList.component'
 const fakeRock = {
   title: "New Cool Thing",
   url: "zombo.com",
@@ -66,7 +66,7 @@ const App = () => {
       <ReactReduxFirebaseProvider {...rrfProps}>
         <View style={styles.container}>
           <StatusBar style="auto" />
-          <RockPreview {...fakeRock} />
+          <RockList uid={'fake-user-id'}/>
         </View>
       </ReactReduxFirebaseProvider>
     </Provider>
