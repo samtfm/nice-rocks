@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@react-native-firebase/app": "^8.2.0",
+    "@react-native-firebase/auth": "^8.2.0",
     "@react-native-firebase/firestore": "^7.4.3",
     "@react-navigation/native": "^5.7.0",
     "expo": "~38.0.1",
@@ -23,6 +24,7 @@
     "react-native-screens": "~2.9.0",
     "react-native-unimodules": "~0.10.1",
     "react-native-web": "~0.11.7",
+    "react-redux": "^7.2.0",
     "react-redux-firebase": "^3.6.0",
     "redux": "^4.0.5",
     "redux-firestore": "^0.13.0",
