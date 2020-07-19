@@ -1,18 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import { StyleSheet, Text, View } from 'react-native';
 import rootReducer from './reducers/rootReducer';
 import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
-import '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
+import { useSelector } from 'react-redux'
 import { createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
-import { ReactReduxFirebaseProvider, firebaseReducer } from 'react-redux-firebase'
+import { ReactReduxFirebaseProvider, firebaseReducer, isEmpty} from 'react-redux-firebase'
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
+import HomeScreen from './screens/HomeScreen'
+import LoginScreen from './screens/LoginScreen'
+import AuthLoaded from './components/AuthLoaded.component'
 
-// Temporary test code
-import Home from './components/Home.component'
-//
 
 // https://rnfirebase.io/reference/app/firebaseappoptions
 const fbConfig = {
@@ -54,26 +59,41 @@ const rrfProps = {
  createFirestoreInstance, // <- needed if using firestore
 }
 
+const Stack = createStackNavigator();
+
+const Screens = () => {
+  const auth = useSelector(state => state.firebase.auth)
+  return isEmpty(auth) ? (
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ title: 'Login!' }}
+      />
+    </Stack.Navigator>
+  ) : (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: 'Welcome!' }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 const App = () => {
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
-        <View style={styles.container}>
-          <StatusBar style="auto" />
-          <Home />
-        </View>
+        <AuthLoaded>
+          <NavigationContainer>
+            <Screens />
+          </NavigationContainer>
+        </AuthLoaded>
       </ReactReduxFirebaseProvider>
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default App;
