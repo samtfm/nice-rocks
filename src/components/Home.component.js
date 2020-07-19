@@ -1,5 +1,6 @@
 import React from 'react';
 import RockList from './RockList.component'
+import NewRockForm from './NewRockForm.component'
 import { StyleSheet, Text, View } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
@@ -15,14 +16,15 @@ const Home = () => {
 
   const userProfile = useSelector(
     ({ firestore: { data } }) => {
-      return data.profiles[uid]
+      return data.profiles && data.profiles[uid]
     }
   )
 
   return (
     <View>
-      <Text>{userProfile.displayName}'s Rocks</Text>
+      <Text>{userProfile && userProfile.displayName}'s Rocks</Text>
       <RockList uid={uid}/>
+      <NewRockForm />
     </View>
   );
 }
