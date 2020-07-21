@@ -1,12 +1,12 @@
 import React from 'react';
 import RockList from '../components/RockList.component'
 import NewRockForm from '../components/NewRockForm.component'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, ScrollView } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 
 const HomeScreen = () => {
-  const uid = "fake-user-id"
+  const {uid} = useSelector(state => state.firebase.auth)
   useFirestoreConnect(() => [
     {
       collection: "profiles",
@@ -21,11 +21,11 @@ const HomeScreen = () => {
   )
 
   return (
-    <View>
+    <ScrollView>
       <Text>{userProfile && userProfile.displayName}'s Rocks</Text>
       <RockList uid={uid}/>
       <NewRockForm />
-    </View>
+    </ScrollView>
   );
 }
 

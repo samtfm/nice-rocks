@@ -16,7 +16,7 @@ const RockPreview = ({title, url, note, timestamp}) => {
         <Text style={styles.title}>{title || url}</Text>
       )}
       <Text style={styles.description}>{note}</Text>
-      <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp)}</Text>
+      {timestamp && <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>}
     </View>
   );
 }

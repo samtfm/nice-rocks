@@ -19,22 +19,22 @@ const defaultForm = {
 const NewRockForm = () => {
   // const [presentToDo, setPresentToDo] = useState("");
   const firestore = useFirestore();
-  const uid = useSelector((state) => state.firebase.auth.uid);
+  const uid = useSelector(state => state.firebase.auth.uid);
 
   const [errorMessage, setErrorMessage] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
   const [form, setForm] = useState(defaultForm);
 
 
-  const sendRock = (todo) => {
+  const sendRock = () => {
     setDisableSubmit(true);
     firestore
       .collection("profiles")
       .doc(uid)
       .collection("rocks")
       .add({
-        title: todo,
-        isDone: false,
+        ...form,
+        timestamp: firestore.FieldValue.serverTimestamp()
       })
       .then((docRef) => {
         docRef.update({
