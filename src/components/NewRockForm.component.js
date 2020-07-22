@@ -17,14 +17,12 @@ const defaultForm = {
 }
 
 const NewRockForm = () => {
-  // const [presentToDo, setPresentToDo] = useState("");
   const firestore = useFirestore();
   const uid = useSelector(state => state.firebase.auth.uid);
 
   const [errorMessage, setErrorMessage] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
   const [form, setForm] = useState(defaultForm);
-
 
   const sendRock = () => {
     setDisableSubmit(true);
@@ -42,7 +40,6 @@ const NewRockForm = () => {
         });
       })
       .then(() => {
-        console.log("submitted successfully!")
         setDisableSubmit(false);
         setForm(defaultForm);
       });
@@ -65,7 +62,6 @@ const NewRockForm = () => {
       setForm(Object.assign({}, form, updates))
     }
   }
-  console.log(form)
   const formIsReady = Boolean(form.title.length && form.note.length)
 
   return (
@@ -100,7 +96,6 @@ const NewRockForm = () => {
         accessibilityLabel="Send Rock"
         disabled={!formIsReady || disableSubmit}
       />
-
     </View>
   )
 }

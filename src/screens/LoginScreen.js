@@ -9,28 +9,22 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 
 
 async function onGoogleButtonPress() {
-  let googleSignConfiguration;
-  if (true) { // android
-    googleSignConfiguration = {
-      // scopes: ["email", "profile"],
-      // clientID: iosClientId,
-      webClientId: "342705485686-q0rfukmubinofgjkt9jkruou6qlaip12.apps.googleusercontent.com",
-      // serverClientID:
-      androidClientId: '342705485686-rah975l5v8nq9c1clakd1oimancphvbu.apps.googleusercontent.com',
-      iosClientId: '342705485686-e09uj5k1oumjlrpvv4b6qijn7k82tt94.apps.googleusercontent.com',
-      // clientID: androidClientId,
-      offlineAccess: true
-    }
+  const googleSignConfiguration = {
+    // scopes: ["email", "profile"],
+    // clientID: iosClientId,
+    webClientId: "342705485686-q0rfukmubinofgjkt9jkruou6qlaip12.apps.googleusercontent.com",
+    // serverClientID:
+    androidClientId: '342705485686-rah975l5v8nq9c1clakd1oimancphvbu.apps.googleusercontent.com',
+    iosClientId: '342705485686-e09uj5k1oumjlrpvv4b6qijn7k82tt94.apps.googleusercontent.com',
+    // clientID: androidClientId,
+    offlineAccess: true
   }
   GoogleSignin.configure(googleSignConfiguration);
 
   // Get the users ID token
-  console.log("HEY!")
   const { idToken } = await GoogleSignin.signIn();
-  console.log(idToken);
   // Create a Google credential with the token
   const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-  console.log(googleCredential);
   // Sign-in the user with the credential
   return auth().signInWithCredential(googleCredential);
 }

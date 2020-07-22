@@ -22,7 +22,6 @@ const RockList = ({uid}) => {
   )
 
   const rocksList = Object.values(rocks || {})
-  console.log(rocksList)
   return (
     <View>
       {rocksList.map(rock => (
