@@ -17,6 +17,7 @@ async function onGoogleButtonPress() {
       webClientId: "342705485686-q0rfukmubinofgjkt9jkruou6qlaip12.apps.googleusercontent.com",
       // serverClientID:
       androidClientId: '342705485686-rah975l5v8nq9c1clakd1oimancphvbu.apps.googleusercontent.com',
+      iosClientId: '342705485686-e09uj5k1oumjlrpvv4b6qijn7k82tt94.apps.googleusercontent.com',
       // clientID: androidClientId,
       offlineAccess: true
     }
