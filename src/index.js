@@ -15,6 +15,7 @@ import { Provider } from 'react-redux'
 import { ReactReduxFirebaseProvider, firebaseReducer, isEmpty} from 'react-redux-firebase'
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
 import HomeScreen from './screens/HomeScreen'
+import ComposeRockScreen from './screens/ComposeRockScreen'
 import LoginScreen from './screens/LoginScreen'
 import AuthLoaded from './components/AuthLoaded.component'
 
@@ -77,6 +78,11 @@ const Screens = () => {
         name="Home"
         component={HomeScreen}
         options={{ title: 'Welcome!' }}
+      />
+      <Stack.Screen
+        name="ComposeRock"
+        component={ComposeRockScreen}
+        options={{ title: 'Send a new Rock!' }}
       />
     </Stack.Navigator>
   );

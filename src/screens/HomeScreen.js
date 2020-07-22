@@ -1,11 +1,11 @@
 import React from 'react';
 import RockList from '../components/RockList.component'
 import NewRockForm from '../components/NewRockForm.component'
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import { StyleSheet, Text, ScrollView, Button } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const {uid} = useSelector(state => state.firebase.auth)
   useFirestoreConnect(() => [
     {
@@ -24,7 +24,12 @@ const HomeScreen = () => {
     <ScrollView>
       <Text>{userProfile && userProfile.displayName}'s Rocks</Text>
       <RockList uid={uid}/>
-      <NewRockForm />
+      <Button
+        title="+"
+        onPress={() =>
+          navigation.navigate('ComposeRock')
+        }
+      />
     </ScrollView>
   );
 }

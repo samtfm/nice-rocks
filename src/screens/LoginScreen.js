@@ -34,7 +34,7 @@ const LoginScreen = () => {
   return (
     <View>
       <Button
-        title="Google Sign-In 3 "
+        title="Google Sign-In"
         onPress={() => onGoogleButtonPress().then(
           () => console.log('Signed in with Google!'),
           err => console.log(Object.entries(err))

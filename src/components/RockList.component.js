@@ -25,7 +25,7 @@ const RockList = ({uid}) => {
   return (
     <View>
       {rocksList.map(rock => (
-          <RockPreview {...rock} />
+          rock && <RockPreview {...rock} key={rock.id}/>
       ))}
     </View>
   );
