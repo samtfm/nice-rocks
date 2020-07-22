@@ -1,7 +1,7 @@
 import React from 'react';
-import RockList from '../components/RockList.component'
-import NewRockForm from '../components/NewRockForm.component'
-import ComposeButton from '../components/ComposeButton.component'
+import RockList from 'components/RockList.component'
+import NewRockForm from 'components/NewRockForm.component'
+import ComposeButton from 'components/ComposeButton.component'
 import { StyleSheet, Text, ScrollView, View, Button } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'

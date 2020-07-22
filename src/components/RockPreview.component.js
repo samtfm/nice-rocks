@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Linking } from 'react-native';
-import { relativeTimeFromEpoch } from '../util/time';
+import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 
