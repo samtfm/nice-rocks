@@ -1,7 +1,8 @@
 import React from 'react';
 import RockList from '../components/RockList.component'
 import NewRockForm from '../components/NewRockForm.component'
-import { StyleSheet, Text, ScrollView, Button } from 'react-native';
+import ComposeButton from '../components/ComposeButton.component'
+import { StyleSheet, Text, ScrollView, View, Button } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 
@@ -21,16 +22,13 @@ const HomeScreen = ({ navigation }) => {
   )
 
   return (
-    <ScrollView>
-      <Text>{userProfile && userProfile.displayName}'s Rocks</Text>
-      <RockList uid={uid}/>
-      <Button
-        title="+"
-        onPress={() =>
-          navigation.navigate('ComposeRock')
-        }
-      />
-    </ScrollView>
+    <View style={{flex:1}}>
+      <ScrollView>
+        <Text>{userProfile && userProfile.displayName}'s Rocks</Text>
+        <RockList uid={uid}/>
+      </ScrollView>
+      <ComposeButton navigation={navigation} />
+    </View>
   );
 }
 
