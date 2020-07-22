@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { StyleSheet, Text, View } from 'react-native';
-import rootReducer from './reducers/rootReducer';
+import rootReducer from 'reducers/rootReducer';
 import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -14,10 +14,11 @@ import { createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { ReactReduxFirebaseProvider, firebaseReducer, isEmpty} from 'react-redux-firebase'
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
-import HomeScreen from './screens/HomeScreen'
-import ComposeRockScreen from './screens/ComposeRockScreen'
-import LoginScreen from './screens/LoginScreen'
-import AuthLoaded from './components/AuthLoaded.component'
+import Home from 'screens/Home'
+import ComposeRock from 'screens/ComposeRock'
+import Login from 'screens/Login'
+import ViewRock from 'screens/ViewRock'
+import AuthLoaded from 'components/AuthLoaded.component'
 
 
 // https://rnfirebase.io/reference/app/firebaseappoptions
@@ -68,7 +69,7 @@ const Screens = () => {
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Login"
-        component={LoginScreen}
+        component={Login}
         options={{ title: 'Login!' }}
       />
     </Stack.Navigator>
@@ -76,13 +77,18 @@ const Screens = () => {
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
-        component={HomeScreen}
+        component={Home}
         options={{ title: 'Welcome!' }}
       />
       <Stack.Screen
         name="ComposeRock"
-        component={ComposeRockScreen}
+        component={ComposeRock}
         options={{ title: 'Send a new Rock!' }}
+      />
+      <Stack.Screen
+        name="ViewRock"
+        component={ViewRock}
+        options={{ title: 'View Rock!' }}
       />
     </Stack.Navigator>
   );

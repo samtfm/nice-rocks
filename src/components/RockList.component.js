@@ -1,7 +1,7 @@
 import React from 'react';
 import RockPreview from './RockPreview.component'
 import { StyleSheet, Text, View } from 'react-native';
-import { relativeTimeFromEpoch } from '../util/time';
+import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 
