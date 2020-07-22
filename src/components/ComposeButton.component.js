@@ -1,7 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, Pressable, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const ComposeButton = ({ navigation }) => {
+
+const ComposeButton = () => {
+  const navigation = useNavigation();
+
   return (
     <Pressable
       onPress={() => navigation.navigate('ComposeRock')}

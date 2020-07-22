@@ -1,12 +1,11 @@
 import React from 'react';
 import RockList from 'components/RockList.component'
-import NewRockForm from 'components/NewRockForm.component'
 import ComposeButton from 'components/ComposeButton.component'
 import { StyleSheet, Text, ScrollView, View, Button } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 
-const HomeScreen = ({ navigation }) => {
+const Home = ({ navigation }) => {
   const {uid} = useSelector(state => state.firebase.auth)
   useFirestoreConnect(() => [
     {
@@ -27,7 +26,7 @@ const HomeScreen = ({ navigation }) => {
         <Text>{userProfile && userProfile.displayName}'s Rocks</Text>
         <RockList uid={uid}/>
       </ScrollView>
-      <ComposeButton navigation={navigation} />
+      <ComposeButton />
     </View>
   );
 }
@@ -38,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;
