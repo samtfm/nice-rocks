@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import RockList from './RockList.component'
-import { StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Pressable} from 'react-native';
 import { useFirestore } from "react-redux-firebase";
 import { useSelector } from "react-redux";
+import { useNavigation } from '@react-navigation/native';
 
 const charLimits = {
   url: 500,
@@ -14,9 +15,11 @@ const defaultForm = {
   title: '',
   note: '',
   url: '',
+  fromUser: null,
 }
 
 const NewRockForm = () => {
+  const navigation = useNavigation();
   const firestore = useFirestore();
   const uid = useSelector(state => state.firebase.auth.uid);
 
@@ -68,6 +71,18 @@ const NewRockForm = () => {
     <View >
       <Text>Send rock</Text>
       <Text style={styles.errorMessage}>{errorMessage}</Text>
+      <Pressable
+        onPress={() => navigation.navigate(
+          'SelectContact',
+          { onSelect: fromUser => updateForm({ fromUser }) }
+        )}
+      >
+        {form.fromUser ? (
+          <Text>{form.fromUser.displayName}</Text>
+        ) : (
+          <Text>Select Contact</Text>
+        )}
+      </Pressable>
       <TextInput
         placeholder="URL (optional)"
         onChangeText={url => updateForm({ url })}

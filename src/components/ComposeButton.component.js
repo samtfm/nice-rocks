@@ -19,7 +19,6 @@ const ComposeButton = () => {
       ]}>
       <Text style={styles.buttonContents}>+</Text>
     </Pressable>
-
   );
 }
 

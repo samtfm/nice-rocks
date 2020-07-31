@@ -19,6 +19,7 @@ import ComposeRock from 'screens/ComposeRock'
 import Login from 'screens/Login'
 import ViewRock from 'screens/ViewRock'
 import AuthLoaded from 'components/AuthLoaded.component'
+import ContactSelector from 'components/ContactSelector.component'
 
 // react-redux-firebase config
 const rrfConfig = {
@@ -41,38 +42,40 @@ const rrfProps = {
  createFirestoreInstance, // <- needed if using firestore
 }
 
-const Stack = createStackNavigator();
+const MainStack = createStackNavigator();
+const ModalStack = createStackNavigator();
 
-const Screens = () => {
+const MainStackScreen = () => {
   const auth = useSelector(state => state.firebase.auth)
   return isEmpty(auth) ? (
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen
+    <MainStack.Navigator initialRouteName="Login">
+      <MainStack.Screen
         name="Login"
         component={Login}
         options={{ title: 'Login!' }}
       />
-    </Stack.Navigator>
+    </MainStack.Navigator>
   ) : (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen
+    <MainStack.Navigator initialRouteName="Home">
+      <MainStack.Screen
         name="Home"
         component={Home}
         options={{ title: 'Welcome!' }}
       />
-      <Stack.Screen
+      <MainStack.Screen
         name="ComposeRock"
         component={ComposeRock}
         options={{ title: 'Send a new Rock!' }}
       />
-      <Stack.Screen
+      <MainStack.Screen
         name="ViewRock"
         component={ViewRock}
         options={{ title: 'View Rock!' }}
       />
-    </Stack.Navigator>
+    </MainStack.Navigator>
   );
 }
+
 
 const App = () => {
   return (
@@ -80,7 +83,18 @@ const App = () => {
       <ReactReduxFirebaseProvider {...rrfProps}>
         <AuthLoaded>
           <NavigationContainer>
-            <Screens />
+            <ModalStack.Navigator mode="modal">
+              <ModalStack.Screen
+                name="Main"
+                component={MainStackScreen}
+                options={{ headerShown: false }}
+              />
+              <ModalStack.Screen
+                name="SelectContact"
+                component={ContactSelector}
+                options={{ title: 'Select Contact' }}
+              />
+            </ModalStack.Navigator>
           </NavigationContainer>
         </AuthLoaded>
       </ReactReduxFirebaseProvider>
