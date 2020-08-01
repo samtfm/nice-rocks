@@ -61,3 +61,7 @@ web-build/
 
 # CocoaPods
 /ios/Pods/
+
+# Firebase config
+google-services.json
+GoogleService-Info.plist
