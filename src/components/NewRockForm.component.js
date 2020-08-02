@@ -11,14 +11,16 @@ const charLimits = {
   title: 80,
 }
 
-const defaultForm = {
-  title: '',
-  note: '',
-  url: '',
-  fromUser: null,
-}
+const NewRockForm = ({route}) => {
+  const selectedUser = route && route.params && route.params.selectedUser;
 
-const NewRockForm = () => {
+  const defaultForm = {
+    title: '',
+    note: '',
+    url: '',
+    fromUser: selectedUser || null,
+  }
+
   const navigation = useNavigation();
   const firestore = useFirestore();
   const uid = useSelector(state => state.firebase.auth.uid);
