@@ -8,6 +8,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import rootReducer from 'reducers/rootReducer';
 import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
+import '@react-native-firebase/functions';
 import auth from '@react-native-firebase/auth';
 import { useSelector } from 'react-redux'
 import { createStore, compose } from 'redux'
@@ -29,7 +30,7 @@ const rrfConfig = {
 
 // Initialize other services on firebase instance
 RNFirebase.firestore() // <- needed if using firestore
-// firebase.functions() // <- needed if using httpsCallable
+RNFirebase.functions() // <- needed if using httpsCallable
 
 // Create store with reducers and initial state
 const initialState = {}

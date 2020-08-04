@@ -4,6 +4,27 @@ import { useSelector } from "react-redux";
 import { useFirestoreConnect } from 'react-redux-firebase'
 
 
+// in case the user isn't in the contacts list, pull the data from profile
+const ProfileName = ({id}) => {
+  useFirestoreConnect(() => [
+    {
+      collection: "profiles",
+      doc: id,
+    }
+  ])
+  const profile = useSelector(
+    ({ firestore: { data } }) => {
+      return data.profiles[id];
+    }
+  )
+
+  return (
+    <Text>
+    {profile.displayName}
+    </Text>
+  )
+}
+
 const ContactName = ({id}) => {
   const {uid} = useSelector(state => state.firebase.auth)
   useFirestoreConnect(() => [
@@ -18,8 +39,10 @@ const ContactName = ({id}) => {
     }
   )
 
-  return (
+  return contacts[id] ? (
     <Text>{contacts[id].displayName}</Text>
+  ) : (
+    <ProfileName id={id} />
   )
 }
 

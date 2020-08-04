@@ -18,16 +18,23 @@ const NewRockForm = ({route}) => {
   const firestore = useFirestore();
   const uid = useSelector(state => state.firebase.auth.uid);
 
-  const selectedUser = route && route.params && route.params.selectedUser;
-
+  const toUserId = route && route.params && route.params.toUserId;
+  useFirestoreConnect(() => [
+    {
+      collection: "profiles",
+      doc: toUserId,
+    }
+  ])
+  const toUserProfile = useSelector(
+    ({ firestore: { data } }) => ( data.profiles[toUserId])
+  )
 
   const defaultForm = {
     title: '',
     note: '',
     url: '',
-    toUser: selectedUser || null,
+    toUser: toUserId || null,
   }
-
 
   const [errorMessage, setErrorMessage] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
@@ -35,22 +42,13 @@ const NewRockForm = ({route}) => {
 
   const sendRock = () => {
     setDisableSubmit(true);
-    firestore
-      .collection("profiles")
-      .doc(form.toUser)
-      .collection("rocks")
-      .add({
+    firestore.collection("profiles").doc(form.toUser).collection("rocks").add({
         title: form.title,
         note: form.note,
         url: form.url,
         fromUser: uid,
         timestamp: firestore.FieldValue.serverTimestamp()
       })
-      // .then((docRef) => {
-      //   docRef.update({
-      //     id: docRef.id,
-      //   });
-      // })
       .then(() => {
         setDisableSubmit(false);
         setForm(defaultForm);
