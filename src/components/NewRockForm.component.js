@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import RockList from './RockList.component'
+import ContactName from './ContactName.component';
 import { StyleSheet, Text, View, TextInput, Button, Pressable} from 'react-native';
 import { useFirestore } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { useNavigation } from '@react-navigation/native';
+import { useFirestoreConnect } from 'react-redux-firebase'
 
 const charLimits = {
   url: 500,
@@ -12,18 +14,20 @@ const charLimits = {
 }
 
 const NewRockForm = ({route}) => {
+  const navigation = useNavigation();
+  const firestore = useFirestore();
+  const uid = useSelector(state => state.firebase.auth.uid);
+
   const selectedUser = route && route.params && route.params.selectedUser;
+
 
   const defaultForm = {
     title: '',
     note: '',
     url: '',
-    fromUser: selectedUser || null,
+    toUser: selectedUser || null,
   }
 
-  const navigation = useNavigation();
-  const firestore = useFirestore();
-  const uid = useSelector(state => state.firebase.auth.uid);
 
   const [errorMessage, setErrorMessage] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
@@ -33,17 +37,20 @@ const NewRockForm = ({route}) => {
     setDisableSubmit(true);
     firestore
       .collection("profiles")
-      .doc(uid)
+      .doc(form.toUser)
       .collection("rocks")
       .add({
-        ...form,
+        title: form.title,
+        note: form.note,
+        url: form.url,
+        fromUser: uid,
         timestamp: firestore.FieldValue.serverTimestamp()
       })
-      .then((docRef) => {
-        docRef.update({
-          id: docRef.id,
-        });
-      })
+      // .then((docRef) => {
+      //   docRef.update({
+      //     id: docRef.id,
+      //   });
+      // })
       .then(() => {
         setDisableSubmit(false);
         setForm(defaultForm);
@@ -76,11 +83,11 @@ const NewRockForm = ({route}) => {
       <Pressable
         onPress={() => navigation.navigate(
           'SelectContact',
-          { onSelect: fromUser => updateForm({ fromUser }) }
+          { onSelect: toUser => updateForm({ toUser }) }
         )}
       >
-        {form.fromUser ? (
-          <Text>{form.fromUser.displayName}</Text>
+        {form.toUser ? (
+          <ContactName id={form.toUser} />
         ) : (
           <Text>Select Contact</Text>
         )}

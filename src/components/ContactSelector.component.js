@@ -30,7 +30,7 @@ const ContactSelector = ({ route }) => {
             <Pressable
               key={id}
               onPress={() => {
-                onSelect({displayName: contact.displayName, photo: contact.photo, id});
+                onSelect(id);
                 navigation.goBack();
               }}
               style={({ pressed }) => [
