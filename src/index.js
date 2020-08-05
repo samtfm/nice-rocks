@@ -53,7 +53,7 @@ const MainStackScreen = () => {
       <MainStack.Screen
         name="Login"
         component={Login}
-        options={{ title: 'Login!' }}
+        options={{ title: 'Login' }}
       />
     </MainStack.Navigator>
   ) : (
@@ -61,17 +61,17 @@ const MainStackScreen = () => {
       <MainStack.Screen
         name="Home"
         component={Home}
-        options={{ title: 'Welcome!' }}
+        options={{ title: 'My Collection' }}
       />
       <MainStack.Screen
         name="ComposeRock"
         component={ComposeRock}
-        options={{ title: 'Send a new Rock!' }}
+        options={{ title: 'Send a new Rock' }}
       />
       <MainStack.Screen
         name="ViewRock"
         component={ViewRock}
-        options={{ title: 'View Rock!' }}
+        options={{ title: 'View Rock' }}
       />
     </MainStack.Navigator>
   );
