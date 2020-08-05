@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useNavigation } from '@react-navigation/native';
 
-const RockPreview = ({title, url, note, timestamp, id}) => {
+const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
   const navigation = useNavigation();
 
   return (
@@ -14,7 +14,7 @@ const RockPreview = ({title, url, note, timestamp, id}) => {
         onPress={() => {
           navigation.navigate(
             'ViewRock',
-            { title, url, note, timestamp },
+            { rockId: id, toUserId: toUserId },
           );
         }}
       >
@@ -26,7 +26,6 @@ const RockPreview = ({title, url, note, timestamp, id}) => {
           <Text style={styles.title}>{title || url}</Text>
         )}
         <Text style={styles.description}>{note}</Text>
-        {timestamp && <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>}
       </Pressable>
     </View>
   );

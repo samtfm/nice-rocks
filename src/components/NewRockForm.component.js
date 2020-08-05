@@ -46,7 +46,8 @@ const NewRockForm = ({route}) => {
         title: form.title,
         note: form.note,
         url: form.url,
-        fromUser: uid,
+        fromUserId: uid,
+        toUserId: toUserId,
         timestamp: firestore.FieldValue.serverTimestamp()
       })
       .then(() => {

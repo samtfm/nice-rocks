@@ -1,5 +1,5 @@
 import React from 'react';
-import RockList from 'components/RockList.component'
+import RecievedRocks from 'components/RecievedRocks.component'
 import ComposeButton from 'components/ComposeButton.component'
 import { StyleSheet, Text, ScrollView, View, Button } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
@@ -7,24 +7,17 @@ import { useSelector } from 'react-redux'
 
 const Home = ({ navigation }) => {
   const {uid} = useSelector(state => state.firebase.auth)
-  useFirestoreConnect(() => [
-    {
-      collection: "profiles",
-      doc: uid,
-    }
-  ])
+  useFirestoreConnect(() => [{ collection: "users", doc: uid }])
 
-  const userProfile = useSelector(
+  const userData = useSelector(
     ({ firestore: { data } }) => {
-      return data.profiles && data.profiles[uid]
+      return data.users && data.users[uid]
     }
   )
-
   return (
     <View style={{flex:1}}>
       <ScrollView>
-        <Text>{userProfile && userProfile.displayName}'s Rocks</Text>
-        <RockList uid={uid}/>
+        <RecievedRocks />
       </ScrollView>
       <ComposeButton />
     </View>

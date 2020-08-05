@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, Linking } from 'react-native';
+import ContactName from './ContactName.component';
 import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 
-const RockDetails = ({title, url, note, timestamp}) => {
+const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
   return (
     <View style={styles.rockItem}>
+      <ContactName id={fromUserId}/>
       {url ? (
         <Text
           style={styles.title}
@@ -26,7 +28,6 @@ const RockDetails = ({title, url, note, timestamp}) => {
           {url}
         </Text>
       )}
-      <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>
     </View>
   );
 }

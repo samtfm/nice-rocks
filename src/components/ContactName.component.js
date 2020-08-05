@@ -38,7 +38,7 @@ const ContactName = ({id}) => {
       return data.users && data.users[uid] && data.users[uid].contacts;
     }
   )
-
+  if (!id) {return null;}
   return contacts[id] ? (
     <Text>{contacts[id].displayName}</Text>
   ) : (
