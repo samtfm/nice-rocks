@@ -14,18 +14,12 @@ const ViewRock = ({ route }) => {
     }
   )
   return (
-    <View style={{flex:1}}>
-      <ScrollView>
+    <View style={{flex:1, padding: 10}}>
+      <ScrollView >
         {<RockDetails {...rock} />}
       </ScrollView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  test: {
-    padding: 10,
-  },
-});
 
 export default ViewRock;

@@ -25,7 +25,7 @@ const ContactSelector = ({ route }) => {
     }
   ])
   const newRecipient = useSelector(
-    ({ firestore: { data } }) => ( data.profiles[newRecipientId])
+    ({ firestore: { data } }) => ( data.profiles && data.profiles[newRecipientId])
   )
 
 

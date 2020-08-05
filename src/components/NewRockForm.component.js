@@ -26,7 +26,7 @@ const NewRockForm = ({route}) => {
     }
   ])
   const toUserProfile = useSelector(
-    ({ firestore: { data } }) => ( data.profiles[toUserId])
+    ({ firestore: { data } }) => ( data.profiles && data.profiles[toUserId])
   )
 
   const defaultForm = {

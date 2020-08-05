@@ -19,11 +19,11 @@ const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
         }}
       >
         {url ? (
-          <Text style={styles.title}>
+          <Text style={{...styles.title, ...styles.url}}>
             {title || url}
           </Text>
         ) : (
-          <Text style={styles.title}>{title || url}</Text>
+          <Text style={styles.title}>{title}</Text>
         )}
         <Text style={styles.description}>{note}</Text>
       </Pressable>
@@ -35,24 +35,21 @@ const styles = StyleSheet.create({
   rockItem: {
     padding: 10,
     marginBottom: 6,
-    marginLeft: 20,
+    marginLeft: 16,
     borderColor: 'lightgray',
     borderWidth: 1,
     borderRadius: 3,
-    paddingBottom: 33,
   },
   title: {
     fontWeight: 'bold',
-    color: '#00ace6',
     overflow: 'hidden',
-    // // whiteSpace: 'nowrap',
-    // // textOverflow: 'ellipsis',
     marginBottom: 8,
+  },
+  url: {
+    color: '#00ace6',
   },
   description: {
     overflow: 'hidden',
-    // // whiteSpace: 'nowrap',
-    // // textOverflow: 'ellipsis',
   },
   timestamp: {
     color: 'gray',

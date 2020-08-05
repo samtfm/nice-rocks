@@ -7,27 +7,30 @@ import { useFirestoreConnect } from 'react-redux-firebase'
 
 const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
   return (
-    <View style={styles.rockItem}>
-      <ContactName id={fromUserId}/>
-      {url ? (
-        <Text
-          style={styles.title}
-          onPress={() => Linking.openURL(url)}
-        >
-          {title || url}
-        </Text>
-      ) : (
-        <Text style={styles.title}>{title || url}</Text>
-      )}
-      <Text style={styles.description}>{note}</Text>
-      {Boolean(url) && (
-        <Text
-          style={styles.url}
-          onPress={() => Linking.openURL(url)}
-        >
-          {url}
-        </Text>
-      )}
+    <View >
+      <Text>From: <ContactName id={fromUserId}/></Text>
+      <View style={styles.rockItem}>
+        {url ? (
+          <Text
+            style={styles.title}
+            onPress={() => Linking.openURL(url)}
+          >
+            {title || url}
+          </Text>
+        ) : (
+          <Text style={styles.title}>{title || url}</Text>
+        )}
+        <Text style={styles.description}>{note}</Text>
+        {Boolean(url) && (
+          <Text
+            style={styles.url}
+            onPress={() => Linking.openURL(url)}
+          >
+            {url}
+          </Text>
+        )}
+        <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>
+      </View>
     </View>
   );
 }
@@ -36,7 +39,6 @@ const styles = StyleSheet.create({
   rockItem: {
     padding: 10,
     marginBottom: 6,
-    marginLeft: 20,
     borderColor: 'lightgray',
     borderWidth: 1,
     borderRadius: 3,
@@ -44,20 +46,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    color: '#00ace6',
-    // // whiteSpace: 'nowrap',
-    // // textOverflow: 'ellipsis',
+    fontSize: 18,
     marginBottom: 8,
   },
   description: {
-    // // whiteSpace: 'nowrap',
-    // // textOverflow: 'ellipsis',
   },
   url: {
     overflow: 'hidden',
     color: '#00ace6',
-    // // whiteSpace: 'nowrap',
-    // // textOverflow: 'ellipsis',
   },
   timestamp: {
     color: 'gray',
