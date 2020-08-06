@@ -4,7 +4,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 
 const ComposeRock = () => {
   return (
-    <ScrollView>
+    <ScrollView style={{flex:1, padding: 10}}>
       <NewRockForm />
     </ScrollView>
   );

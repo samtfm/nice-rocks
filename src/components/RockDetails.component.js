@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     paddingBottom: 33,
+    backgroundColor: 'white',
   },
   title: {
     fontWeight: 'bold',
@@ -52,7 +53,6 @@ const styles = StyleSheet.create({
   description: {
   },
   url: {
-    overflow: 'hidden',
     color: '#00ace6',
   },
   timestamp: {
