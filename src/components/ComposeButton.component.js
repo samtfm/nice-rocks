@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 30,
     flex: 1,
+    left: 1,
+    top: 3,
   }
 });
 

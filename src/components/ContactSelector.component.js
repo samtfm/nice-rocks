@@ -8,7 +8,7 @@ import functions from '@react-native-firebase/functions';
 const searchUser = functions().httpsCallable('searchUser')
 
 const ContactSelector = ({ route }) => {
-  const { onSelect } = route.params
+  const { targetScreen, outputIdParamName } = route.params
 
   const navigation = useNavigation();
   const {uid} = useSelector(state => state.firebase.auth)
@@ -37,11 +37,12 @@ const ContactSelector = ({ route }) => {
 
   let emailCheckTimeout = null;
   const onChangeEmailInput = inputText => {
+    const email = inputText.toLowerCase()
     //simple regex to test if a string might be a valid email address
-    if (/\S+@\S+\.\S+/.test(inputText)){
+    if (/\S+@\S+\.\S+/.test(email)){
       clearTimeout(emailCheckTimeout)
       emailCheckTimeout = setTimeout(() => {
-        searchUser({'email': inputText}).then(response => {
+        searchUser({'email': email}).then(response => {
             setNewRecipientId(response.data.userId);
         });
       }, 800);
@@ -51,36 +52,36 @@ const ContactSelector = ({ route }) => {
   return (
     <View>
       <TextInput
+        style={styles.searchBar}
         placeholder="example@bestmail.net"
         onChangeText={onChangeEmailInput}
         defaultValue={''}
         autoCompleteType="off"
         maxLength={254}
       />
-      {newRecipient &&
-        <Pressable
-          onPress={() => {
-            onSelect(newRecipientId);
-            navigation.goBack();
-          }}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed
-                ? 'lightGray'
-                : 'white'
-            },
-        ]}>
-          <Text style={styles.contact}>{newRecipient.displayName}</Text>
-        </Pressable>
-      }
-      <Text style={styles.test}>Select Contact!</Text>
       <ScrollView style={styles.contactList}>
+        {newRecipient &&
+          <View style={styles.newContact}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate(targetScreen, {[outputIdParamName]: newRecipientId})
+              }}
+              style={({ pressed }) => [
+                {
+                  backgroundColor: pressed
+                    ? 'lightGray'
+                    : 'white'
+                },
+            ]}>
+              <Text style={styles.contact} >{newRecipient.displayName}</Text>
+            </Pressable>
+          </View>
+        }
         {contacts && Object.entries(contacts).map(([id, contact]) => (
             <Pressable
               key={id}
               onPress={() => {
-                onSelect(id);
-                navigation.goBack();
+                navigation.navigate(targetScreen, {[outputIdParamName]: id})
               }}
               style={({ pressed }) => [
                 {
@@ -98,18 +99,27 @@ const ContactSelector = ({ route }) => {
 }
 
 const styles = StyleSheet.create({
-  test: {
-    fontSize: 10,
+  searchBar: {
+    paddingBottom: 8,
+    margin: 16,
+    marginTop: 20,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+  },
+  newContact: {
+    marginBottom: 10,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
+    borderRadius: 5,
   },
   contactList: {
-    marginTop: 20,
     padding: 10,
     display: 'flex',
   },
   contact: {
     borderRadius: 5,
     padding: 20,
-    fontSize: 20,
+    fontSize: 18,
 
     alignItems: 'center',
   },

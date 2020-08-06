@@ -2,10 +2,12 @@ import React from 'react';
 import NewRockForm from 'components/NewRockForm.component'
 import { StyleSheet, ScrollView } from 'react-native';
 
-const ComposeRock = () => {
+const ComposeRock = ({route}) => {
+  const toUserId = route && route.params && route.params.toUserId;
+
   return (
     <ScrollView style={{flex:1, padding: 10}}>
-      <NewRockForm />
+      <NewRockForm toUserId={toUserId}/>
     </ScrollView>
   );
 }

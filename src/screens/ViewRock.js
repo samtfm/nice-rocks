@@ -13,10 +13,11 @@ const ViewRock = ({ route }) => {
       return data[collectionPath] && data[collectionPath][rockId]
     }
   )
+
   return (
     <View style={{flex:1, padding: 10}}>
       <ScrollView >
-        {<RockDetails {...rock} />}
+        {rock && <RockDetails {...rock} />}
       </ScrollView>
     </View>
   );

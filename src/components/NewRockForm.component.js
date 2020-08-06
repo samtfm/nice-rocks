@@ -13,27 +13,27 @@ const charLimits = {
   title: 200,
 }
 
-const NewRockForm = ({route}) => {
+const NewRockForm = ({toUserId}) => {
   const navigation = useNavigation();
   const firestore = useFirestore();
   const uid = useSelector(state => state.firebase.auth.uid);
 
-  const toUserId = route && route.params && route.params.toUserId;
-  useFirestoreConnect(() => [
-    {
-      collection: "profiles",
-      doc: toUserId,
-    }
-  ])
-  const toUserIdProfile = useSelector(
-    ({ firestore: { data } }) => ( data.profiles && data.profiles[toUserId])
-  )
+  // if (toUserId) {
+  //   useFirestoreConnect(() => [
+  //     {
+  //       collection: "profiles",
+  //       doc: toUserId,
+  //     }
+  //   ])
+  //   const toUserIdProfile = useSelector(
+  //     ({ firestore: { data } }) => ( data.profiles && data.profiles[toUserId])
+  //   )
+  // }
 
   const defaultForm = {
     title: '',
     note: '',
     url: '',
-    toUserId: toUserId || null,
   }
 
   const [errorMessage, setErrorMessage] = useState('')
@@ -42,19 +42,18 @@ const NewRockForm = ({route}) => {
 
   const sendRock = () => {
     setDisableSubmit(true);
-    firestore.collection("profiles").doc(form.toUserId).collection("rocks").add({
+    firestore.collection("profiles").doc(toUserId).collection("rocks").add({
         title: form.title,
         note: form.note,
         url: form.url,
         fromUserId: uid,
-        toUserId: form.toUserId,
+        toUserId: toUserId,
         timestamp: firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
         setDisableSubmit(false);
         setForm(defaultForm);
       }).catch((e) => {
-        console.log(e)
         setErrorMessage("Whoops, something went wrong. Maybe try that again?");
         setDisableSubmit(false);
       });
@@ -78,25 +77,25 @@ const NewRockForm = ({route}) => {
     }
   }
   const formIsReady = Boolean(form.title.length && form.note.length)
-
   return (
     <View >
       <Text style={styles.errorMessage}>{errorMessage}</Text>
       <View style={styles.inputs}>
         <Pressable
-          style={styles.contactSelector}
+          style={{...styles.contactSelector, ...styles.input}}
           onPress={() => navigation.navigate(
             'SelectContact',
-            { onSelect: toUserId => updateForm({ toUserId }) }
+            { targetScreen: "ComposeRock", outputIdParamName: "toUserId" }
           )}
         >
-          {form.toUserId ? (
-            <Text>To: <ContactName id={form.toUserId} /></Text>
+          {toUserId ? (
+            <Text>To: <ContactName id={toUserId} /></Text>
           ) : (
             <Text>Select Contact</Text>
           )}
         </Pressable>
         <TextInput
+          style={styles.input}
           placeholder="URL (optional)"
           onChangeText={url => updateForm({ url })}
           defaultValue={form.url}
@@ -105,7 +104,7 @@ const NewRockForm = ({route}) => {
           multiline
         />
         <TextInput
-          style={styles.titleInput}
+          style={{...styles.titleInput, ...styles.input}}
           placeholder="Title"
           onChangeText={title => updateForm({ title })}
           defaultValue={form.title}
@@ -114,6 +113,7 @@ const NewRockForm = ({route}) => {
           multiline
         />
         <TextInput
+          style={styles.input}
           placeholder="Say something about your rock..."
           onChangeText={note => updateForm({ note })}
           defaultValue={form.note}
@@ -145,6 +145,9 @@ const styles = StyleSheet.create({
   titleInput: {
     fontWeight: 'bold',
     fontSize: 14,
+  },
+  input: {
+    marginBottom: 12,
   },
   inputs: {
     marginBottom: 20,

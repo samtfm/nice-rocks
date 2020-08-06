@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   description: {
+    marginBottom: 8,
   },
   url: {
     color: '#00ace6',
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     color: 'gray',
     position: 'absolute',
     right: 8,
-    bottom: 0,
+    bottom: 8,
   },
 });
 

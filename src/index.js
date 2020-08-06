@@ -93,7 +93,7 @@ const App = () => {
               <ModalStack.Screen
                 name="SelectContact"
                 component={ContactSelector}
-                options={{ title: 'Select Contact' }}
+                options={{ title: 'Select Contact', headerBackTitle: "Cancel" }}
               />
             </ModalStack.Navigator>
           </NavigationContainer>
