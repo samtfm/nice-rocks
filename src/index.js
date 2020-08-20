@@ -21,6 +21,7 @@ import Login from 'screens/Login'
 import ViewRock from 'screens/ViewRock'
 import AuthLoaded from 'components/AuthLoaded.component'
 import ContactSelector from 'components/ContactSelector.component'
+import MessagingWrapper from 'components/MessagingWrapper.component'
 
 // react-redux-firebase config
 const rrfConfig = {
@@ -44,37 +45,61 @@ const rrfProps = {
  // allowMultipleListeners: true,
 }
 
-const MainStack = createStackNavigator();
-const ModalStack = createStackNavigator();
+const MainNav = createStackNavigator();
+const ModalNav = createStackNavigator();
 
-const MainStackScreen = () => {
-  const auth = useSelector(state => state.firebase.auth)
-  return isEmpty(auth) ? (
-    <MainStack.Navigator initialRouteName="Login">
-      <MainStack.Screen
+const LoggedInStack = () => {
+  return (
+    <MessagingWrapper>
+      <MainNav.Navigator initialRouteName="Home">
+        <MainNav.Screen
+          name="Home"
+          component={Home}
+          options={{ title: 'My Collection' }}
+        />
+        <MainNav.Screen
+          name="ComposeRock"
+          component={ComposeRock}
+          options={{ title: 'Send a new Rock' }}
+        />
+        <MainNav.Screen
+          name="ViewRock"
+          component={ViewRock}
+          options={{ title: 'View Rock' }}
+        />
+      </MainNav.Navigator>
+    </MessagingWrapper>
+  )
+}
+const LoggedOutStack = () => {
+  return (
+    <MainNav.Navigator initialRouteName="Login">
+      <MainNav.Screen
         name="Login"
         component={Login}
         options={{ title: 'Login' }}
       />
-    </MainStack.Navigator>
+    </MainNav.Navigator>
+  )
+}
+
+const MainStack = () => {
+  const auth = useSelector(state => state.firebase.auth)
+  return isEmpty(auth) ? (
+    <LoggedOutStack/>
   ) : (
-    <MainStack.Navigator initialRouteName="Home">
-      <MainStack.Screen
-        name="Home"
-        component={Home}
-        options={{ title: 'My Collection' }}
+    <ModalNav.Navigator mode="modal">
+      <ModalNav.Screen
+        name="Main"
+        component={LoggedInStack}
+        options={{ headerShown: false }}
       />
-      <MainStack.Screen
-        name="ComposeRock"
-        component={ComposeRock}
-        options={{ title: 'Send a new Rock' }}
+      <ModalNav.Screen
+        name="SelectContact"
+        component={ContactSelector}
+        options={{ title: 'Select Contact', headerBackTitle: "Cancel" }}
       />
-      <MainStack.Screen
-        name="ViewRock"
-        component={ViewRock}
-        options={{ title: 'View Rock' }}
-      />
-    </MainStack.Navigator>
+    </ModalNav.Navigator>
   );
 }
 
@@ -85,18 +110,7 @@ const App = () => {
       <ReactReduxFirebaseProvider {...rrfProps}>
         <AuthLoaded>
           <NavigationContainer>
-            <ModalStack.Navigator mode="modal">
-              <ModalStack.Screen
-                name="Main"
-                component={MainStackScreen}
-                options={{ headerShown: false }}
-              />
-              <ModalStack.Screen
-                name="SelectContact"
-                component={ContactSelector}
-                options={{ title: 'Select Contact', headerBackTitle: "Cancel" }}
-              />
-            </ModalStack.Navigator>
+            <MainStack />
           </NavigationContainer>
         </AuthLoaded>
       </ReactReduxFirebaseProvider>
