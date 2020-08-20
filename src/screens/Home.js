@@ -2,7 +2,7 @@ import React from 'react';
 import RecievedRocks from 'components/RecievedRocks.component'
 import ComposeButton from 'components/ComposeButton.component'
 import { StyleSheet, Text, ScrollView, View, Button } from 'react-native';
-import { useFirestoreConnect } from 'react-redux-firebase'
+import { useFirestoreConnect, useFirebase, useFirestore } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 
 const Home = ({ navigation }) => {
@@ -14,6 +14,7 @@ const Home = ({ navigation }) => {
       return data.users && data.users[uid]
     }
   )
+
   return (
     <View style={{flex:1, padding: 10}}>
       <ScrollView>

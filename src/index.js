@@ -21,6 +21,7 @@ import Login from 'screens/Login'
 import ViewRock from 'screens/ViewRock'
 import AuthLoaded from 'components/AuthLoaded.component'
 import ContactSelector from 'components/ContactSelector.component'
+import { Alert } from 'react-native';
 
 // react-redux-firebase config
 const rrfConfig = {
