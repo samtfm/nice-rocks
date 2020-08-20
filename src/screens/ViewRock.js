@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux'
 const ViewRock = ({ route }) => {
   const { rockId, toUserId } = route.params
   const collectionPath = `profiles/${toUserId}/rocks`
-  useFirestoreConnect(() => [{collection: collectionPath, doc: rockId}])
+  useFirestoreConnect(() => [{collection: collectionPath, doc: rockId, storeAs: `profiles/${toUserId}/rocks/${rockId}`}])
   const rock = useSelector(
     ({ firestore: { data } }) => {
-      return data[collectionPath] && data[collectionPath][rockId]
-    }
+      return data[`profiles/${toUserId}/rocks/${rockId}`]
+    },
   )
 
   return (

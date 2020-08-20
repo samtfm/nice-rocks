@@ -24,21 +24,20 @@ const groupRocksByAttr = (rocks, attr) => {
 
 const RecievedRocks = () => {
   const {uid} = useSelector(state => state.firebase.auth)
-  useFirestoreConnect(() => [{collection: "users", doc: uid}])
-  const userData = useSelector(
-    ({ firestore: { data } }) => {
-      return data.users && data.users[uid]
-    }
-  )
   const collectionPath = `profiles/${uid}/rocks`
-  useFirestoreConnect(() => [{collection: collectionPath}])
+  useFirestoreConnect(() => [ {collection: collectionPath, orderBy: ["timestamp", "desc"]} ])
   const rocks = useSelector(
-    ({ firestore: { data } }) => {
-      return data[collectionPath]
+    ({ firestore }) => {
+      return firestore.ordered[collectionPath]
     }
   )
+  const listeners = useSelector(
+      ({ firestore }) => {
+        return firestore.listeners
+      }
+    )
 
-  const groupedRocks = rocks ? groupRocksByAttr(Object.values(rocks), "fromUserId") : []
+  const groupedRocks = rocks ? groupRocksByAttr(rocks, "fromUserId") : []
   return (
     <View>
       {groupedRocks.map(group => (

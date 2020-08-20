@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
 
 const MessagingWrapper = ({uid, children}) => {
@@ -27,7 +27,7 @@ const MessagingWrapper = ({uid, children}) => {
 
   useEffect(() => {
     const unsubscribe = firebase.messaging().onMessage(async remoteMessage => {
-      remoteMessage.notification && Alert.alert(remoteMessage.notification.title, remoteMessage.notification.title);
+      remoteMessage.notification && Alert.alert(remoteMessage.notification.title, remoteMessage.notification.body);
     });
 
     return unsubscribe;

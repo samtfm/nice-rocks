@@ -14,14 +14,13 @@ import { useSelector } from 'react-redux'
 import { createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { ReactReduxFirebaseProvider, firebaseReducer, isEmpty} from 'react-redux-firebase'
-import { createFirestoreInstance, firestoreReducer } from 'redux-firestore' // <- needed if using firestore
+import { createFirestoreInstance } from 'redux-firestore' // <- needed if using firestore
 import Home from 'screens/Home'
 import ComposeRock from 'screens/ComposeRock'
 import Login from 'screens/Login'
 import ViewRock from 'screens/ViewRock'
 import AuthLoaded from 'components/AuthLoaded.component'
 import ContactSelector from 'components/ContactSelector.component'
-import { Alert } from 'react-native';
 
 // react-redux-firebase config
 const rrfConfig = {
@@ -42,6 +41,7 @@ const rrfProps = {
  config: rrfConfig,
  dispatch: store.dispatch,
  createFirestoreInstance, // <- needed if using firestore
+ // allowMultipleListeners: true,
 }
 
 const MainStack = createStackNavigator();
