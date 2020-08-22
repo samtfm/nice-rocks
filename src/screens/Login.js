@@ -13,7 +13,7 @@ async function onGoogleButtonPress() {
     // scopes: ["email", "profile"],
     webClientId: "342705485686-q0rfukmubinofgjkt9jkruou6qlaip12.apps.googleusercontent.com",
     androidClientId: '342705485686-e69fh24ifclk78mned781lo276n369c3.apps.googleusercontent.com',
-    iosClientId: '342705485686-e09uj5k1oumjlrpvv4b6qijn7k82tt94.apps.googleusercontent.com',
+    iosClientId: '342705485686-l0ekdnd3op9fq2vk5r3t51bq35a1q3l7.apps.googleusercontent.com',
     offlineAccess: true
   }
   GoogleSignin.configure(googleSignConfiguration);

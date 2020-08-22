@@ -5,7 +5,7 @@ use_unimodules!(modules_paths: ['../node_modules'])
 
 platform :ios, '10.0'
 
-target 'nicerocks' do
+target 'NiceRocks' do
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
 
