@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     position:'absolute',
-    bottom: 0,
+    bottom: 50,
     right: 0,
     margin: 20,
     flex: 1,
@@ -36,6 +36,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+
+    //android
+    elevation: 10,
+
+    //ios
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
   },
   buttonContents:{
     color: 'white',
