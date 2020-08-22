@@ -1,4 +1,4 @@
-package com.nice_rocks.generated;
+package com.samfabermanning.nicerocks.android.generated;
 
 import java.util.Arrays;
 import java.util.List;

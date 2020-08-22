@@ -1,4 +1,4 @@
-package com.nice_rocks;
+package com.samfabermanning.nicerocks.android;
 
 import android.app.Application;
 import android.content.Context;
@@ -11,7 +11,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.nice_rocks.generated.BasePackageList;
+import com.samfabermanning.nicerocks.android.generated.BasePackageList;
 
 import org.unimodules.adapters.react.ReactAdapterPackage;
 import org.unimodules.adapters.react.ModuleRegistryAdapter;

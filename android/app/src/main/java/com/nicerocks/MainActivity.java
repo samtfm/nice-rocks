@@ -1,4 +1,4 @@
-package com.nice_rocks;
+package com.samfabermanning.nicerocks.android;
 
 import android.os.Bundle;
 

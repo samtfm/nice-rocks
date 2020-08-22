@@ -132,7 +132,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.nice_rocks"
+        applicationId "com.samfabermanning.nicerocks.android"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
