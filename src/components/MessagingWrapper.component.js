@@ -16,17 +16,32 @@ const MessagingWrapper = ({children}) => {
     }
   )
 
-  const updateMessagingToken = (token) => {
-    if (userData && userData.messagingToken != token) {
-      firestore.collection("users").doc(uid).update({
-        messagingToken: token,
-      }).catch(err => console.log(err));
+  const sendToken = (token) => {
+    firestore.collection("users").doc(uid).update({
+      messagingToken: token,
+    }).catch(err => console.log(err));
+  }
+  const ensureMessagingToken = (token) => {
+    if (!userData) { return }
+    if (!userData.messagingToken) {
+      sendToken(token)
+    } else if (userData.messagingToken != token) {
+      Alert.alert(
+        "Push notification connection is out of date",
+        "Would you like to receive push notifications on this device?",
+        [
+          {
+            text: "No",
+            style: "cancel"
+          },
+          { text: "Yes", onPress: () => (sendToken(token)) }
+        ],
+        { cancelable: false }
+      );
     }
   }
 
   useFirestoreConnect(() => [{ collection: "users", doc: uid }])
-
-
 
   // const enabled =
   //   authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
@@ -51,12 +66,12 @@ const MessagingWrapper = ({children}) => {
 
   useEffect(() => {
     firebase.messaging().getToken().then(token => {
-      updateMessagingToken(token);
+      ensureMessagingToken(token);
     })
   }, [userData]);
 
   firebase.messaging().onTokenRefresh(token => {
-    updateMessagingToken(token);
+    ensureMessagingToken(token);
   })
   return <>{children}</>
 }
