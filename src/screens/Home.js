@@ -17,12 +17,11 @@ const Home = ({ navigation }) => {
   )
 
   return (
-    <View style={{flex:1, padding: 10}}>
+    <View style={{flex:1}}>
       <Tab.Navigator>
         <Tab.Screen name="Received" component={ReceivedRocks}/>
         <Tab.Screen name="Sent" component={SentRocks} />
       </Tab.Navigator>
-
       <ComposeButton />
     </View>
   );

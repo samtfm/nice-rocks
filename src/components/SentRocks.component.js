@@ -38,10 +38,12 @@ const SentRocks = () => {
   ) || []
 
   return (
-    <ScrollView>
-      <Text style={styles.title}>Sent Rocks</Text>
-      <RockList rocks={rocks} avatarIdKey={"toUserId"}/>
-    </ScrollView>
+    <View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
+      <ScrollView>
+        <Text style={styles.title}>Sent Rocks</Text>
+        <RockList rocks={rocks} avatarIdKey={"toUserId"}/>
+      </ScrollView>
+    </View>
   );
 }
 
