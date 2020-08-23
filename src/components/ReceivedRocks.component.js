@@ -22,7 +22,7 @@ const groupRocksByAttr = (rocks, attr) => {
   return Object.values(userGroupsMap)
 }
 
-const RecievedRocks = () => {
+const ReceivedRocks = () => {
   const {uid} = useSelector(state => state.firebase.auth)
   const collectionPath = `profiles/${uid}/rocks`
   useFirestoreConnect(() => [ {collection: collectionPath, orderBy: ["timestamp", "desc"]} ])
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecievedRocks;
+export default ReceivedRocks;
