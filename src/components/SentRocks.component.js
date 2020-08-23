@@ -33,7 +33,7 @@ const SentRocks = () => {
 
   const rocks = useSelector(
     ({ firestore }) => {
-      return firestore.data['sentRocks'] && Object.values(firestore.data['sentRocks'])
+      return firestore.ordered['sentRocks'];
     }
   )
 
