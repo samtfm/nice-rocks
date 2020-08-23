@@ -50,25 +50,23 @@ const ModalNav = createStackNavigator();
 
 const LoggedInStack = () => {
   return (
-    <MessagingWrapper>
-      <MainNav.Navigator initialRouteName="Home">
-        <MainNav.Screen
-          name="Home"
-          component={Home}
-          options={{ title: 'My Collection' }}
-        />
-        <MainNav.Screen
-          name="ComposeRock"
-          component={ComposeRock}
-          options={{ title: 'Send a new Rock' }}
-        />
-        <MainNav.Screen
-          name="ViewRock"
-          component={ViewRock}
-          options={{ title: 'View Rock' }}
-        />
-      </MainNav.Navigator>
-    </MessagingWrapper>
+    <MainNav.Navigator initialRouteName="Home">
+      <MainNav.Screen
+        name="Home"
+        component={Home}
+        options={{ title: 'My Collection' }}
+      />
+      <MainNav.Screen
+        name="ComposeRock"
+        component={ComposeRock}
+        options={{ title: 'Send a new Rock' }}
+      />
+      <MainNav.Screen
+        name="ViewRock"
+        component={ViewRock}
+        options={{ title: 'View Rock' }}
+      />
+    </MainNav.Navigator>
   )
 }
 const LoggedOutStack = () => {
@@ -88,18 +86,20 @@ const MainStack = () => {
   return isEmpty(auth) ? (
     <LoggedOutStack/>
   ) : (
-    <ModalNav.Navigator mode="modal">
-      <ModalNav.Screen
-        name="Main"
-        component={LoggedInStack}
-        options={{ headerShown: false }}
-      />
-      <ModalNav.Screen
-        name="SelectContact"
-        component={ContactSelector}
-        options={{ title: 'Select Contact', headerBackTitle: "Cancel" }}
-      />
-    </ModalNav.Navigator>
+    <MessagingWrapper>
+      <ModalNav.Navigator mode="modal">
+        <ModalNav.Screen
+          name="Main"
+          component={LoggedInStack}
+          options={{ headerShown: false }}
+        />
+        <ModalNav.Screen
+          name="SelectContact"
+          component={ContactSelector}
+          options={{ title: 'Select Contact', headerBackTitle: "Cancel" }}
+        />
+      </ModalNav.Navigator>
+    </MessagingWrapper>
   );
 }
 

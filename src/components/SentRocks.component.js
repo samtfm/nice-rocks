@@ -39,14 +39,18 @@ const SentRocks = () => {
 
   return (
     <ScrollView>
+      <Text style={styles.title}>Sent Rocks</Text>
       <RockList rocks={rocks} avatarIdKey={"toUserId"}/>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  test: {
-    padding: 10,
+  title: {
+    color: 'dimgray',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
   },
 });
 

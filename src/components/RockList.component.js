@@ -10,7 +10,7 @@ const RockList = ({rocks, avatarIdKey}) => {
   const {uid} = useSelector(state => state.firebase.auth)
   const contacts = useSelector(
     ({ firestore: { data } }) => {
-      return data.users && data.users[uid] && data.users[uid].contacts
+      return data.userData && data.userData.contacts
     }
   )
 
@@ -19,7 +19,7 @@ const RockList = ({rocks, avatarIdKey}) => {
       {rocks.map(rock => (
           rock && (
             <View key={rock.id} style={styles.listItem}>
-              {avatarIdKey && (
+              {avatarIdKey && contacts && (
                 <Image
                   style={styles.avatar}
                   source={{
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 6,
-    marginLeft: 16,
     flexDirection: 'row',
     backgroundColor: 'white',
     alignItems: 'center',

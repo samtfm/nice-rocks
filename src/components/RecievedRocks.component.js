@@ -40,10 +40,15 @@ const RecievedRocks = () => {
   const groupedRocks = rocks ? groupRocksByAttr(rocks, "fromUserId") : []
   return (
     <View>
+      <Text style={styles.title}>Received Rocks</Text>
       {groupedRocks.map(group => (
         <View key={group.fromUserId}>
-          <ContactName id={group.fromUserId} />
-          <RockList rocks={group.rocks} />
+          <Text style={styles.groupHeader}>
+            <ContactName id={group.fromUserId} />
+          </Text>
+          <View style={styles.listGroup}>
+            <RockList rocks={group.rocks} />
+          </View>
         </View>
       ))}
     </View>
@@ -51,8 +56,18 @@ const RecievedRocks = () => {
 }
 
 const styles = StyleSheet.create({
-  test: {
-    padding: 10,
+  title: {
+    color: 'dimgray',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  groupHeader: {
+    color: 'dimgray',
+  },
+  listGroup: {
+    marginLeft: 16,
+    marginBottom: 10,
   },
 });
 

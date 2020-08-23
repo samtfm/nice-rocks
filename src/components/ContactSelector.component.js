@@ -16,10 +16,6 @@ const ContactSelector = ({ route }) => {
 
   useFirestoreConnect(() => [
     {
-      collection: "users",
-      doc: uid,
-    },
-    {
       collection: "profiles",
       doc: newRecipientId,
     }
@@ -31,7 +27,7 @@ const ContactSelector = ({ route }) => {
 
   const contacts = useSelector(
     ({ firestore: { data } }) => {
-      return data.users && data.users[uid] && data.users[uid].contacts
+      return data.userData && data.userData.contacts;
     }
   )
 

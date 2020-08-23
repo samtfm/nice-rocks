@@ -26,16 +26,9 @@ const ProfileName = ({id}) => {
 }
 
 const ContactName = ({id}) => {
-  const {uid} = useSelector(state => state.firebase.auth)
-  useFirestoreConnect(() => [
-    {
-      collection: "users",
-      doc: uid,
-    }
-  ])
   const contacts = useSelector(
     ({ firestore: { data } }) => {
-      return data.users && data.users[uid] && data.users[uid].contacts;
+      return data.userData && data.userData.contacts;
     }
   )
   if (!contacts || !id) {return null;}

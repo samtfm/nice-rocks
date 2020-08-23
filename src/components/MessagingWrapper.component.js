@@ -11,11 +11,11 @@ const MessagingWrapper = ({children}) => {
 
   const { uid } = useSelector(state => state.firebase.auth);
 
-  useFirestoreConnect(() => [{ collection: "users", doc: uid }])
+  useFirestoreConnect(() => [{ collection: "users", doc: uid, storeAs: 'userData' }])
 
   const userData = useSelector(
     ({ firestore: { data } }) => {
-      return data.users && data.users[uid]
+      return data.userData;
     }
   )
 
