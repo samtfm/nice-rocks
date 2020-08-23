@@ -6,10 +6,13 @@ import { StyleSheet, Text, View, Alert } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
 
 const MessagingWrapper = ({children}) => {
-  const { uid } = useSelector(state => state.firebase.auth);
-
   const firebase = useFirebase();
   const firestore = useFirestore();
+
+  const { uid } = useSelector(state => state.firebase.auth);
+
+  useFirestoreConnect(() => [{ collection: "users", doc: uid }])
+
   const userData = useSelector(
     ({ firestore: { data } }) => {
       return data.users && data.users[uid]
@@ -40,8 +43,6 @@ const MessagingWrapper = ({children}) => {
       );
     }
   }
-
-  useFirestoreConnect(() => [{ collection: "users", doc: uid }])
 
   // const enabled =
   //   authStatus === messaging.AuthorizationStatus.AUTHORIZED ||

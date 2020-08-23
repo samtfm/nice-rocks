@@ -35,17 +35,11 @@ const SentRocks = () => {
     ({ firestore }) => {
       return firestore.ordered['sentRocks'];
     }
-  )
+  ) || []
 
-  const groupedRocks = rocks ? groupRocksByAttr(rocks, 'toUserId') : []
   return (
     <ScrollView>
-      {groupedRocks.map(group => (
-        <View key={group.toUserId}>
-          <Text>To: <ContactName id={group.toUserId} /></Text>
-          <RockList rocks={group.rocks} />
-        </View>
-      ))}
+      <RockList rocks={rocks} avatarIdKey={"toUserId"}/>
     </ScrollView>
   );
 }

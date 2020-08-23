@@ -47,18 +47,21 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
+    color: 'dimgray',
     fontSize: 18,
     marginBottom: 8,
   },
   description: {
     marginBottom: 8,
+    color: 'dimgray',
   },
   url: {
     color: '#00ace6',
   },
   timestamp: {
-    color: 'gray',
+    color: 'darkgray',
     position: 'absolute',
+    fontSize: 11,
     right: 8,
     bottom: 8,
   },

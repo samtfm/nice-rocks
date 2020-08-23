@@ -25,7 +25,10 @@ const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
         ) : (
           <Text numberOfLines={1} style={styles.title}>{title}</Text>
         )}
-        <Text numberOfLines={1} style={styles.description}>{note}</Text>
+        <View style={styles.descriptionTimestamp}>
+          <Text numberOfLines={1} style={styles.description}>{note}</Text>
+          <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>
+        </View>
       </Pressable>
     </View>
   );
@@ -34,27 +37,30 @@ const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
 const styles = StyleSheet.create({
   rockItem: {
     padding: 10,
-    marginBottom: 6,
-    marginLeft: 16,
-    borderColor: 'lightgray',
-    borderWidth: 1,
-    borderRadius: 3,
     backgroundColor: 'white',
   },
   title: {
     fontWeight: 'bold',
+    color: 'dimgray',
     marginBottom: 8,
   },
   url: {
     color: '#00ace6',
   },
+  descriptionTimestamp: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    fontSize: 14,
+  },
   description: {
+    flex: 1,
+    color: 'dimgray',
+    marginRight: 12,
   },
   timestamp: {
-    color: 'gray',
-    position: 'absolute',
-    right: 8,
-    bottom: 0,
+    color: 'darkgray',
+    fontSize: 11,
   },
 });
 
