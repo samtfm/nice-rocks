@@ -47,7 +47,7 @@ const RecievedRocks = () => {
             <ContactName id={group.fromUserId} />
           </Text>
           <View style={styles.listGroup}>
-            <RockList rocks={group.rocks} />
+            <RockList rocks={group.rocks} avatarIdKey={"fromUserId"}/>
           </View>
         </View>
       ))}
