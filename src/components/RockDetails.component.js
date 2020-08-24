@@ -4,6 +4,7 @@ import ContactName from './ContactName.component';
 import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
+import colors from 'styles/colors';
 
 const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
   return (
@@ -39,11 +40,9 @@ const styles = StyleSheet.create({
   rockItem: {
     padding: 10,
     marginBottom: 6,
-    borderColor: 'lightgray',
-    borderWidth: 1,
     borderRadius: 3,
     paddingBottom: 33,
-    backgroundColor: 'white',
+    backgroundColor: colors.biege,
   },
   title: {
     fontWeight: 'bold',

@@ -22,6 +22,7 @@ import ViewRock from 'screens/ViewRock'
 import AuthLoaded from 'components/AuthLoaded.component'
 import ContactSelector from 'components/ContactSelector.component'
 import MessagingWrapper from 'components/MessagingWrapper.component'
+import colors from 'styles/colors';
 
 // react-redux-firebase config
 const rrfConfig = {
@@ -47,10 +48,16 @@ const rrfProps = {
 
 const MainNav = createStackNavigator();
 const ModalNav = createStackNavigator();
+const screenOptions = {
+  headerStyle: { backgroundColor: colors.mint },
+}
 
 const LoggedInStack = () => {
   return (
-    <MainNav.Navigator initialRouteName="Home">
+    <MainNav.Navigator
+      initialRouteName="Home"
+      screenOptions={screenOptions}
+    >
       <MainNav.Screen
         name="Home"
         component={Home}
@@ -71,7 +78,7 @@ const LoggedInStack = () => {
 }
 const LoggedOutStack = () => {
   return (
-    <MainNav.Navigator initialRouteName="Login">
+    <MainNav.Navigator initialRouteName="Login" screenOptions={screenOptions}>
       <MainNav.Screen
         name="Login"
         component={Login}
@@ -87,7 +94,10 @@ const MainStack = () => {
     <LoggedOutStack/>
   ) : (
     <MessagingWrapper>
-      <ModalNav.Navigator mode="modal">
+      <ModalNav.Navigator
+        mode="modal"
+        screenOptions={screenOptions}
+      >
         <ModalNav.Screen
           name="Main"
           component={LoggedInStack}

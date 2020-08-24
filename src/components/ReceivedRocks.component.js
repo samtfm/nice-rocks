@@ -39,7 +39,7 @@ const ReceivedRocks = () => {
 
   const groupedRocks = rocks ? groupRocksByAttr(rocks, "fromUserId") : []
   return (
-    <View style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
+    <View style={styles.main}>
       <Text style={styles.title}>Received Rocks</Text>
       {groupedRocks.map(group => (
         <View key={group.fromUserId}>
@@ -56,6 +56,13 @@ const ReceivedRocks = () => {
 }
 
 const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    backgroundColor: 'white',
+  },
   title: {
     color: 'dimgray',
     fontWeight: 'bold',

@@ -4,6 +4,7 @@ import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useNavigation } from '@react-navigation/native';
+import colors from 'styles/colors';
 
 const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
   const navigation = useNavigation();
@@ -37,7 +38,7 @@ const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
 const styles = StyleSheet.create({
   rockItem: {
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
   },
   title: {
     fontWeight: 'bold',

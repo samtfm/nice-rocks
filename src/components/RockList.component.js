@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
+import colors from 'styles/colors';
 
 // avatarIdKey String: one of ['fromUserId', 'toUserId']
 const RockList = ({rocks, avatarIdKey}) => {
@@ -39,14 +40,21 @@ const RockList = ({rocks, avatarIdKey}) => {
 
 const styles = StyleSheet.create({
   listItem: {
-    borderColor: 'lightgray',
-    borderWidth: 1,
     borderRadius: 5,
-    marginBottom: 6,
+    marginBottom: 8,
     flexDirection: 'row',
     backgroundColor: 'white',
     alignItems: 'center',
-    // marginRight: 100,
+    backgroundColor: colors.beige,
+
+    //android
+    elevation: 4,
+
+    //ios
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 2,
   },
 
   preview: {

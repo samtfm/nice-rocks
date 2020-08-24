@@ -5,6 +5,8 @@ import ComposeButton from 'components/ComposeButton.component'
 import { StyleSheet, Text, ScrollView, View, Button } from 'react-native';
 import { useSelector } from 'react-redux'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import colors from 'styles/colors';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,19 +20,54 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={{flex:1}}>
-      <Tab.Navigator>
-        <Tab.Screen name="Received" component={ReceivedRocks}/>
-        <Tab.Screen name="Sent" component={SentRocks} />
+      <Tab.Navigator
+        initialRouteName="Received"
+        tabBarOptions={{
+          activeTintColor: colors.blue,
+        }}
+      >
+        <Tab.Screen
+          name="Received"
+          options={{
+            tabBarLabel: '',
+            tabBarIcon: ({ color, size }) => (
+              <Label iconName={'home'} text={'Recieved'} {...{color, size}}/>
+            ),
+          }}
+          component={ReceivedRocks}
+        />
+        <Tab.Screen
+          name="Sent"
+          component={SentRocks}
+          options={{
+            tabBarLabel: '',
+            tabBarIcon: ({ color, size }) => (
+              <Label iconName={'cube-send'} text={'Sent'} {...{color, size}}/>
+            ),
+          }}
+        />
       </Tab.Navigator>
       <ComposeButton />
     </View>
   );
 }
 
+const Label = ({iconName, color, size, text}) => (
+  <View style={styles.label}>
+    <MaterialCommunityIcons name={iconName} color={color} size={size} />
+    <Text style={[styles.labelText, {color: color}]}>{text}</Text>
+  </View>
+)
+
 const styles = StyleSheet.create({
-  test: {
-    padding: 10,
+  label: {
+    alignItems: 'center',
   },
+  labelText: {
+    bottom: -14,
+    fontSize: 11,
+    position: 'absolute',
+  }
 });
 
 export default Home;
