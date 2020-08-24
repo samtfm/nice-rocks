@@ -8,7 +8,6 @@ import colors from 'styles/colors';
 
 // avatarIdKey String: one of ['fromUserId', 'toUserId']
 const RockList = ({rocks, avatarIdKey}) => {
-  const {uid} = useSelector(state => state.firebase.auth)
   const contacts = useSelector(
     ({ firestore: { data } }) => {
       return data.userData && data.userData.contacts

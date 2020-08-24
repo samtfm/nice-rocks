@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, Pressable, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ComposeButton = () => {
   const navigation = useNavigation();
@@ -17,7 +18,7 @@ const ComposeButton = () => {
         },
         styles.composeButton
       ]}>
-      <Text style={styles.buttonContents}>+</Text>
+      <MaterialCommunityIcons name={'plus'} color={'white'} size={24} />
     </Pressable>
   );
 }
@@ -46,13 +47,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
   },
-  buttonContents:{
-    color: 'white',
-    fontSize: 30,
-    flex: 1,
-    left: 1,
-    top: 3,
-  }
 });
 
 export default ComposeButton;
