@@ -1,9 +1,10 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase';
 import { StyleSheet, Text, View, Alert } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
+import messaging from '@react-native-firebase/messaging';
 
 const MessagingWrapper = ({children}) => {
   const firebase = useFirebase();
@@ -19,13 +20,16 @@ const MessagingWrapper = ({children}) => {
     }
   )
 
+  const [notificationsAuthorized, setNotificationsAuthorized] = useState(false)
+
   const sendToken = (token) => {
     firestore.collection("users").doc(uid).update({
       messagingToken: token,
     }).catch(err => console.log(err));
   }
   const ensureMessagingToken = (token) => {
-    if (!userData) { return }
+    if (!userData || !notificationsAuthorized) { return }
+
     if (!userData.messagingToken) {
       sendToken(token)
     } else if (userData.messagingToken != token) {
@@ -44,17 +48,13 @@ const MessagingWrapper = ({children}) => {
     }
   }
 
-  // const enabled =
-  //   authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-  //   authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-  //
-  // if (enabled) {
-  //   console.log('Authorization status:', authStatus);
-  // }
-  //
-
   useEffect(() => {
-    firebase.messaging().requestPermission();
+    firebase.messaging().requestPermission().then(authStatus => {
+      setNotificationsAuthorized(
+        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+        authStatus === messaging.AuthorizationStatus.PROVISIONAL
+      )
+    });
   })
 
   useEffect(() => {

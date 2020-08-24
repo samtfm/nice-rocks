@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
   const navigation = useNavigation();
@@ -20,11 +21,14 @@ const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
         }}
       >
         {url ? (
-          <Text numberOfLines={1} style={{...styles.title, ...styles.url}}>
-            {title || url}
-          </Text>
+          <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+            <Text numberOfLines={1} style={styles.title}>{title || url}</Text>
+            <MaterialCommunityIcons name={'link'} color={colors.blue} size={16} style={{marginLeft: 10, marginRight: 10}} />
+          </View>
         ) : (
-          <Text numberOfLines={1} style={styles.title}>{title}</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+            <Text numberOfLines={1} style={styles.title}>{title}</Text>
+          </View>
         )}
         <View style={styles.descriptionTimestamp}>
           <Text numberOfLines={1} style={styles.description}>{note}</Text>
@@ -44,9 +48,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.gray40,
     marginBottom: 8,
-  },
-  url: {
-    color: '#00ace6',
+    flex: 1,
   },
   descriptionTimestamp: {
     display: 'flex',
