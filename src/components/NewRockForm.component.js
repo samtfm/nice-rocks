@@ -6,6 +6,7 @@ import { useFirestore } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { useNavigation } from '@react-navigation/native';
 import { useFirestoreConnect } from 'react-redux-firebase'
+import colors from 'styles/colors';
 
 const charLimits = {
   url: 1000,
@@ -17,18 +18,6 @@ const NewRockForm = ({toUserId}) => {
   const navigation = useNavigation();
   const firestore = useFirestore();
   const uid = useSelector(state => state.firebase.auth.uid);
-
-  // if (toUserId) {
-  //   useFirestoreConnect(() => [
-  //     {
-  //       collection: "profiles",
-  //       doc: toUserId,
-  //     }
-  //   ])
-  //   const toUserIdProfile = useSelector(
-  //     ({ firestore: { data } }) => ( data.profiles && data.profiles[toUserId])
-  //   )
-  // }
 
   const defaultForm = {
     title: '',
@@ -76,9 +65,9 @@ const NewRockForm = ({toUserId}) => {
       setForm(Object.assign({}, form, updates))
     }
   }
-  const formIsReady = Boolean(form.title.length && form.note.length)
+  const formIsReady = Boolean(form.title.length && form.note.length && toUserId)
   return (
-    <View >
+    <View style={{backgroundColor: 'transparent'}}>
       <Text style={styles.errorMessage}>{errorMessage}</Text>
       <View style={styles.inputs}>
         <Pressable
@@ -123,14 +112,15 @@ const NewRockForm = ({toUserId}) => {
           stripPastedStyles={true}
         />
       </View>
-      <Button
-        style={styles.sendButton}
-        onPress={sendRock}
-        title="Send!"
-        color="#841584"
-        accessibilityLabel="Send Rock"
-        disabled={!formIsReady || disableSubmit}
-      />
+      <View style={styles.sendButton}>
+        <Button
+          onPress={sendRock}
+          title="Send!"
+          color={colors.blue}
+          accessibilityLabel="Send Rock"
+          disabled={!formIsReady || disableSubmit}
+        />
+      </View>
     </View>
   )
 }
@@ -146,14 +136,27 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
   },
+  sendButton: {
+    marginBottom: 30
+  },
   input: {
     marginBottom: 12,
   },
   inputs: {
     marginBottom: 20,
-    backgroundColor: "white",
+    backgroundColor: colors.beige,
     padding: 10,
     borderRadius: 3,
+
+    //android
+    elevation: 4,
+
+    //ios
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 2,
+
   }
 });
 
