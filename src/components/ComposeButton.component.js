@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, Pressable, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+import colors from 'styles/colors';
 
 const ComposeButton = () => {
   const navigation = useNavigation();
@@ -13,7 +13,7 @@ const ComposeButton = () => {
         {
           backgroundColor: pressed
             ? '#61CAF6'
-            : '#3AB1E4'
+            : colors.blue,
         },
         styles.composeButton
       ]}>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     elevation: 10,
 
     //ios
-    shadowColor: '#000',
+    shadowColor: 'black',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,

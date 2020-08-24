@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, ScrollView} from 'react-native';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import ContactName from './ContactName.component';
+import colors from 'styles/colors';
 
 
 const groupRocksByAttr = (rocks, attr) => {
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   title: {
-    color: 'dimgray',
+    color: colors.gray40,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,

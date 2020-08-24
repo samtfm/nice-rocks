@@ -48,13 +48,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    color: 'dimgray',
+    color: colors.gray40,
     fontSize: 18,
     marginBottom: 8,
   },
   description: {
     marginBottom: 8,
-    color: 'dimgray',
+    color: colors.gray40,
   },
   url: {
     flexDirection: 'row',
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     color: colors.blue,
   },
   timestamp: {
-    color: 'darkgray',
+    color: colors.gray70,
     position: 'absolute',
     fontSize: 11,
     right: 8,

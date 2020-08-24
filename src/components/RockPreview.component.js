@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    color: 'dimgray',
+    color: colors.gray40,
     marginBottom: 8,
   },
   url: {
@@ -56,11 +56,11 @@ const styles = StyleSheet.create({
   },
   description: {
     flex: 1,
-    color: 'dimgray',
+    color: colors.gray40,
     marginRight: 12,
   },
   timestamp: {
-    color: 'darkgray',
+    color: colors.gray70,
     fontSize: 11,
   },
 });
