@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useNavigation } from '@react-navigation/native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import colors from 'styles/colors';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const charLimits = {
   url: 1000,
@@ -27,6 +28,7 @@ const NewRockForm = ({toUserId}) => {
 
   const [errorMessage, setErrorMessage] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState(defaultForm);
 
   const sendRock = () => {
@@ -40,8 +42,12 @@ const NewRockForm = ({toUserId}) => {
         timestamp: firestore.FieldValue.serverTimestamp()
       })
       .then(() => {
-        setDisableSubmit(false);
-        setForm(defaultForm);
+        setSubmitted(true);
+        setTimeout(() => {
+          if (navigation.isFocused()){
+            navigation.goBack();
+          }
+        }, 1400)
       }).catch((e) => {
         setErrorMessage("Whoops, something went wrong. Maybe try that again?");
         setDisableSubmit(false);
@@ -111,11 +117,16 @@ const NewRockForm = ({toUserId}) => {
           multiline
           stripPastedStyles={true}
         />
+        {submitted && (
+          <View style={styles.successOverlay}>
+            <MaterialCommunityIcons name={'check'} color={colors.mint} size={42} />
+          </View>
+        )}
       </View>
       <View style={styles.sendButton}>
         <Button
           onPress={sendRock}
-          title="Send!"
+          title={submitted ? "Sent!" : "Send!"}
           color={colors.blue}
           accessibilityLabel="Send Rock"
           disabled={!formIsReady || disableSubmit}
@@ -157,6 +168,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 2,
 
+  },
+  successOverlay: {
+    backgroundColor: 'hsla(0, 0%, 100%, 0.3)',
+    position: 'absolute',
+    bottom: 0,
+    top: 0,
+    right: 0,
+    left: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });
 
