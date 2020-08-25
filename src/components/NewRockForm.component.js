@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useNavigation } from '@react-navigation/native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import colors from 'styles/colors';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const charLimits = {
   url: 1000,
@@ -119,7 +119,7 @@ const NewRockForm = ({toUserId}) => {
         />
         {submitted && (
           <View style={styles.successOverlay}>
-            <MaterialCommunityIcons name={'check'} color={colors.mint} size={42} />
+            <Icon name={'check'} color={colors.mint} size={42} />
           </View>
         )}
       </View>

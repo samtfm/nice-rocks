@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
   const navigation = useNavigation();
@@ -23,7 +23,7 @@ const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
         {url ? (
           <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
             <Text numberOfLines={1} style={styles.title}>{title || url}</Text>
-            <MaterialCommunityIcons name={'link'} color={colors.blue} size={16} style={{marginLeft: 10, marginRight: 10}} />
+            <Icon name={'link'} color={colors.blue} size={16} style={{marginLeft: 10, marginRight: 10}} />
           </View>
         ) : (
           <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>

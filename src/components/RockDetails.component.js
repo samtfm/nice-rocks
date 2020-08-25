@@ -5,7 +5,7 @@ import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import colors from 'styles/colors';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
   return (
@@ -29,7 +29,7 @@ const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
             onPress={() => Linking.openURL(url)}
           >
             <Text style={styles.urlText}>{url}</Text>
-            <MaterialCommunityIcons name={'open-in-new'} color={colors.blue} size={24} />
+            <Icon name={'open-in-new'} color={colors.blue} size={24} />
           </View>
         )}
         <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>

@@ -6,7 +6,7 @@ import { StyleSheet, Text, ScrollView, View, Button } from 'react-native';
 import { useSelector } from 'react-redux'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import colors from 'styles/colors';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,7 +54,7 @@ const Home = ({ navigation }) => {
 
 const Label = ({iconName, color, size, text}) => (
   <View style={styles.label}>
-    <MaterialCommunityIcons name={iconName} color={color} size={size} />
+    <Icon name={iconName} color={color} size={size} />
     <Text style={[styles.labelText, {color: color}]}>{text}</Text>
   </View>
 )
