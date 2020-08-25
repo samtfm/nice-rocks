@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Text from 'components/Text.component';
 import rootReducer from 'reducers/rootReducer';
 import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';

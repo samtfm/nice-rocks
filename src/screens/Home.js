@@ -2,7 +2,8 @@ import React from 'react';
 import ReceivedRocks from 'components/ReceivedRocks.component'
 import SentRocks from 'components/SentRocks.component'
 import ComposeButton from 'components/ComposeButton.component'
-import { StyleSheet, Text, ScrollView, View, Button } from 'react-native';
+import { StyleSheet, ScrollView, View, Button } from 'react-native';
+import Text from 'components/Text.component';
 import { useSelector } from 'react-redux'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import colors from 'styles/colors';

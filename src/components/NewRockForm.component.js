@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import RockList from './RockList.component'
 import ContactName from './ContactName.component';
-import { StyleSheet, Text, View, TextInput, Button, Pressable} from 'react-native';
+import { StyleSheet, View, TextInput, Button, Pressable} from 'react-native';
+import Text from 'components/Text.component';
 import { useFirestore } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { useNavigation } from '@react-navigation/native';

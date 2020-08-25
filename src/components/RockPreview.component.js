@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Linking, Pressable } from 'react-native';
+import { StyleSheet, View, Linking, Pressable } from 'react-native';
+import Text from 'components/Text.component';
 import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'

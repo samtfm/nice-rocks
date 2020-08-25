@@ -1,7 +1,8 @@
 import React from 'react';
 import RockPreview from './RockPreview.component'
 import RockList from './RockList.component'
-import { StyleSheet, Text, View, ScrollView} from 'react-native';
+import { StyleSheet, View, ScrollView} from 'react-native';
+import Text from 'components/Text.component';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import ContactName from './ContactName.component';

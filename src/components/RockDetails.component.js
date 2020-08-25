@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Linking } from 'react-native';
+import { StyleSheet, View, Linking } from 'react-native';
+import Text from 'components/Text.component';
 import ContactName from './ContactName.component';
 import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
