@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, Pressable, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ComposeButton = () => {
   const navigation = useNavigation();
