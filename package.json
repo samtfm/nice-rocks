@@ -1,9 +1,8 @@
 {
   "main": "index.js",
   "scripts": {
-    "android": "react-native run-android",
+    "android": "react-native run-android --appId com.samfabermanning.nicerocks.android.debug",
     "ios": "react-native run-ios",
-    "web": "expo start --web",
     "start": "react-native start",
     "test": "jest"
   },
