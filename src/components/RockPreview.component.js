@@ -33,7 +33,7 @@ const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
         )}
         <View style={styles.descriptionTimestamp}>
           <Text numberOfLines={1} style={styles.description}>{note}</Text>
-          <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>
+          {timestamp && <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>}
         </View>
       </Pressable>
     </View>

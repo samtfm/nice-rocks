@@ -24,7 +24,7 @@ const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
             <Icon name={'open-in-new'} color={colors.blue} size={24} />
           </TouchableOpacity>
         )}
-        <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>
+        {timestamp && <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>}
       </View>
     </View>
   );
