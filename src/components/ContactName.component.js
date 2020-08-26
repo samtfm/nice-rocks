@@ -15,7 +15,7 @@ const ProfileName = ({id}) => {
   ])
   const profile = useSelector(
     ({ firestore: { data } }) => {
-      return data.profiles[id];
+      return data.profiles && data.profiles[id];
     }
   )
 
