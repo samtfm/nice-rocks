@@ -109,7 +109,7 @@ const NewRockForm = ({toUserId}) => {
         <TextInput
           style={[styles.input, styles.urlInput]}
           label="URL (optional)"
-          onChangeText={url => updateForm({ url })}
+          onChangeText={url => updateForm({ url: url.replace(/(\r\n|\n|\r)/gm, "") })}
           value={form.url}
           maxLength={charLimits.url}
           multiline
@@ -118,7 +118,7 @@ const NewRockForm = ({toUserId}) => {
         <TextInput
           style={styles.input}
           label="Title"
-          onChangeText={title => updateForm({ title })}
+          onChangeText={title => updateForm({ title: title.replace(/(\r\n|\n|\r)/gm, "") })}
           value={form.title}
           maxLength={charLimits.title}
           multiline
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   input: {
-    marginTop: 20,
+    marginTop: 6,
     backgroundColor: 'hsl(36, 33%, 99%)',
     borderRadius: 4,
   },
