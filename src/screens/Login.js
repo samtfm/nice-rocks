@@ -5,8 +5,8 @@ import { useFirebase, isLoaded, isEmpty } from 'react-redux-firebase'
 
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-community/google-signin';
-
-
+import colors from 'styles/colors';
+import Text from 'components/Text.component';
 
 async function onGoogleButtonPress() {
   const googleSignConfiguration = {
@@ -29,22 +29,44 @@ async function onGoogleButtonPress() {
 
 const Login = () => {
   return (
-    <View>
-      <Button
-        title="Google Sign-In"
-        onPress={() => onGoogleButtonPress().then(
-          () => console.log('Signed in with Google!'),
-          err => console.log(Object.entries(err))
-        )}
-      />
+    <View style={styles.main}>
+      <Text style={styles.titleText}>Nice Rocks</Text>
+      <View style={styles.loginButton}>
+        <Button
+          title="Sign in with Google"
+          onPress={() => onGoogleButtonPress().then(
+            () => console.log('Signed in with Google!'),
+            err => console.log(Object.entries(err))
+          )}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  test: {
-    padding: 10,
+  main: {
+    backgroundColor: colors.beige,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleText: {
+    fontSize: 40,
+    marginBottom: 20,
+    position: 'absolute',
+    top: '30%',
+  },
+  loginButton: {
+    position: 'absolute',
+    bottom: 120,
+  }
+
 });
 
 export default Login;
