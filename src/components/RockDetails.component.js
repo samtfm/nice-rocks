@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Linking } from 'react-native';
+import { StyleSheet, View, Linking, TouchableOpacity } from 'react-native';
 import Text from 'components/Text.component';
 import ContactName from './ContactName.component';
 import { relativeTimeFromEpoch } from 'util/time';
@@ -13,25 +13,16 @@ const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
     <View >
       <Text>From: <ContactName id={fromUserId}/></Text>
       <View style={styles.rockItem}>
-        {url ? (
-          <Text
-            style={styles.title}
-            onPress={() => Linking.openURL(url)}
-          >
-            {title || url}
-          </Text>
-        ) : (
-          <Text style={styles.title}>{title || url}</Text>
-        )}
+        <Text style={styles.title}>{title || url}</Text>
         <Text style={styles.description}>{note}</Text>
         {Boolean(url) && (
-          <View
+          <TouchableOpacity
             style={styles.url}
             onPress={() => Linking.openURL(url)}
           >
             <Text style={styles.urlText}>{url}</Text>
             <Icon name={'open-in-new'} color={colors.blue} size={24} />
-          </View>
+          </TouchableOpacity>
         )}
         <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>
       </View>

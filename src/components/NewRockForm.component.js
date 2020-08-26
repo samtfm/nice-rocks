@@ -25,6 +25,7 @@ const commonInputProps = {
   },
   autoCompleteType: 'off',
   fontFamily: 'Bitter-Regular',
+  dense: true,
 }
 
 

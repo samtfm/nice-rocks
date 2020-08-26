@@ -41,7 +41,7 @@ const ReceivedRocks = () => {
   const groupedRocks = rocks ? groupRocksByAttr(rocks, "fromUserId") : []
   return (
     <View style={styles.main}>
-      <Text style={styles.title}>Received rocks</Text>
+      <Text style={styles.title}>Received</Text>
       {groupedRocks.map(group => (
         <View key={group.fromUserId}>
           <Text style={styles.groupHeader}>
