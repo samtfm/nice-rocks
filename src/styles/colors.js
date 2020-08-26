@@ -1,5 +1,5 @@
 const colors = {
-  'beige': '#FAF8F5',
+  'beige': 'hsl(36, 33%, 96%)',
   'black': '#000',
   'white': '#FFF',
   'blue': '#00ace6',

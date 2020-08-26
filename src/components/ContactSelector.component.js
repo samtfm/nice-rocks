@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import functions from '@react-native-firebase/functions';
-
+import colors from 'styles/colors';
 const searchUser = functions().httpsCallable('searchUser')
 
 const ContactSelector = ({ route }) => {
@@ -47,7 +47,7 @@ const ContactSelector = ({ route }) => {
   }
 
   return (
-    <View>
+    <View style={{backgroundColor: colors.beige}}>
       <TextInput
         style={styles.searchBar}
         placeholder="example@bestmail.net"

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import RockList from './RockList.component'
 import ContactName from './ContactName.component';
-import { StyleSheet, View, TextInput, Button, Pressable} from 'react-native';
+import { StyleSheet, View, Button, Pressable} from 'react-native';
+import { HelperText, TextInput } from 'react-native-paper';
 import Text from 'components/Text.component';
 import { useFirestore } from "react-redux-firebase";
 import { useSelector } from "react-redux";
@@ -15,6 +16,17 @@ const charLimits = {
   note: 2000,
   title: 200,
 }
+
+const commonInputProps = {
+  // mode: 'outlined',
+  theme: {
+    fonts: { regular: "" },
+    colors: { primary: colors.blue },
+  },
+  autoCompleteType: 'off',
+  fontFamily: 'Bitter-Regular',
+}
+
 
 const NewRockForm = ({toUserId}) => {
   const navigation = useNavigation();
@@ -77,47 +89,59 @@ const NewRockForm = ({toUserId}) => {
     <View style={{backgroundColor: 'transparent'}}>
       <Text style={styles.errorMessage}>{errorMessage}</Text>
       <View style={styles.inputs}>
+        <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
+        <Text style={{marginRight: 4, marginLeft: 5}}>To:</Text>
         <Pressable
-          style={{...styles.contactSelector, ...styles.input}}
+          style={[styles.contactSelector]}
           onPress={() => navigation.navigate(
             'SelectContact',
             { targetScreen: "ComposeRock", outputIdParamName: "toUserId" }
           )}
         >
           {toUserId ? (
-            <Text>To: <ContactName id={toUserId} /></Text>
+            <Text><ContactName id={toUserId} /></Text>
           ) : (
-            <Text>Select Contact</Text>
+            <Text style={styles.selectContactText}>Select contact</Text>
           )}
         </Pressable>
+        </View>
         <TextInput
-          style={styles.input}
-          placeholder="URL (optional)"
+          style={[styles.input, styles.urlInput]}
+          label="URL (optional)"
           onChangeText={url => updateForm({ url })}
-          defaultValue={form.url}
-          autoCompleteType="off"
+          value={form.url}
           maxLength={charLimits.url}
           multiline
-        />
-        <TextInput
-          style={{...styles.titleInput, ...styles.input}}
-          placeholder="Title"
-          onChangeText={title => updateForm({ title })}
-          defaultValue={form.title}
-          autoCompleteType="off"
-          maxLength={charLimits.title}
-          multiline
+          {...commonInputProps}
         />
         <TextInput
           style={styles.input}
-          placeholder="Say something about your rock..."
-          onChangeText={note => updateForm({ note })}
-          defaultValue={form.note}
-          autoCompleteType="off"
-          maxLength={charLimits.note}
+          label="Title"
+          onChangeText={title => updateForm({ title })}
+          value={form.title}
+          maxLength={charLimits.title}
           multiline
-          stripPastedStyles={true}
+          {...commonInputProps}
         />
+        <HelperText style={{backgroundColor: colors.beige}} type="info">
+          What are you sharing?
+        </HelperText>
+
+        <View style={styles.input}>
+          <TextInput
+            style={[styles.noteInput]}
+            label="Note"
+            onChangeText={note => updateForm({ note })}
+            value={form.note}
+            maxLength={charLimits.note}
+            multiline
+            {...commonInputProps}
+          />
+        </View>
+        <HelperText type="info">
+          Say something about your recommendation
+        </HelperText>
+
         {submitted && (
           <View style={styles.successOverlay}>
             <Icon name={'check'} color={colors.mint} size={42} />
@@ -137,28 +161,48 @@ const NewRockForm = ({toUserId}) => {
   )
 }
 
+
 const styles = StyleSheet.create({
   errorMessage: {
     color: "red",
   },
+  selectContactText: {
+    color: colors.blue,
+    fontWeight: 'bold',
+    // fontSize: 18,
+    textTransform: 'uppercase',
+    // backgroundColor: 'hsla(195, 100%, 45%)'
+  },
   contactSelector: {
     marginLeft: 3,
-  },
-  titleInput: {
-    fontWeight: 'bold',
-    fontSize: 14,
+    height: 40,
+    padding: 10,
+    borderRadius: 3,
+    borderBottomWidth: 2,
+    borderColor: 'hsl(0, 0%, 82%)',
+    backgroundColor: 'hsl(36, 33%, 99%)',
+    borderRadius: 4,
   },
   sendButton: {
     marginBottom: 30
   },
   input: {
-    marginBottom: 12,
+    marginTop: 20,
+    backgroundColor: 'hsl(36, 33%, 99%)',
+    borderRadius: 4,
+  },
+  noteInput: {
+    minHeight: 90,
+    backgroundColor: 'hsl(36, 33%, 99%)',
+  },
+  urlInput: {
+    maxHeight: 100,
   },
   inputs: {
     marginBottom: 20,
     backgroundColor: colors.beige,
     padding: 10,
-    borderRadius: 3,
+    borderRadius: 4,
 
     //android
     elevation: 4,
