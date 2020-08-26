@@ -62,17 +62,17 @@ const LoggedInStack = () => {
       <MainNav.Screen
         name="Home"
         component={Home}
-        options={{ title: 'My Collection' }}
+        options={{ title: 'My collection' }}
       />
       <MainNav.Screen
         name="ComposeRock"
         component={ComposeRock}
-        options={{ title: 'Send a new Rock' }}
+        options={{ title: 'Send a new rock' }}
       />
       <MainNav.Screen
         name="ViewRock"
         component={ViewRock}
-        options={{ title: 'View Rock' }}
+        options={{ title: 'View rock' }}
       />
     </MainNav.Navigator>
   )
@@ -107,7 +107,7 @@ const MainStack = () => {
         <ModalNav.Screen
           name="SelectContact"
           component={ContactSelector}
-          options={{ title: 'Select Contact', headerBackTitle: "Cancel" }}
+          options={{ title: 'Select contact', headerBackTitle: "Cancel" }}
         />
       </ModalNav.Navigator>
     </MessagingWrapper>

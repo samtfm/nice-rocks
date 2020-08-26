@@ -42,7 +42,7 @@ const SentRocks = () => {
   return (
     <View style={styles.main}>
       <ScrollView>
-        <Text style={styles.title}>Sent Rocks</Text>
+        <Text style={styles.title}>Sent rocks</Text>
         <RockList rocks={rocks} avatarIdKey={"toUserId"}/>
       </ScrollView>
     </View>
