@@ -21,7 +21,7 @@ const ProfileName = ({id}) => {
 
   return (
     <Text>
-    {profile && profile.displayName}
+    {(profile && profile.displayName) ? profile.displayName : ''}
     </Text>
   )
 }

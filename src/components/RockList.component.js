@@ -20,7 +20,7 @@ const RockList = ({rocks, avatarIdKey}) => {
       {rocks.map(rock => (
           rock && (
             <View key={rock.id} style={styles.listItem}>
-              {avatarIdKey && contacts && (
+              {avatarIdKey && contacts && rock[avatarIdKey] && contacts[rock[avatarIdKey]] && (
                 <Image
                   style={styles.avatar}
                   source={{
