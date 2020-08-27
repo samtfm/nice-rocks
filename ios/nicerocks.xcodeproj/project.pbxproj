@@ -11,16 +11,17 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		208894FE6490C9DB54FC965B /* libPods-NiceRocks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37505D0B2786073298A66316 /* libPods-NiceRocks.a */; };
 		2271888B24EECEFF00AA71AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2224AC3E24C7AE0D0083B430 /* GoogleService-Info.plist */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		5D221E3BA16F4FC1A351AB57 /* Bitter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB29E9EBACB2459C8CE2F42C /* Bitter-Bold.ttf */; };
-		96905EF65AED1B983A6B3ABC /* libPods-NiceRocks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-NiceRocks.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		F20FC7F3AA574DEF9CF15D09 /* Bitter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7BFC26996F14CC7887759C7 /* Bitter-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		03214FFF08C666761D7033B9 /* Pods-NiceRocks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NiceRocks.debug.xcconfig"; path = "Target Support Files/Pods-NiceRocks/Pods-NiceRocks.debug.xcconfig"; sourceTree = "<group>"; };
 		0907EE266C2F4E7AB4DA3C84 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		0CFFDF813D3F4A5B852D431F /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* NiceRocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NiceRocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,15 +38,14 @@
 		2271888A24EECC5700AA71AD /* NiceRocks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NiceRocks.entitlements; path = NiceRocks/NiceRocks.entitlements; sourceTree = "<group>"; };
 		26D07F62E7D84B2FAC3CD672 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2F8AFEA4906F4649889B0EAA /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		3593A6B72CCC80B3B472A92A /* Pods-NiceRocks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NiceRocks.release.xcconfig"; path = "Target Support Files/Pods-NiceRocks/Pods-NiceRocks.release.xcconfig"; sourceTree = "<group>"; };
+		37505D0B2786073298A66316 /* libPods-NiceRocks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NiceRocks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42077A86F3AA49F695778352 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = ../assets/fonts/FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
 		432A61A0BB3240D6AAB86F2F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-NiceRocks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NiceRocks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59D0A3AA78C44B8F8EF0B199 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = ../assets/fonts/Ionicons.ttf; sourceTree = "<group>"; };
 		61D923AA176043BAB0027764 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = ../assets/fonts/Entypo.ttf; sourceTree = "<group>"; };
 		6A8A70536756431096EC79D3 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		6B97CBF923CB45859CB6C32B /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = ../assets/fonts/Octicons.ttf; sourceTree = "<group>"; };
-		6C2E3173556A471DD304B334 /* Pods-NiceRocks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NiceRocks.debug.xcconfig"; path = "Target Support Files/Pods-NiceRocks/Pods-NiceRocks.debug.xcconfig"; sourceTree = "<group>"; };
-		7A4D352CD337FB3A3BF06240 /* Pods-NiceRocks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NiceRocks.release.xcconfig"; path = "Target Support Files/Pods-NiceRocks/Pods-NiceRocks.release.xcconfig"; sourceTree = "<group>"; };
 		81B7B06D556A4AAFA981B9B1 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		832E7B79A2B8451199710631 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		875F9EED9F1745288725A120 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = ../assets/fonts/MaterialIcons.ttf; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96905EF65AED1B983A6B3ABC /* libPods-NiceRocks.a in Frameworks */,
+				208894FE6490C9DB54FC965B /* libPods-NiceRocks.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +108,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-NiceRocks.a */,
+				37505D0B2786073298A66316 /* libPods-NiceRocks.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -196,8 +196,8 @@
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6C2E3173556A471DD304B334 /* Pods-NiceRocks.debug.xcconfig */,
-				7A4D352CD337FB3A3BF06240 /* Pods-NiceRocks.release.xcconfig */,
+				03214FFF08C666761D7033B9 /* Pods-NiceRocks.debug.xcconfig */,
+				3593A6B72CCC80B3B472A92A /* Pods-NiceRocks.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -209,14 +209,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "NiceRocks" */;
 			buildPhases = (
-				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
+				38862FA72A0EC49366D908E2 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				3B4301F96EA1C3D582B40970 /* [CP] Copy Pods Resources */,
-				F3E2B7BE020F124947A7AB91 /* [CP-User] [RNFB] Core Configuration */,
+				8FC373D6FE44E08982B270EF /* [CP] Copy Pods Resources */,
+				AF905994E1766334274582FF /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -291,7 +291,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n../node_modules/expo-updates/scripts/create-manifest-ios.sh\n";
 		};
-		08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */ = {
+		38862FA72A0EC49366D908E2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -313,7 +313,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3B4301F96EA1C3D582B40970 /* [CP] Copy Pods Resources */ = {
+		8FC373D6FE44E08982B270EF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -369,7 +369,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NiceRocks/Pods-NiceRocks-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F3E2B7BE020F124947A7AB91 /* [CP-User] [RNFB] Core Configuration */ = {
+		AF905994E1766334274582FF /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -427,7 +427,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C2E3173556A471DD304B334 /* Pods-NiceRocks.debug.xcconfig */;
+			baseConfigurationReference = 03214FFF08C666761D7033B9 /* Pods-NiceRocks.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -457,7 +457,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A4D352CD337FB3A3BF06240 /* Pods-NiceRocks.release.xcconfig */;
+			baseConfigurationReference = 3593A6B72CCC80B3B472A92A /* Pods-NiceRocks.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
