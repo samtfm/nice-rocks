@@ -7,7 +7,7 @@ import { HelperText } from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-community/google-signin';
 import colors from 'styles/colors';
-import Text from 'components/Text.component';
+import Text from 'components/Text';
 const googleSignConfiguration = {
   // scopes: ["email", "profile"],
   webClientId: "342705485686-q0rfukmubinofgjkt9jkruou6qlaip12.apps.googleusercontent.com",

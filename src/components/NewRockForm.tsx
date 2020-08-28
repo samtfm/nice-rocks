@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import RockList from './RockList.component'
-import ContactName from './ContactName.component';
+import RockList from './RockList'
+import ContactName from './ContactName';
 import { StyleSheet, View, Button, Pressable} from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
-import Text from 'components/Text.component';
+import Text from 'components/Text';
 import { useFirestore } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { useNavigation } from '@react-navigation/native';

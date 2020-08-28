@@ -3,8 +3,18 @@
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
-        "test": "./test",
-      }
+        "test": "./test"
+      },
+      "extensions": [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".android.js",
+        ".android.tsx",
+        ".ios.js",
+        ".ios.tsx"
+      ]
     }]
   ]
 }

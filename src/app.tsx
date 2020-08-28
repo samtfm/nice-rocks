@@ -5,8 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { StyleSheet, View } from 'react-native';
-import Text from 'components/Text.component';
-import rootReducer from 'reducers/rootReducer';
+import Text from 'components/Text';
 import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
 import '@react-native-firebase/functions';
@@ -20,10 +19,11 @@ import Home from 'screens/Home'
 import ComposeRock from 'screens/ComposeRock'
 import Login from 'screens/Login'
 import ViewRock from 'screens/ViewRock'
-import AuthLoaded from 'components/AuthLoaded.component'
-import ContactSelector from 'components/ContactSelector.component'
-import MessagingWrapper from 'components/MessagingWrapper.component'
+import AuthLoaded from 'components/AuthLoaded'
+import ContactSelector from 'components/ContactSelector'
+import MessagingWrapper from 'components/MessagingWrapper'
 import colors from 'styles/colors';
+import rootReducer from 'reducers/rootReducer';
 
 // react-redux-firebase config
 const rrfConfig = {

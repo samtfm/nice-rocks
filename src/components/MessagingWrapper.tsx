@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isLoaded } from 'react-redux-firebase';
 import { StyleSheet, View, Alert } from 'react-native';
-import Text from 'components/Text.component';
+import Text from 'components/Text';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
 import messaging from '@react-native-firebase/messaging';
 

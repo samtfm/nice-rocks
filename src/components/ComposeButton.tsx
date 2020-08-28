@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Pressable, Button } from 'react-native';
-import Text from 'components/Text.component';
+import Text from 'components/Text';
 import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

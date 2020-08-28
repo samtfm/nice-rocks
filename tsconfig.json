@@ -24,11 +24,14 @@
     "noFallthroughCasesInSwitch": true,
 /* Module Resolution Options */
     "moduleResolution": "node",           
-    "baseUrl": ".",                      
+    "baseUrl": "./src",                      
     "allowSyntheticDefaultImports": true, 
     "esModuleInterop": true   
   },
   "exclude": [
-    "app/__tests__/" // exclude test files
-  ]
+    "./test" // exclude test files
+  ],
+  "include": [
+    "./src"
+  ],
 }

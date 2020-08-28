@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Linking, TouchableOpacity } from 'react-native';
-import Text from 'components/Text.component';
-import ContactName from './ContactName.component';
+import Text from 'components/Text';
+import ContactName from './ContactName';
 import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'

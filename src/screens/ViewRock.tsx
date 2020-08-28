@@ -1,5 +1,5 @@
 import React from 'react';
-import RockDetails from 'components/RockDetails.component'
+import RockDetails from 'components/RockDetails'
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'

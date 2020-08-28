@@ -1,5 +1,5 @@
 import React from 'react';
-import NewRockForm from 'components/NewRockForm.component'
+import NewRockForm from 'components/NewRockForm'
 import { StyleSheet, ScrollView } from 'react-native';
 
 const ComposeRock = ({route}) => {

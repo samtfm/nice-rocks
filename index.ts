@@ -1,7 +1,7 @@
 import { registerRootComponent } from 'expo';
 import messaging from '@react-native-firebase/messaging';
 
-import App from './src';
+import App from './src/app';
 
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';

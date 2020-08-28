@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { StyleSheet, TextInput, Pressable, View, ScrollView } from 'react-native';
-import Text from 'components/Text.component';
+import Text from 'components/Text';
 import { useNavigation } from '@react-navigation/native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'

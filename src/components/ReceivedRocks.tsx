@@ -1,12 +1,12 @@
 import React from 'react';
-import RockPreview from './RockPreview.component'
-import RockList from './RockList.component'
+import RockPreview from './RockPreview'
+import RockList from './RockList'
 import { StyleSheet, View, ScrollView } from 'react-native';
-import Text from 'components/Text.component';
+import Text from 'components/Text';
 import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
-import ContactName from './ContactName.component';
+import ContactName from './ContactName';
 import colors from 'styles/colors';
 
 const groupRocksByAttr = (rocks, attr) => {
