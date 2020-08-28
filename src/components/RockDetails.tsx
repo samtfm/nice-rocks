@@ -3,8 +3,6 @@ import { StyleSheet, View, Linking, TouchableOpacity } from 'react-native';
 import Text from 'components/Text';
 import ContactName from './ContactName';
 import { relativeTimeFromEpoch } from 'util/time';
-import { useSelector } from 'react-redux'
-import { useFirestoreConnect } from 'react-redux-firebase'
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -36,7 +34,6 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     borderRadius: 3,
     paddingBottom: 33,
-    backgroundColor: colors.biege,
   },
   title: {
     fontWeight: 'bold',

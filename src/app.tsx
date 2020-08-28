@@ -1,19 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { StyleSheet, View } from 'react-native';
-import Text from 'components/Text';
 import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
 import '@react-native-firebase/functions';
-import auth from '@react-native-firebase/auth';
+import '@react-native-firebase/auth';
 import { useSelector } from 'react-redux'
-import { createStore, compose } from 'redux'
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { ReactReduxFirebaseProvider, firebaseReducer, isEmpty} from 'react-redux-firebase'
+import { ReactReduxFirebaseProvider, isEmpty} from 'react-redux-firebase'
 import { createFirestoreInstance } from 'redux-firestore' // <- needed if using firestore
 import Home from 'screens/Home'
 import ComposeRock from 'screens/ComposeRock'

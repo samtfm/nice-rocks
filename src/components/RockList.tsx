@@ -1,10 +1,7 @@
 import React from 'react';
 import RockPreview from './RockPreview'
 import { StyleSheet, View, Image } from 'react-native';
-import Text from 'components/Text';
-import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
-import { useFirestoreConnect } from 'react-redux-firebase'
 import colors from 'styles/colors';
 
 // avatarIdKey String: one of ['fromUserId', 'toUserId']
@@ -43,7 +40,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 8,
     flexDirection: 'row',
-    backgroundColor: 'white',
     alignItems: 'center',
     backgroundColor: colors.beige,
 

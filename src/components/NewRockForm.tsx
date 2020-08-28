@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import RockList from './RockList'
 import ContactName from './ContactName';
 import { StyleSheet, View, Button, Pressable} from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
@@ -7,7 +6,6 @@ import Text from 'components/Text';
 import { useFirestore } from "react-redux-firebase";
 import { useSelector } from "react-redux";
 import { useNavigation } from '@react-navigation/native';
-import { useFirestoreConnect } from 'react-redux-firebase'
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -130,7 +128,7 @@ const NewRockForm = ({toUserId}) => {
 
         <View style={styles.input}>
           <TextInput
-            style={[styles.noteInput]}
+            style={styles.noteInput}
             label="Note"
             onChangeText={note => updateForm({ note })}
             value={form.note}
@@ -178,7 +176,6 @@ const styles = StyleSheet.create({
     marginLeft: 3,
     height: 40,
     padding: 10,
-    borderRadius: 3,
     borderBottomWidth: 2,
     borderColor: 'hsl(0, 0%, 82%)',
     backgroundColor: 'hsl(36, 33%, 99%)',

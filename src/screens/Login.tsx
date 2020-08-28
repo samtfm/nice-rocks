@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Button, ActivityIndicator} from 'react-native';
-import { useSelector } from 'react-redux'
-import { useFirebase, isLoaded, isEmpty } from 'react-redux-firebase'
 import { HelperText } from 'react-native-paper';
 
 import auth from '@react-native-firebase/auth';

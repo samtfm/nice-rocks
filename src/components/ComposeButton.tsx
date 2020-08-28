@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Pressable, Button } from 'react-native';
-import Text from 'components/Text';
+import { StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -35,7 +34,6 @@ const styles = StyleSheet.create({
     margin: 20,
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'center',
     alignItems: 'center',
 

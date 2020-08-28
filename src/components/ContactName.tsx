@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import Text from 'components/Text';
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from 'react-redux-firebase'

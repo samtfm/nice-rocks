@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Linking, Pressable } from 'react-native';
+import { StyleSheet, View, Pressable } from 'react-native';
 import Text from 'components/Text';
 import { relativeTimeFromEpoch } from 'util/time';
-import { useSelector } from 'react-redux'
-import { useFirestoreConnect } from 'react-redux-firebase'
 import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

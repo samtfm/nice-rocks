@@ -7,7 +7,12 @@ export const textStyles = {
   color: colors.gray20,
 };
 
-const MyText = ({style, ...props}) => (
+export interface Props {
+  style?: any;
+  [x:string]: any;
+}
+
+const MyText: React.FC<Props> = ({style, ...props}) => (
   <Text {...props} style={[textStyles, style]} />
 );
 

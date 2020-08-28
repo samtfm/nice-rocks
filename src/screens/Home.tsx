@@ -13,12 +13,6 @@ const Tab = createBottomTabNavigator();
 
 const Home = ({ navigation }) => {
 
-  const userData = useSelector(
-    ({ firestore: { data } }) => {
-      return data.userData
-    }
-  )
-
   return (
     <View style={{flex:1}}>
       <Tab.Navigator
