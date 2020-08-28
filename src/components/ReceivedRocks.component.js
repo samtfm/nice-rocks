@@ -1,7 +1,7 @@
 import React from 'react';
 import RockPreview from './RockPreview.component'
 import RockList from './RockList.component'
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import Text from 'components/Text.component';
 import { relativeTimeFromEpoch } from 'util/time';
 import { useSelector } from 'react-redux'
@@ -32,15 +32,10 @@ const ReceivedRocks = () => {
       return firestore.ordered[collectionPath]
     }
   )
-  const listeners = useSelector(
-      ({ firestore }) => {
-        return firestore.listeners
-      }
-    )
 
   const groupedRocks = rocks ? groupRocksByAttr(rocks, "fromUserId") : []
   return (
-    <View style={styles.main}>
+    <ScrollView style={styles.main}>
       <Text style={styles.title}>Received</Text>
       {groupedRocks.map(group => (
         <View key={group.fromUserId}>
@@ -52,7 +47,7 @@ const ReceivedRocks = () => {
           </View>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
