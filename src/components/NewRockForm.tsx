@@ -17,13 +17,15 @@ const charLimits = {
 }
 
 const commonInputProps = {
-  // mode: 'outlined',
+  // mode: 'outlined' as 'outlined',
   theme: {
-    fonts: { regular: "" },
+    fonts: { regular: {
+      fontFamily: 'Bitter-Regular',
+      fontWeight: 'normal' as 'normal',
+    }},
     colors: { primary: colors.blue },
   },
-  autoCompleteType: 'off',
-  fontFamily: 'Bitter-Regular',
+  autoCompleteType: 'off' as 'off',
   dense: true,
 }
 
@@ -62,7 +64,7 @@ const NewRockForm = ({toUserId}) => {
             navigation.goBack();
           }
         }, 1400)
-      }).catch((e) => {
+      }).catch(() => {
         setErrorMessage("Whoops, something went wrong. Maybe try that again?");
         setDisableSubmit(false);
       });
@@ -121,7 +123,7 @@ const NewRockForm = ({toUserId}) => {
           onChangeText={title => updateForm({ title: title.replace(/(\r\n|\n|\r)/gm, "") })}
           value={form.title}
           maxLength={charLimits.title}
-          multiline
+          multiline={true}
           {...commonInputProps}
         />
         <HelperText style={{backgroundColor: colors.beige}} type="info">
