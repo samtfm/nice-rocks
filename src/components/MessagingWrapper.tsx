@@ -9,11 +9,8 @@ import { RootState } from 'reducers/rootReducer';
 const MessagingWrapper = ({children}) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
-
-  const { uid } = useSelector((state: RootState) => state.firebase.auth);
-
+  const uid = firebase.auth().currentUser.uid;
   useFirestoreConnect(() => [{ collection: "users", doc: uid, storeAs: 'userData' }])
-
 
   const userData = useSelector(
     ({ firestore: { data } }: RootState) => {
@@ -76,7 +73,7 @@ const MessagingWrapper = ({children}) => {
   firebase.messaging().onTokenRefresh(token => {
     ensureMessagingToken(token);
   })
-  return <>{children}</>
+  return <>{userData && children}</>
 }
 
 export default MessagingWrapper;

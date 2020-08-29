@@ -2,13 +2,20 @@ import React, {useState} from 'react';
 import { StyleSheet, TextInput, Pressable, View, ScrollView } from 'react-native';
 import Text from 'components/Text';
 import { useNavigation } from '@react-navigation/native';
-import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import functions from '@react-native-firebase/functions';
 import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
+import ContactName from './ContactName';
 
 const searchUser = functions().httpsCallable('searchUser')
+
+interface Contacts {
+  [userId: string]: {
+    displayName: string,
+    photo: string,  
+  }
+}
 
 const ContactSelector = ({ route }) => {
   const { targetScreen, outputIdParamName } = route.params
@@ -16,18 +23,8 @@ const ContactSelector = ({ route }) => {
   const navigation = useNavigation();
   const [newRecipientId, setNewRecipientId] = useState()
 
-  useFirestoreConnect(() => [
-    {
-      collection: "profiles",
-      doc: newRecipientId,
-    }
-  ])
-  const newRecipient = useSelector(
-    ({ firestore: { data } }: RootState) => ( data.profiles && data.profiles[newRecipientId])
-  )
 
-
-  const contacts = useSelector(
+  const contacts : Contacts = useSelector(
     ({ firestore: { data } }: RootState) => {
       return data.userData && data.userData.contacts;
     }
@@ -59,7 +56,7 @@ const ContactSelector = ({ route }) => {
         maxLength={254}
       />
       <ScrollView style={styles.contactList}>
-        {newRecipient &&
+        {newRecipientId &&
           <View style={styles.newContact}>
             <Pressable
               onPress={() => {
@@ -72,7 +69,7 @@ const ContactSelector = ({ route }) => {
                     : 'white'
                 },
             ]}>
-              <Text style={styles.contact} >{newRecipient.displayName}</Text>
+              <Text style={styles.contact} ><ContactName id={newRecipientId}/></Text>
             </Pressable>
           </View>
         }

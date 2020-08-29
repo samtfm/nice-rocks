@@ -5,11 +5,14 @@ import { useSelector } from 'react-redux'
 import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 
-// avatarIdKey String: one of ['fromUserId', 'toUserId']
-const RockList = ({rocks, avatarIdKey}) => {
+interface RockListProps {
+  rocks: Array<any>
+  avatarIdKey: 'fromUserId' | 'toUserId'
+}
+const RockList = ({rocks, avatarIdKey}: RockListProps) => {
   const contacts = useSelector(
     ({ firestore: { data } }: RootState) => {
-      return data.userData && data.userData.contacts
+      return data.userData.contacts
     }
   )
 

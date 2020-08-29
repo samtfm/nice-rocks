@@ -8,7 +8,7 @@ import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 
 const SentRocks = () => {
-  const {uid} = useSelector((state: RootState) => state.firebase.auth)
+  const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
 
   useFirestoreConnect(() => [ {
     collectionGroup: 'rocks',

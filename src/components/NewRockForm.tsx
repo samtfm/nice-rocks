@@ -31,7 +31,7 @@ const commonInputProps = {
 const NewRockForm = ({toUserId}) => {
   const navigation = useNavigation();
   const firestore = useFirestore();
-  const uid = useSelector((state: RootState) => state.firebase.auth.uid);
+  const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
 
   const defaultForm = {
     title: '',

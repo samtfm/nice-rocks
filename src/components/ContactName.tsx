@@ -29,7 +29,7 @@ const ProfileName = ({id}) => {
 const ContactName = ({id}) => {
   const contacts = useSelector(
     ({ firestore: { data } }: RootState) => {
-      return data.userData && data.userData.contacts;
+      return data.userData.contacts;
     }
   )
   if (!contacts || !id) {return null;}

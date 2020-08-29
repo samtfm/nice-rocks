@@ -8,7 +8,12 @@ import ContactName from './ContactName';
 import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 
-const groupRocksByAttr = (rocks : Array<any>, attr: string) => {
+interface RockGroup {
+  attr: string
+  rocks: Array<any>
+}  
+
+const groupRocksByAttr = (rocks : Array<any>, attr: string): Array<RockGroup> => {
   const userGroupsMap = {}
   rocks.forEach(rock => {
     if (!userGroupsMap[rock[attr]]) {
@@ -19,12 +24,11 @@ const groupRocksByAttr = (rocks : Array<any>, attr: string) => {
     }
     userGroupsMap[rock[attr]].rocks.push(rock)
   })
-  const groups : Array<{[attr: string]: string, rocks: any}> = Object.values(userGroupsMap)
-  return groups
+  return Object.values(userGroupsMap)
 }
 
 const ReceivedRocks = () => {
-  const {uid} = useSelector((state : RootState) => state.firebase.auth)
+  const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
   const collectionPath = `profiles/${uid}/rocks`
   useFirestoreConnect(() => [ {collection: collectionPath, orderBy: ["timestamp", "desc"]} ])
   const rocks = useSelector(
@@ -38,9 +42,9 @@ const ReceivedRocks = () => {
     <ScrollView style={styles.main}>
       <Text style={styles.title}>Received</Text>
       {groupedRocks.map(group => (
-        <View key={group.fromUserId}>
+        <View key={group.attr}>
           <Text style={styles.groupHeader}>
-            <ContactName id={group.fromUserId} />
+            <ContactName id={group.attr} />
           </Text>
           <View style={styles.listGroup}>
             <RockList rocks={group.rocks} avatarIdKey={"fromUserId"}/>
