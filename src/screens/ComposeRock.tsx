@@ -6,15 +6,17 @@ const ComposeRock = ({route}) => {
   const toUserId = route && route.params && route.params.toUserId;
 
   return (
-    <ScrollView style={{flex:1, padding: 10, backgroundColor: 'white'}}>
+    <ScrollView style={styles.main}>
       <NewRockForm toUserId={toUserId}/>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  test: {
+  main: {
+    flex:1,
     padding: 10,
+    backgroundColor: 'white',
   },
 });
 

@@ -2,16 +2,15 @@ import React from 'react';
 import ReceivedRocks from 'components/ReceivedRocks'
 import SentRocks from 'components/SentRocks'
 import ComposeButton from 'components/ComposeButton'
-import { StyleSheet, ScrollView, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Text from 'components/Text';
-import { useSelector } from 'react-redux'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
-const Home = ({ navigation }) => {
+const Home = () => {
 
   return (
     <View style={{flex:1}}>

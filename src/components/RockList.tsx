@@ -3,11 +3,12 @@ import RockPreview from './RockPreview'
 import { StyleSheet, View, Image } from 'react-native';
 import { useSelector } from 'react-redux'
 import colors from 'styles/colors';
+import { RootState } from 'reducers/rootReducer';
 
 // avatarIdKey String: one of ['fromUserId', 'toUserId']
 const RockList = ({rocks, avatarIdKey}) => {
   const contacts = useSelector(
-    ({ firestore: { data } }) => {
+    ({ firestore: { data } }: RootState) => {
       return data.userData && data.userData.contacts
     }
   )

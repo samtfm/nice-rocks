@@ -4,17 +4,19 @@ import { useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
 import messaging from '@react-native-firebase/messaging';
+import { RootState } from 'reducers/rootReducer';
 
 const MessagingWrapper = ({children}) => {
   const firebase = useFirebase();
   const firestore = useFirestore();
 
-  const { uid } = useSelector(state => state.firebase.auth);
+  const { uid } = useSelector((state: RootState) => state.firebase.auth);
 
   useFirestoreConnect(() => [{ collection: "users", doc: uid, storeAs: 'userData' }])
 
+
   const userData = useSelector(
-    ({ firestore: { data } }) => {
+    ({ firestore: { data } }: RootState) => {
       return data.userData;
     }
   )
@@ -22,7 +24,8 @@ const MessagingWrapper = ({children}) => {
   const [notificationsAuthorized, setNotificationsAuthorized] = useState(false)
 
   const sendToken = (token) => {
-    firestore.collection("users").doc(uid).update({
+    const ref = { collection: 'users', doc: uid }
+    firestore.update(ref, {
       messagingToken: token,
     }).catch(err => console.log(err));
   }

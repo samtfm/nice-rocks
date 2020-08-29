@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import ContactName from './ContactName';
 import colors from 'styles/colors';
+import { RootState } from 'reducers/rootReducer';
 
-const groupRocksByAttr = (rocks, attr) => {
+const groupRocksByAttr = (rocks : Array<any>, attr: string) => {
   const userGroupsMap = {}
   rocks.forEach(rock => {
     if (!userGroupsMap[rock[attr]]) {
@@ -18,15 +19,16 @@ const groupRocksByAttr = (rocks, attr) => {
     }
     userGroupsMap[rock[attr]].rocks.push(rock)
   })
-  return Object.values(userGroupsMap)
+  const groups : Array<{[attr: string]: string, rocks: any}> = Object.values(userGroupsMap)
+  return groups
 }
 
 const ReceivedRocks = () => {
-  const {uid} = useSelector(state => state.firebase.auth)
+  const {uid} = useSelector((state : RootState) => state.firebase.auth)
   const collectionPath = `profiles/${uid}/rocks`
   useFirestoreConnect(() => [ {collection: collectionPath, orderBy: ["timestamp", "desc"]} ])
   const rocks = useSelector(
-    ({ firestore }) => {
+    ({ firestore }: RootState) => {
       return firestore.ordered[collectionPath]
     }
   )

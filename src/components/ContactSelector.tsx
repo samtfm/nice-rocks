@@ -6,13 +6,14 @@ import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import functions from '@react-native-firebase/functions';
 import colors from 'styles/colors';
+import { RootState } from 'reducers/rootReducer';
+
 const searchUser = functions().httpsCallable('searchUser')
 
 const ContactSelector = ({ route }) => {
   const { targetScreen, outputIdParamName } = route.params
 
   const navigation = useNavigation();
-  const {uid} = useSelector(state => state.firebase.auth)
   const [newRecipientId, setNewRecipientId] = useState()
 
   useFirestoreConnect(() => [
@@ -22,22 +23,23 @@ const ContactSelector = ({ route }) => {
     }
   ])
   const newRecipient = useSelector(
-    ({ firestore: { data } }) => ( data.profiles && data.profiles[newRecipientId])
+    ({ firestore: { data } }: RootState) => ( data.profiles && data.profiles[newRecipientId])
   )
 
 
   const contacts = useSelector(
-    ({ firestore: { data } }) => {
+    ({ firestore: { data } }: RootState) => {
       return data.userData && data.userData.contacts;
     }
   )
 
-  let emailCheckTimeout = null;
+  let emailCheckTimeout : ReturnType<typeof setTimeout> | null = null;
+
   const onChangeEmailInput = inputText => {
     const email = inputText.toLowerCase()
     //simple regex to test if a string might be a valid email address
     if (/\S+@\S+\.\S+/.test(email)){
-      clearTimeout(emailCheckTimeout)
+      if (emailCheckTimeout) clearTimeout(emailCheckTimeout);
       emailCheckTimeout = setTimeout(() => {
         searchUser({'email': email}).then(response => {
             setNewRecipientId(response.data.userId);

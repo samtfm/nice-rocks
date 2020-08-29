@@ -1,9 +1,8 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { StyleSheet, View } from 'react-native';
 import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
 import '@react-native-firebase/functions';
@@ -21,7 +20,7 @@ import AuthLoaded from 'components/AuthLoaded'
 import ContactSelector from 'components/ContactSelector'
 import MessagingWrapper from 'components/MessagingWrapper'
 import colors from 'styles/colors';
-import rootReducer from 'reducers/rootReducer';
+import rootReducer, { RootState } from 'reducers/rootReducer';
 
 // react-redux-firebase config
 const rrfConfig = {
@@ -35,6 +34,20 @@ RNFirebase.functions() // <- needed if using httpsCallable
 
 // Create store with reducers and initial state
 const initialState = {}
+
+//TODO: replace above with something like this:
+// const initialState: RootState = {
+//   firestore: {
+//     data: {
+//     },
+//     errors: {},
+//     listenerers: {},
+//     ordered: {},
+//     queries: {},
+//     status: {},
+//   },
+// }
+
 const store = createStore(rootReducer, initialState)
 
 const rrfProps = {
@@ -88,7 +101,7 @@ const LoggedOutStack = () => {
 }
 
 const MainStack = () => {
-  const auth = useSelector(state => state.firebase.auth)
+  const auth = useSelector((state : RootState) => state.firebase.auth)
   return isEmpty(auth) ? (
     <LoggedOutStack/>
   ) : (

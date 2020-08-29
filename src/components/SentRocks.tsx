@@ -5,9 +5,10 @@ import Text from 'components/Text';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
 import colors from 'styles/colors';
+import { RootState } from 'reducers/rootReducer';
 
 const SentRocks = () => {
-  const {uid} = useSelector(state => state.firebase.auth)
+  const {uid} = useSelector((state: RootState) => state.firebase.auth)
 
   useFirestoreConnect(() => [ {
     collectionGroup: 'rocks',
@@ -17,7 +18,7 @@ const SentRocks = () => {
   }])
 
   const rocks = useSelector(
-    ({ firestore }) => {
+    ({ firestore }: RootState) => {
       return firestore.ordered['sentRocks'];
     }
   ) || []

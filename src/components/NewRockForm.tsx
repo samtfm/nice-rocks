@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { RootState } from 'reducers/rootReducer';
 
 const charLimits = {
   url: 1000,
@@ -30,7 +31,7 @@ const commonInputProps = {
 const NewRockForm = ({toUserId}) => {
   const navigation = useNavigation();
   const firestore = useFirestore();
-  const uid = useSelector(state => state.firebase.auth.uid);
+  const uid = useSelector((state: RootState) => state.firebase.auth.uid);
 
   const defaultForm = {
     title: '',
@@ -45,7 +46,8 @@ const NewRockForm = ({toUserId}) => {
 
   const sendRock = () => {
     setDisableSubmit(true);
-    firestore.collection("profiles").doc(toUserId).collection("rocks").add({
+    const ref = { collection: `profiles/${toUserId}/rocks` }
+    firestore.add(ref, {
         title: form.title,
         note: form.note,
         url: form.url,
@@ -128,7 +130,7 @@ const NewRockForm = ({toUserId}) => {
 
         <View style={styles.input}>
           <TextInput
-            style={styles.noteInput}
+            style={[styles.noteInput]}
             label="Note"
             onChangeText={note => updateForm({ note })}
             value={form.note}
