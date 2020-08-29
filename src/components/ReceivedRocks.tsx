@@ -18,7 +18,7 @@ const groupRocksByAttr = (rocks : Array<any>, attr: string): Array<RockGroup> =>
   rocks.forEach(rock => {
     if (!userGroupsMap[rock[attr]]) {
       userGroupsMap[rock[attr]] = {
-        [attr]: rock[attr],
+        attr: rock[attr],
         rocks: [],
       }
     }
