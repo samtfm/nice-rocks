@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderBottomColor: 'gray',
     borderBottomWidth: 1,
+    textTransform: 'lowercase',
   },
   newContact: {
     marginBottom: 10,

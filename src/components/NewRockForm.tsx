@@ -33,6 +33,19 @@ const commonInputProps = {
 const NewRockForm = ({toUserId}) => {
   const navigation = useNavigation();
   const firestore = useFirestore();
+
+  const [firstOpen, setFirstOpen] = useState(true)
+
+  if (!toUserId && firstOpen) {
+    setFirstOpen(false);
+    setTimeout(() => {
+      navigation.navigate(
+        'SelectContact',
+        { targetScreen: "ComposeRock", outputIdParamName: "toUserId" }
+      )
+    }, 400)
+  } 
+
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
 
   const defaultForm = {
