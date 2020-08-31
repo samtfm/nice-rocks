@@ -24,13 +24,6 @@ const defaultForm = {
 
 const commonInputProps = {
   // mode: 'outlined' as 'outlined',
-  theme: {
-    fonts: { regular: {
-      fontFamily: 'Bitter-Regular',
-      fontWeight: 'normal' as 'normal',
-    }},
-    colors: { primary: colors.blue },
-  },
   autoCompleteType: 'off' as 'off',
   dense: true,
 }

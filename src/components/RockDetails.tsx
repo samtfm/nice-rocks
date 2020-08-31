@@ -25,7 +25,6 @@ const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
         )}
         {timestamp && <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>}
       </View>
-      <View style={{height: 200}}><Text>HEY</Text></View>
       <ResponseForm />
     </View>
   );

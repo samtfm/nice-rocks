@@ -21,6 +21,24 @@ import ContactSelector from 'components/ContactSelector'
 import MessagingWrapper from 'components/MessagingWrapper'
 import colors from 'styles/colors';
 import rootReducer, { RootState } from 'reducers/rootReducer';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  fonts: { 
+    ...DefaultTheme.fonts,
+    regular: {
+      fontFamily: 'Bitter-Regular',
+      fontWeight: 'normal' as 'normal',
+    },
+  },
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.blue,
+    accent: colors.mint,
+  },
+};
 
 // react-redux-firebase config
 const rrfConfig = {
@@ -130,11 +148,13 @@ const App = () => {
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
-        <AuthLoaded>
-          <NavigationContainer>
-            <MainStack />
-          </NavigationContainer>
-        </AuthLoaded>
+        <PaperProvider theme={theme}>
+          <AuthLoaded>
+            <NavigationContainer>
+              <MainStack />
+            </NavigationContainer>
+          </AuthLoaded>
+        </PaperProvider>
       </ReactReduxFirebaseProvider>
     </Provider>
   );

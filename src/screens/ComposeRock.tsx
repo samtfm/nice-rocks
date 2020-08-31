@@ -6,7 +6,7 @@ const ComposeRock = ({route}) => {
   const toUserId = route && route.params && route.params.toUserId;
 
   return (
-    <ScrollView style={styles.main}>
+    <ScrollView keyboardShouldPersistTaps={'handled'} style={styles.main}>
       <NewRockForm toUserId={toUserId}/>
     </ScrollView>
   );

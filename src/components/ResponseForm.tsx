@@ -1,9 +1,7 @@
-import React, {useState, useEffect, useRef} from 'react';
-import Text from 'components/Text';
-import { StyleSheet, View, KeyboardAvoidingView, Button, Animated, LayoutAnimation, Platform, UIManager } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import React, {useState} from 'react';
+import { StyleSheet, View, KeyboardAvoidingView, LayoutAnimation, Platform, UIManager } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import colors from 'styles/colors';
-import { white } from 'react-native-paper/lib/typescript/src/styles/colors';
 
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -21,31 +19,6 @@ const ResponseForm = () => {
   const [responseText, setResponseText] = useState('');
   const [formVisible, setFormVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(true);
-  // const fadeAnim = useRef(new Animated.Value(0)).current 
-  // useEffect(() => {
-  //   if (isFocused){
-  //     Animated.timing(
-  //       fadeAnim,
-  //       {
-  //         toValue: 100,
-  //         duration: 1000,
-  //         useNativeDriver: true,
-  //       }
-  //     ).start()  
-  //   } else {
-  //     Animated.timing(
-  //       fadeAnim,
-  //       {
-  //         toValue: 0,
-  //         duration: 1000,
-  //         useNativeDriver: true,
-  //       }
-  //     ).start()
-  //   }
-  //   }, [isFocused, fadeAnim])
-
-  const [expanded, setExpanded] = useState(false);
-
   
   return (
     <KeyboardAvoidingView behavior={'position'}>
@@ -54,7 +27,7 @@ const ResponseForm = () => {
           <View style={styles.responseForm}>
           <TextInput 
             style={styles.input}
-            label="Title"
+            label="Note"
             onChangeText={text => setResponseText(text)}
             value={responseText}
             maxLength={1000}
@@ -69,27 +42,41 @@ const ResponseForm = () => {
             autoCompleteType={'off'}
             dense={true}
           />
-          <Button 
-            title="Send"
-            onPress={() => {
-              // do any un-animated changes first:
-              setTimeout(() => {
-                setButtonVisible(true);
-              }, 400)
-              // then:
-              setTimeout(()=>{
-                LayoutAnimation.configureNext(springAnimConfig)
-                setFormVisible(false)
-              },0);
-            }}
-          />
-
+          <View style={{flexDirection: 'row'}}>
+            <Button 
+              onPress={() => {
+                // do any un-animated changes first:
+                setTimeout(() => {
+                  setButtonVisible(true);
+                }, 400)
+                // then:
+                setTimeout(()=>{
+                  LayoutAnimation.configureNext(springAnimConfig)
+                  setFormVisible(false)
+                },0);
+              }}
+            >CANCEL</Button>
+            <Button 
+              mode='contained'
+              disabled={!Boolean(responseText)}
+              onPress={() => {
+                // do any un-animated changes first:
+                setTimeout(() => {
+                  setButtonVisible(true);
+                }, 400)
+                // then:
+                setTimeout(()=>{
+                  LayoutAnimation.configureNext(springAnimConfig)
+                  setFormVisible(false)
+                },0);
+              }}
+            >SEND</Button>
+          </View>
           </View>
         )}
       <View style={{position: 'relative', top: 0, zIndex: 0}}>
 
       {buttonVisible && <Button 
-        title="Respond"
         disabled={formVisible}
         onPress={() => {
           // do any un-animated changes first:
@@ -100,7 +87,7 @@ const ResponseForm = () => {
             setFormVisible(true)
           },100);
         }}
-      />}
+      >RESPOND</Button>}
       </View>
       </View>
     </KeyboardAvoidingView>
