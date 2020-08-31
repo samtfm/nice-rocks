@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ContactName from './ContactName';
-import { StyleSheet, View, Button, Pressable} from 'react-native';
+import { StyleSheet, View, Button, Pressable, Alert} from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
 import Text from 'components/Text';
 import { useFirestore } from "react-redux-firebase";
@@ -14,6 +14,12 @@ const charLimits = {
   url: 1000,
   note: 2000,
   title: 200,
+}
+
+const defaultForm = {
+  title: '',
+  note: '',
+  url: '',
 }
 
 const commonInputProps = {
@@ -35,7 +41,42 @@ const NewRockForm = ({toUserId}) => {
   const firestore = useFirestore();
 
   const [firstOpen, setFirstOpen] = useState(true)
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  
+  const [errorMessage, setErrorMessage] = useState('')
+  const [disableSubmit, setDisableSubmit] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [form, setForm] = useState(defaultForm);
 
+  const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
+
+  // Add warning before discarding unsaved rock
+  useEffect(() => (
+    navigation.addListener('beforeRemove', (e) => {
+      if (!hasUnsavedChanges) {
+        return;
+      }
+      // Prevent default behavior of leaving the screen
+      e.preventDefault();
+
+      // Prompt the user before leaving the screen
+      Alert.alert(
+        'Discard changes?',
+        'You have unsaved changes. Are you sure you want to discard them?',
+        [
+          { text: "Stay", style: 'cancel', onPress: () => {} },
+          {
+            text: 'Discard',
+            style: 'destructive',
+            onPress: () => navigation.dispatch(e.data.action),
+          },
+        ]
+      );
+    })),
+    [navigation, hasUnsavedChanges]
+  );
+
+  // Automatically open contact selector
   if (!toUserId && firstOpen) {
     setFirstOpen(false);
     setTimeout(() => {
@@ -45,19 +86,6 @@ const NewRockForm = ({toUserId}) => {
       )
     }, 400)
   } 
-
-  const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
-
-  const defaultForm = {
-    title: '',
-    note: '',
-    url: '',
-  }
-
-  const [errorMessage, setErrorMessage] = useState('')
-  const [disableSubmit, setDisableSubmit] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
-  const [form, setForm] = useState(defaultForm);
 
   const sendRock = () => {
     setDisableSubmit(true);
@@ -72,6 +100,7 @@ const NewRockForm = ({toUserId}) => {
       })
       .then(() => {
         setSubmitted(true);
+        setHasUnsavedChanges(false);
         setTimeout(() => {
           if (navigation.isFocused()){
             navigation.goBack();
@@ -83,23 +112,13 @@ const NewRockForm = ({toUserId}) => {
       });
   };
 
-  // TODO: React-native TextInputs have built in maxLength fields, so this maybe isn't necessary?
-  const validateCharLimits = (formData) => {
-    for (const [field, limit] of Object.entries(charLimits)) {
-      if (formData[field] && formData[field].length > limit){
-        setErrorMessage(`exceeded ${limit} character limit for ${field}`)
-        return false;
-      }
-    }
-    setErrorMessage('')
-    return true;
-  }
 
   const updateForm = updates => {
-    if (validateCharLimits(updates)){
-      setForm(Object.assign({}, form, updates))
-    }
+    const updated = Object.assign({}, form, updates)
+    if (updated.url || updated.title || updated.note) setHasUnsavedChanges(true);
+    setForm(updated)
   }
+
   const formIsReady = Boolean(form.title.length && form.note.length && toUserId)
   return (
     <View style={{backgroundColor: 'transparent'}}>
@@ -185,9 +204,7 @@ const styles = StyleSheet.create({
   selectContactText: {
     color: colors.blue,
     fontWeight: 'bold',
-    // fontSize: 18,
     textTransform: 'uppercase',
-    // backgroundColor: 'hsla(195, 100%, 45%)'
   },
   contactSelector: {
     marginLeft: 3,
