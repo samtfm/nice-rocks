@@ -5,10 +5,11 @@ import ContactName from './ContactName';
 import { relativeTimeFromEpoch } from 'util/time';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ResponseForm from './ResponseForm';
 
 const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
   return (
-    <View >
+    <View style={{flexDirection: 'column'}}>
       <Text>From: <ContactName id={fromUserId}/></Text>
       <View style={styles.rockItem}>
         <Text style={styles.title}>{title || url}</Text>
@@ -24,6 +25,8 @@ const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
         )}
         {timestamp && <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>}
       </View>
+      <View style={{height: 200}}><Text>HEY</Text></View>
+      <ResponseForm />
     </View>
   );
 }
