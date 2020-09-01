@@ -37,20 +37,10 @@ const ReceivedRocks = () => {
     }
   )
 
-  const groupedRocks = rocks ? groupRocksByAttr(rocks, "fromUserId") : []
   return (
     <ScrollView style={styles.main}>
       <Text style={styles.title}>Received</Text>
-      {groupedRocks.map(group => (
-        <View key={group.attr}>
-          <Text style={styles.groupHeader}>
-            <ContactName id={group.attr} />
-          </Text>
-          <View style={styles.listGroup}>
-            <RockList rocks={group.rocks} avatarIdKey={"fromUserId"}/>
-          </View>
-        </View>
-      ))}
+      <RockList rocks={rocks} avatarIdKey={"fromUserId"}/>
     </ScrollView>
   );
 }
