@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, Linking, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Linking, TouchableOpacity, LayoutAnimation } from 'react-native';
 import Text from 'components/Text';
 import ContactName from 'components/ContactName';
 import { relativeTimeFromEpoch } from 'util/time';
@@ -7,12 +7,41 @@ import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ResponseForm from './ResponseForm';
 import Response from './Response';
+import { RootState } from 'reducers/rootReducer';
+import { useSelector } from 'react-redux';
 
-const RockDetails = ({title, url, note, timestamp, fromUserId, toUserId}) => {
-  const response = {
-    reaction: "🤣" as string,
-    note: "Wow that's hilarious hilarioushilarious hilarioushilarious hilarioushilarious!" as string,
+interface RockDetails {
+  id: string
+  title: string
+  url: string
+  note: string
+  timestamp: any
+  fromUserId: string
+  toUserId: string
+  response?: {
+    reaction: string
+    note: string
+    timestamp: any
   }
+}
+
+const springAnimConfig = {
+  duration: 700,
+  create: { type: 'spring', property: 'scaleXY', springDamping: 1.2, duration: 500 },
+  update: { type: 'spring', springDamping: 1.2, duration: 500},
+  delete: { type: 'spring', property: 'scaleXY', springDamping: 1.2, duration: 500  },
+}
+
+const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, response}) => {
+  const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
+  const [showResponse, setShowResponse] = useState(Boolean(response))
+  useEffect(() => {
+    setTimeout(() => {
+      LayoutAnimation.configureNext(springAnimConfig)
+      setShowResponse(Boolean(response))
+    }, 200)
+  },[response])
+
   return (
     <View style={{flexDirection: 'column'}}>
       <Text>From: <ContactName id={fromUserId}/></Text>
@@ -30,10 +59,12 @@ const RockDetails = ({title, url, note, timestamp, fromUserId, toUserId}) => {
         )}
         {timestamp && <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>}
       </View>
-      {response ? (
+
+      {showResponse && response && (
         <Response {...response} fromUserId={toUserId} />
-      ) : (
-        <ResponseForm />
+      )}
+      {!showResponse && uid === toUserId && (
+        <ResponseForm profileId={toUserId} rockId={id} />
       )}
     </View>
   );

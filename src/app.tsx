@@ -22,6 +22,7 @@ import MessagingWrapper from 'components/MessagingWrapper'
 import colors from 'styles/colors';
 import rootReducer, { RootState } from 'reducers/rootReducer';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { Platform, UIManager } from 'react-native';
 
 const theme = {
   ...DefaultTheme,
@@ -39,6 +40,12 @@ const theme = {
     accent: colors.mint,
   },
 };
+
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 // react-redux-firebase config
 const rrfConfig = {

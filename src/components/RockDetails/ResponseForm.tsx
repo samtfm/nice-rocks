@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, KeyboardAvoidingView, LayoutAnimation, Platform, UIManager } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, LayoutAnimation } from 'react-native';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import ReactSelector from './ReactSelector';
-import { useFirebase } from 'react-redux-firebase';
-
-if (Platform.OS === 'android') {
-  if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true);
-  }
-}
+import { useFirestore } from 'react-redux-firebase';
 
 const springAnimConfig = {
   duration: 700,
@@ -16,14 +10,14 @@ const springAnimConfig = {
   update: { type: 'spring', springDamping: 1.2, duration: 500},
   delete: { type: 'spring', property: 'scaleXY', springDamping: 1.2, duration: 500  },
 }
-const ResponseForm = () => {
+const ResponseForm = ({profileId, rockId}) => {
   const [responseText, setResponseText] = useState('');
   const [formVisible, setFormVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(true);
   const [reaction, setReaction] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
-  const firebase = useFirebase()
+  const firestore = useFirestore()
 
 
   const onPressCancel = () => {
@@ -41,18 +35,15 @@ const ResponseForm = () => {
   const onPressSend = () => {
     setSending(true)
     setError('')
-    new Promise(function(resolve) {
-      setTimeout(resolve, 1000);
+
+    const ref = { collection: `profiles/${profileId}/rocks`, doc: rockId }
+    firestore.update(ref,{
+      response: {
+        note: responseText,
+        reaction: reaction,
+        timestamp: firestore.FieldValue.serverTimestamp(),
+      },
     }).then(() => {
-    
-    // const ref = `profiles/${}/rocks/${}`
-    // firebase.update(ref,{
-    //   response: {
-    //     note: responseText,
-    //     reaction: reaction,
-    //     timestamp????
-    //   }
-    // }).then(() => {
       LayoutAnimation.configureNext(springAnimConfig)
       setFormVisible(false)
       setSending(false)
