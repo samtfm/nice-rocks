@@ -3,12 +3,10 @@ import ReceivedRocks from 'components/ReceivedRocks'
 import SentRocks from 'components/SentRocks'
 import ComposeButton from 'components/ComposeButton'
 import { StyleSheet, View } from 'react-native';
-import Text from 'components/Text';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import colors from 'styles/colors';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const Home = () => {
 
@@ -16,16 +14,15 @@ const Home = () => {
     <View style={{flex:1}}>
       <Tab.Navigator
         initialRouteName="Received"
-        tabBarOptions={{
-          activeTintColor: colors.blue,
-        }}
-      >
+        activeColor={'hsl(126, 30%, 55%)'}
+        barStyle={{ backgroundColor: 'white' }}
+        >
         <Tab.Screen
           name="Received"
           options={{
-            tabBarLabel: '',
-            tabBarIcon: ({ color, size }) => (
-              <Label iconName={'home'} text={'Recieved'} {...{color, size}}/>
+            tabBarLabel: 'Received',
+            tabBarIcon: ({ color }) => (
+              <Icon style={styles.icon} name={'home'} color={color} size={26} />
             ),
           }}
           component={ReceivedRocks}
@@ -34,9 +31,9 @@ const Home = () => {
           name="Sent"
           component={SentRocks}
           options={{
-            tabBarLabel: '',
-            tabBarIcon: ({ color, size }) => (
-              <Label iconName={'cube-send'} text={'Sent'} {...{color, size}}/>
+            tabBarLabel: 'Sent',
+            tabBarIcon: ({ color }) => (
+              <Icon style={styles.icon} name={'cube-send'} color={color} size={26} />
             ),
           }}
         />
@@ -45,23 +42,11 @@ const Home = () => {
     </View>
   );
 }
-
-const Label = ({iconName, color, size, text}) => (
-  <View style={styles.label}>
-    <Icon name={iconName} color={color} size={size} />
-    <Text style={[styles.labelText, {color: color}]}>{text}</Text>
-  </View>
-)
-
 const styles = StyleSheet.create({
-  label: {
-    alignItems: 'center',
-  },
-  labelText: {
-    bottom: -14,
-    fontSize: 11,
-    position: 'absolute',
+  icon: {
+    width: 60,
+    alignSelf: 'flex-start',
   }
-});
+})
 
 export default Home;

@@ -40,7 +40,7 @@ const ReceivedRocks = () => {
   return (
     <ScrollView style={styles.main}>
       <Text style={styles.title}>Received</Text>
-      <RockList rocks={rocks} avatarIdKey={"fromUserId"}/>
+      {rocks && <RockList rocks={rocks} avatarIdKey={"fromUserId"}/>}
     </ScrollView>
   );
 }
