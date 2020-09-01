@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Text from 'components/Text';
-import ContactName from 'components/ContactName';
+import Avatar from 'components/Avatar';
+import { Surface } from 'react-native-paper';
 
 interface Response {
   reaction: string
@@ -11,54 +12,44 @@ interface Response {
 const Response = ({reaction, note, fromUserId}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.response}>
-        <Text style={styles.reaction}>{reaction}</Text>
-
-        <Text style={styles.note}>{note}</Text>
-        <View style={styles.avatarContainer}>
-          <Text>{"- "}<ContactName id={fromUserId}/>{" "}</Text>
-          <View style={styles.avatar}></View>
-        </View>
-      </View>
+      <Surface style={styles.response}>
+        <Avatar id={fromUserId} size={45}/>
+        <Text style={styles.stuff}>
+          <Text style={note ? styles.reaction : styles.reactionBig}>{`${reaction} `}</Text>
+          <Text style={styles.note}>{note}</Text>
+        </Text>
+      </Surface>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 20,
+    padding: 4,
   },
   response: {
-    borderRadius: 4,
+    elevation: 2,
+
     alignSelf: 'center',
+    padding: 12,
+    backgroundColor: 'hsl(36, 35%, 90%)',
+    borderRadius: 14,
+    flexDirection: 'row',
+  },
+  stuff: {
+    top: -4,
+    maxWidth: 200,
+    marginLeft: 6,
   },
   note: {
-    padding: 10,
-    maxWidth: 300,
-    backgroundColor: 'hsl(36, 35%, 90%)',
-    paddingBottom: 20,
-    borderRadius: 4,
-  },
-  avatarContainer: {
-    position: "absolute",
-    zIndex: 1,
-    right: 10,
-    bottom: -18,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 40,
-    backgroundColor: 'hsl(100, 29%, 80%)',
+    fontSize: 14,
+    left: 10,
   },
   reaction: {
-    position: "absolute",
-    zIndex: 1,
-    left: 20,
-    top: -18,
-    fontSize: 20,
+    fontSize: 22,
+  },
+  reactionBig: {
+    fontSize: 26,
   }
 });
 
