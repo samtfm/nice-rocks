@@ -16,7 +16,7 @@ const ViewRock = ({ route }) => {
   )
 
   return (
-    <View style={{flex:1, padding: 10}}>
+    <View style={{flex:1, paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
       <ScrollView keyboardShouldPersistTaps={'handled'}>
         {rock && <RockDetails {...rock} />}
       </ScrollView>
