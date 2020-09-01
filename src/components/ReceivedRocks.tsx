@@ -1,10 +1,9 @@
 import React from 'react';
 import RockList from './RockList'
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import Text from 'components/Text';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
-import ContactName from './ContactName';
 import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 
@@ -30,10 +29,15 @@ const groupRocksByAttr = (rocks : Array<any>, attr: string): Array<RockGroup> =>
 const ReceivedRocks = () => {
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
   const collectionPath = `profiles/${uid}/rocks`
-  useFirestoreConnect(() => [ {collection: collectionPath, orderBy: ["timestamp", "desc"]} ])
+  useFirestoreConnect(() => [{
+    collection: collectionPath,
+    where: ['response', '==', null],
+    orderBy: ["timestamp", "desc"],
+    storeAs: 'receivedRocks',
+  }])
   const rocks = useSelector(
     ({ firestore }: RootState) => {
-      return firestore.ordered[collectionPath]
+      return firestore.ordered['receivedRocks']
     }
   )
 
