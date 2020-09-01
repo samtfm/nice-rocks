@@ -88,9 +88,10 @@ const ResponseForm = ({profileId, rockId}) => {
         )}
       </KeyboardAvoidingView>
 
-        <View style={{position: 'relative', top: 0, zIndex: 0}}>
+        <View style={{alignSelf: 'center'}}>
         {buttonVisible && <Button 
           disabled={formVisible}
+          mode={'outlined'}
           onPress={() => {
             // do any un-animated changes first:
             setButtonVisible(false);
@@ -100,7 +101,7 @@ const ResponseForm = ({profileId, rockId}) => {
               setFormVisible(true)
             },100);
           }}
-        >RESPOND</Button>}
+        >Respond</Button>}
       </View>
     </View>
   )

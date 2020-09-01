@@ -9,6 +9,7 @@ import ResponseForm from './ResponseForm';
 import Response from './Response';
 import { RootState } from 'reducers/rootReducer';
 import { useSelector } from 'react-redux';
+import Avatar from 'components/Avatar';
 
 interface RockDetails {
   id: string
@@ -44,7 +45,10 @@ const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, res
 
   return (
     <View style={{flexDirection: 'column'}}>
-      <Text>From: <ContactName id={fromUserId}/></Text>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Avatar id={fromUserId} size={38} />
+        <ContactName style={{paddingLeft: 8}} id={fromUserId}/>
+      </View>
       <View style={styles.rockItem}>
         <Text style={styles.title}>{title || url}</Text>
         <Text style={styles.description}>{note}</Text>

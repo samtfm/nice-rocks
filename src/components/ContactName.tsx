@@ -6,7 +6,7 @@ import { RootState } from 'reducers/rootReducer';
 
 
 // in case the user isn't in the contacts list, pull the data from profile
-const ProfileName = ({id}) => {
+const ProfileName = ({style, id}) => {
   useFirestoreConnect(() => [
     {
       collection: "profiles",
@@ -20,13 +20,13 @@ const ProfileName = ({id}) => {
   )
 
   return (
-    <Text>
-    {(profile && profile.displayName) ? profile.displayName : ''}
+    <Text style={style}>
+      {(profile && profile.displayName) ? profile.displayName : ''}
     </Text>
   )
 }
 
-const ContactName = ({id}) => {
+const ContactName = ({style, id}) => {
   const contacts = useSelector(
     ({ firestore: { data } }: RootState) => {
       return data.userData.contacts;
@@ -34,9 +34,9 @@ const ContactName = ({id}) => {
   )
   if (!contacts || !id) {return null;}
   return contacts[id] ? (
-    <Text>{contacts[id].displayName}</Text>
+    <Text style={style}>{contacts[id].displayName}</Text>
   ) : (
-    <ProfileName id={id} />
+    <ProfileName style={style} id={id} />
   )
 }
 
