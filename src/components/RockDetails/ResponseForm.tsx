@@ -50,6 +50,7 @@ const ResponseForm = () => {
     //   response: {
     //     note: responseText,
     //     reaction: reaction,
+    //     timestamp????
     //   }
     // }).then(() => {
       LayoutAnimation.configureNext(springAnimConfig)

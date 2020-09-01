@@ -4,6 +4,7 @@ import { ScrollView, View } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import { RootState } from 'reducers/rootReducer';
+import colors from 'styles/colors';
 
 const ViewRock = ({ route }) => {
   const { rockId, toUserId } = route.params
@@ -16,7 +17,7 @@ const ViewRock = ({ route }) => {
   )
 
   return (
-    <View style={{flex:1, paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
+    <View style={{flex:1, paddingLeft: 10, paddingRight: 10, paddingTop: 10, backgroundColor: colors.beige}}>
       <ScrollView keyboardShouldPersistTaps={'handled'}>
         {rock && <RockDetails {...rock} />}
       </ScrollView>

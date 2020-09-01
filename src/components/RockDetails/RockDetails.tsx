@@ -1,13 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Linking, TouchableOpacity } from 'react-native';
 import Text from 'components/Text';
-import ContactName from './ContactName';
+import ContactName from 'components/ContactName';
 import { relativeTimeFromEpoch } from 'util/time';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ResponseForm from './ResponseForm';
+import Response from './Response';
 
-const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
+const RockDetails = ({title, url, note, timestamp, fromUserId, toUserId}) => {
+  const response = {
+    reaction: "🤣" as string,
+    note: "Wow that's hilarious hilarioushilarious hilarioushilarious hilarioushilarious!" as string,
+  }
   return (
     <View style={{flexDirection: 'column'}}>
       <Text>From: <ContactName id={fromUserId}/></Text>
@@ -25,7 +30,11 @@ const RockDetails = ({title, url, note, timestamp, fromUserId}) => {
         )}
         {timestamp && <Text style={styles.timestamp}>{relativeTimeFromEpoch(timestamp.seconds)}</Text>}
       </View>
-      <ResponseForm />
+      {response ? (
+        <Response {...response} fromUserId={toUserId} />
+      ) : (
+        <ResponseForm />
+      )}
     </View>
   );
 }
