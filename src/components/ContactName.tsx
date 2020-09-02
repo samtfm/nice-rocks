@@ -26,7 +26,12 @@ const ProfileName = ({style, id}) => {
   )
 }
 
-const ContactName = ({style, id}) => {
+interface ContactName {
+  style?: any,
+  id: string,
+}
+
+const ContactName = ({style, id}: ContactName) => {
   const contacts = useSelector(
     ({ firestore: { data } }: RootState) => {
       return data.userData.contacts;
@@ -34,9 +39,9 @@ const ContactName = ({style, id}) => {
   )
   if (!contacts || !id) {return null;}
   return contacts[id] ? (
-    <Text style={style}>{contacts[id].displayName}</Text>
+    <Text style={style || {}}>{contacts[id].displayName}</Text>
   ) : (
-    <ProfileName style={style} id={id} />
+    <ProfileName style={style || {}} id={id} />
   )
 }
 

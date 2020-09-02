@@ -40,7 +40,7 @@ const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, res
     setTimeout(() => {
       LayoutAnimation.configureNext(springAnimConfig)
       setShowResponse(Boolean(response))
-    }, 200)
+    }, 300)
   },[response])
 
   return (

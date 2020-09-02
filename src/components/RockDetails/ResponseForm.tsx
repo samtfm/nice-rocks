@@ -47,7 +47,7 @@ const ResponseForm = ({profileId, rockId}) => {
       LayoutAnimation.configureNext(springAnimConfig)
       setFormVisible(false)
       setSending(false)
-    }).catch(() => {
+    }, () => {
       setError("Error sending response")
       setSending(false)
     });

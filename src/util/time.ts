@@ -6,7 +6,7 @@ const WEEK = 60*60*24*7;
 const MONTH = 60*60*24*30.42;
 const YEAR = 60*60*24*365.25;
 
-export const relativeTimeFromEpoch = (epoch) => {
+export const relativeTimeFromEpoch = (epoch: number) : string => {
   const deltaSeconds = Math.floor((Date.now())*.001) - epoch
   if (deltaSeconds<MINUTE) {
     return "just now";

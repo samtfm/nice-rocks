@@ -99,7 +99,7 @@ const NewRockForm = ({toUserId}) => {
             navigation.goBack();
           }
         }, 1400)
-      }).catch(() => {
+      }, () => {
         setErrorMessage("Whoops, something went wrong. Maybe try that again?");
         setDisableSubmit(false);
       });
