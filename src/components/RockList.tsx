@@ -4,11 +4,14 @@ import { StyleSheet, View, Image } from 'react-native';
 import { useSelector } from 'react-redux'
 import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface RockListProps {
   rocks: Array<any>
   avatarIdKey: 'fromUserId' | 'toUserId'
 }
+
+
 const RockList = ({rocks, avatarIdKey}: RockListProps) => {
   const contacts = useSelector(
     ({ firestore: { data } }: RootState) => {
@@ -21,6 +24,9 @@ const RockList = ({rocks, avatarIdKey}: RockListProps) => {
       {rocks.map(rock => (
           rock && (
             <View key={rock.id} style={styles.listItem}>
+              {rock.response && (
+                <Icon style={styles.responseIndicator} name={'comment'} color={colors.darkMint} size={14} />
+              )}
               {avatarIdKey && contacts && rock[avatarIdKey] && contacts[rock[avatarIdKey]] && (
                 <Image
                   style={styles.avatar}
@@ -39,13 +45,17 @@ const RockList = ({rocks, avatarIdKey}: RockListProps) => {
   );
 }
 
+
 const styles = StyleSheet.create({
   listItem: {
     borderRadius: 5,
-    marginBottom: 8,
+    marginBottom: 10,
+    marginLeft: 10,
+    marginRight: 10,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.beige,
+
 
     //android
     elevation: 4,
@@ -66,6 +76,12 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 50,
     marginLeft: 10,
+  },
+
+  responseIndicator: {
+    position: 'absolute',
+    top: 2,
+    left: 2,
   },
 });
 

@@ -52,8 +52,6 @@ const ReceivedRocks = () => {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
     paddingTop: 10,
     backgroundColor: 'white',
   },
