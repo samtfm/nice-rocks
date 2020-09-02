@@ -6,6 +6,7 @@ import ComposeButton from 'components/ComposeButton'
 import { StyleSheet, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from 'styles/colors';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -15,9 +16,9 @@ const Home = () => {
     <View style={{flex:1}}>
       <Tab.Navigator
         initialRouteName="Received"
-        activeColor={'hsl(126, 30%, 55%)'}
+        activeColor={colors.darkMint}
         barStyle={{ backgroundColor: 'white' }}
-        >
+      >
         <Tab.Screen
           name="Archive"
           component={ArchivedRocks}

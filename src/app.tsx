@@ -23,6 +23,7 @@ import colors from 'styles/colors';
 import rootReducer, { RootState } from 'reducers/rootReducer';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Platform, UIManager } from 'react-native';
+import { navigationRef } from './RootNavigation';
 
 const theme = {
   ...DefaultTheme,
@@ -157,7 +158,7 @@ const App = () => {
       <ReactReduxFirebaseProvider {...rrfProps}>
         <PaperProvider theme={theme}>
           <AuthLoaded>
-            <NavigationContainer>
+            <NavigationContainer ref={navigationRef}>
               <MainStack />
             </NavigationContainer>
           </AuthLoaded>

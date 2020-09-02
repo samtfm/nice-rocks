@@ -5,6 +5,8 @@ import { Alert } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
 import messaging from '@react-native-firebase/messaging';
 import { RootState } from 'reducers/rootReducer';
+import * as RootNavigation from 'RootNavigation.js';
+
 
 const MessagingWrapper = ({children}) => {
   const firebase = useFirebase();
@@ -55,12 +57,29 @@ const MessagingWrapper = ({children}) => {
       )
     });
   })
+  
+  const viewRock = (rockId, profileId) => {
+    RootNavigation.navigate(
+      'ViewRock',
+      { rockId: rockId, toUserId: profileId },
+    )
+  }
+  
+  useEffect(() => (
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      if (remoteMessage.data && remoteMessage.data.type) {
+        if (['new-response', 'new-rock'].includes(remoteMessage.data.type)) {
+          const { rockId, profileId } = remoteMessage.data
+          viewRock(rockId, profileId)
+        }
+      }
+    })
+  ), []);
 
   useEffect(() => {
     const unsubscribe = firebase.messaging().onMessage(async remoteMessage => {
       remoteMessage.notification && Alert.alert(remoteMessage.notification.title, remoteMessage.notification.body);
     });
-
     return unsubscribe;
   }, []);
 
