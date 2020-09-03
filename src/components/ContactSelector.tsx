@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, TextInput, Pressable, View, ScrollView } from 'react-native';
+import { StyleSheet, Pressable, View, ScrollView } from 'react-native';
 import Text from 'components/Text';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux'
@@ -7,6 +7,7 @@ import functions from '@react-native-firebase/functions';
 import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 import ContactName from './ContactName';
+import { Searchbar, ProgressBar } from 'react-native-paper';
 
 const searchUser = functions().httpsCallable('searchUser')
 
@@ -21,7 +22,9 @@ const ContactSelector = ({ route }) => {
   const { targetScreen, outputIdParamName } = route.params
 
   const navigation = useNavigation();
-  const [newRecipientId, setNewRecipientId] = useState()
+  const [newRecipientId, setNewRecipientId] = useState<undefined | string>()
+  const [searchVal, setSearchVal] = useState('')
+  const [loading, setLoading] = useState(false);
 
 
   const contacts : Contacts = useSelector(
@@ -34,27 +37,33 @@ const ContactSelector = ({ route }) => {
 
   const onChangeEmailInput = inputText => {
     const email = inputText.toLowerCase()
+    setSearchVal(email)
     //simple regex to test if a string might be a valid email address
     if (/\S+@\S+\.\S+/.test(email)){
       if (emailCheckTimeout) clearTimeout(emailCheckTimeout);
+      setLoading(true)
       emailCheckTimeout = setTimeout(() => {
         searchUser({'email': email}).then(response => {
             setNewRecipientId(response.data.userId);
+            setLoading(false)
         });
-      }, 800);
+      }, 600);
     }
   }
 
   return (
     <View style={{backgroundColor: colors.beige}}>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="example@bestmail.net"
+      <View style={styles.searchBar}>
+
+      <Searchbar
+        placeholder="Search by email"
         onChangeText={onChangeEmailInput}
-        defaultValue={''}
         autoCompleteType="off"
+        value={searchVal}
         maxLength={254}
       />
+      <ProgressBar visible={loading} color={colors.mint} indeterminate/>
+      </View>
       <ScrollView style={styles.contactList}>
         {newRecipientId &&
           <View style={styles.newContact}>
@@ -96,12 +105,9 @@ const ContactSelector = ({ route }) => {
 
 const styles = StyleSheet.create({
   searchBar: {
-    paddingBottom: 8,
-    margin: 16,
+    marginLeft: 10,
+    marginRight: 10,
     marginTop: 20,
-    borderBottomColor: 'gray',
-    borderBottomWidth: 1,
-    textTransform: 'lowercase',
   },
   newContact: {
     marginBottom: 10,
