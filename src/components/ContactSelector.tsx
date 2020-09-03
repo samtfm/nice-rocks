@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, ReactElement} from 'react';
 import { StyleSheet, Pressable, View, ScrollView } from 'react-native';
 import Text from 'components/Text';
 import { useNavigation } from '@react-navigation/native';
@@ -18,7 +18,11 @@ interface Contacts {
   }
 }
 
-const ContactSelector = ({ route }) => {
+interface ContactSelector{
+  route: any
+}
+
+const ContactSelector = ({ route }: ContactSelector): ReactElement => {
   const { targetScreen, outputIdParamName } = route.params
 
   const navigation = useNavigation();
@@ -35,7 +39,7 @@ const ContactSelector = ({ route }) => {
 
   let emailCheckTimeout : ReturnType<typeof setTimeout> | null = null;
 
-  const onChangeEmailInput = inputText => {
+  const onChangeEmailInput = (inputText: string) => {
     const email = inputText.toLowerCase()
     setSearchVal(email)
     //simple regex to test if a string might be a valid email address

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, ReactElement } from 'react';
 import { StyleSheet, View, Pressable, Animated } from 'react-native';
 import Text from 'components/Text';
 
@@ -10,7 +10,14 @@ const springVals = {
   mass: .3,
   useNativeDriver: true
 }
-const ReactionOption = ({selected, text, fullSize})=> {
+
+interface ReactionOption {
+  selected: boolean
+  text: string
+  fullSize: number
+}
+
+const ReactionOption = ({selected, text, fullSize}: ReactionOption): ReactElement=> {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   
   const fadeIn = () => {
@@ -51,10 +58,14 @@ const ReactionOption = ({selected, text, fullSize})=> {
   )
 }
 
-const ReactSelector = ({onSelect}) => {
+interface ReactionSelector {
+  onSelect: (text: string) => void
+}
+
+const ReactionSelector = ({onSelect}: ReactionSelector): ReactElement => {
   const [selectedEmoji, setSelectedEmoji] = useState('');
   
-  const select = (emoji) => {
+  const select = (emoji: string) => {
     setSelectedEmoji(emoji);
     onSelect(emoji)
   }
@@ -98,4 +109,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ReactSelector;
+export default ReactionSelector;

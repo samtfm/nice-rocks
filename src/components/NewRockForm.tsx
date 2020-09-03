@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import ContactName from './ContactName';
 import { StyleSheet, View, Button, Pressable, Alert} from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
@@ -21,15 +21,21 @@ const defaultForm = {
   note: '',
   url: '',
 }
+interface FormUpdate{
+  title?: string,
+  note?: string,
+  url?: string,
+}
 
 const commonInputProps = {
-  // mode: 'outlined' as 'outlined',
-  autoCompleteType: 'off' as 'off',
+  autoCompleteType: 'off' as const,
   dense: true,
 }
 
-
-const NewRockForm = ({toUserId}) => {
+interface NewRockForm{
+  toUserId: string
+}
+const NewRockForm = ({toUserId}: NewRockForm): ReactElement => {
   const navigation = useNavigation();
   const firestore = useFirestore();
 
@@ -57,7 +63,7 @@ const NewRockForm = ({toUserId}) => {
         'Discard changes?',
         'You have unsaved changes. Are you sure you want to discard them?',
         [
-          { text: "Stay", style: 'cancel', onPress: () => {} },
+          { text: "Stay", style: 'cancel' },
           {
             text: 'Discard',
             style: 'destructive',
@@ -106,7 +112,7 @@ const NewRockForm = ({toUserId}) => {
   };
 
 
-  const updateForm = updates => {
+  const updateForm = (updates: FormUpdate) => {
     const updated = Object.assign({}, form, updates)
     if (updated.url || updated.title || updated.note) setHasUnsavedChanges(true);
     setForm(updated)

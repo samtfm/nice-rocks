@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
 import { FAB } from 'react-native-paper';
 
-const ComposeButton = () => {
+const ComposeButton = (): ReactElement => {
   const navigation = useNavigation();
 
   return <FAB

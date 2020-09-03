@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import Text from 'components/Text';
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { RootState } from 'reducers/rootReducer';
 
-
+interface ProfileName {
+  style: any
+  id: string
+}
 // in case the user isn't in the contacts list, pull the data from profile
-const ProfileName = ({style, id}) => {
+const ProfileName = ({style, id}: ProfileName): ReactElement => {
   useFirestoreConnect(() => [
     {
       collection: "profiles",

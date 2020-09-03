@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Text from 'components/Text';
 import Avatar from 'components/Avatar';
@@ -7,9 +7,10 @@ import { Surface } from 'react-native-paper';
 interface Response {
   reaction: string
   note: string
+  fromUserId: string,
 }
 
-const Response = ({reaction, note, fromUserId}) => {
+const Response = ({reaction, note, fromUserId}: Response): ReactElement => {
   return (
     <View style={styles.container}>
       <Surface style={styles.response}>

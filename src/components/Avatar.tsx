@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { useSelector } from 'react-redux'
 import { RootState } from 'reducers/rootReducer';
 import { Avatar as PaperAvatar } from 'react-native-paper';
@@ -7,7 +7,7 @@ interface AvatarProps {
   size: number,
 }
 
-const Avatar = ({id, size}: AvatarProps) => {
+const Avatar = ({id, size}: AvatarProps): ReactElement => {
   const contacts = useSelector(
     ({ firestore: { data } }: RootState) => {
       return data.userData.contacts

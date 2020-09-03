@@ -6,7 +6,11 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'reducers/rootReducer';
 import colors from 'styles/colors';
 
-const ViewRock = ({ route }) => {
+interface ViewRock{
+  route: any
+}
+
+const ViewRock = ({ route }: ViewRock) => {
   const { rockId, toUserId } = route.params
   const collectionPath = `profiles/${toUserId}/rocks`
   useFirestoreConnect(() => [{collection: collectionPath, doc: rockId, storeAs: `profiles/${toUserId}/rocks/${rockId}`}])

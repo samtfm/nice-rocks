@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, ReactElement} from 'react';
 import { StyleSheet, View, KeyboardAvoidingView, LayoutAnimation } from 'react-native';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import ReactSelector from './ReactSelector';
@@ -10,7 +10,12 @@ const springAnimConfig = {
   update: { type: 'spring', springDamping: 1.2, duration: 500},
   delete: { type: 'spring', property: 'scaleXY', springDamping: 1.2, duration: 500  },
 }
-const ResponseForm = ({profileId, rockId}) => {
+
+interface ResponseForm {
+  profileId: string,
+  rockId: string,
+}
+const ResponseForm = ({profileId, rockId} : ResponseForm) : ReactElement => {
   const [responseText, setResponseText] = useState('');
   const [formVisible, setFormVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(true);

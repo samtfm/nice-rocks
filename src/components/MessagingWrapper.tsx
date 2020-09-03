@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
@@ -8,7 +8,7 @@ import { RootState } from 'reducers/rootReducer';
 import * as RootNavigation from 'RootNavigation.js';
 
 
-const MessagingWrapper = ({children}) => {
+const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement => {
   const firebase = useFirebase();
   const firestore = useFirestore();
   const uid = firebase.auth().currentUser.uid;
@@ -22,13 +22,13 @@ const MessagingWrapper = ({children}) => {
 
   const [notificationsAuthorized, setNotificationsAuthorized] = useState(false)
 
-  const sendToken = (token) => {
+  const sendToken = (token: string) => {
     const ref = { collection: 'users', doc: uid }
     firestore.update(ref, {
       messagingToken: token,
     }).catch(err => console.log(err));
   }
-  const ensureMessagingToken = (token) => {
+  const ensureMessagingToken = (token: string) => {
     if (!userData || !notificationsAuthorized) { return }
 
     if (!userData.messagingToken) {
@@ -50,7 +50,7 @@ const MessagingWrapper = ({children}) => {
   }
 
   useEffect(() => {
-    firebase.messaging().requestPermission().then(authStatus => {
+    firebase.messaging().requestPermission().then((authStatus: number) => {
       setNotificationsAuthorized(
         authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
         authStatus === messaging.AuthorizationStatus.PROVISIONAL
@@ -58,7 +58,7 @@ const MessagingWrapper = ({children}) => {
     });
   })
   
-  const viewRock = (rockId, profileId) => {
+  const viewRock = (rockId: string, profileId: string) => {
     RootNavigation.navigate(
       'ViewRock',
       { rockId: rockId, toUserId: profileId },
@@ -77,19 +77,19 @@ const MessagingWrapper = ({children}) => {
   ), []);
 
   useEffect(() => {
-    const unsubscribe = firebase.messaging().onMessage(async remoteMessage => {
+    const unsubscribe = firebase.messaging().onMessage(async (remoteMessage: any) => {
       remoteMessage.notification && Alert.alert(remoteMessage.notification.title, remoteMessage.notification.body);
     });
     return unsubscribe;
   }, []);
 
   useEffect(() => {
-    firebase.messaging().getToken().then(token => {
+    firebase.messaging().getToken().then((token: string) => {
       ensureMessagingToken(token);
     })
   }, [userData]);
 
-  firebase.messaging().onTokenRefresh(token => {
+  firebase.messaging().onTokenRefresh((token: string) => {
     ensureMessagingToken(token);
   })
   return <>{userData && children}</>

@@ -2,7 +2,11 @@ import React from 'react';
 import NewRockForm from 'components/NewRockForm'
 import { StyleSheet, ScrollView } from 'react-native';
 
-const ComposeRock = ({route}) => {
+interface ComposeRock{
+  route: any
+}
+
+const ComposeRock = ({route}: ComposeRock) => {
   const toUserId = route && route.params && route.params.toUserId;
 
   return (

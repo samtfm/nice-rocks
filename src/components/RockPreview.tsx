@@ -6,7 +6,21 @@ import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const RockPreview = ({title, url, note, timestamp, toUserId, id}) => {
+interface TimeStamp {
+  seconds: number,
+  nanoseconds: number,
+}
+interface RockPreview {
+  id: string
+  title: string
+  url: string
+  note: string
+  timestamp: TimeStamp
+  fromUserId: string
+  toUserId: string
+}
+
+const RockPreview = ({title, url, note, timestamp, toUserId, id}: RockPreview) => {
   const navigation = useNavigation();
 
   return (

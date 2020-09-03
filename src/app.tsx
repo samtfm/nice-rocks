@@ -32,7 +32,7 @@ const theme = {
     ...DefaultTheme.fonts,
     regular: {
       fontFamily: 'Bitter-Regular',
-      fontWeight: 'normal' as 'normal',
+      fontWeight: 'normal' as const,
     },
   },
   colors: {

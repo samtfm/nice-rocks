@@ -24,7 +24,7 @@ const Home = () => {
           component={ArchivedRocks}
           options={{
             tabBarLabel: 'Archive',
-            tabBarIcon: ({ color }) => (
+            tabBarIcon: ({ color }: {color: string}) => (
               <Icon style={styles.icon} name={'archive'} color={color} size={26} />
             ),
           }}
@@ -33,7 +33,7 @@ const Home = () => {
           name="Received"
           options={{
             tabBarLabel: 'Received',
-            tabBarIcon: ({ color }) => (
+            tabBarIcon: ({ color }: {color: string}) => (
               <Icon style={styles.icon} name={'home'} color={color} size={26} />
             ),
           }}
@@ -44,7 +44,7 @@ const Home = () => {
           component={SentRocks}
           options={{
             tabBarLabel: 'Sent',
-            tabBarIcon: ({ color }) => (
+            tabBarIcon: ({ color }: {color: string}) => (
               <Icon style={styles.icon} name={'cube-send'} color={color} size={26} />
             ),
           }}

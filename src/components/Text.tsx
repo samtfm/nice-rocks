@@ -1,5 +1,5 @@
-import React from "react";
-import { Text } from "react-native";
+import React, { ReactElement } from "react";
+import { Text as ReactNativeText } from "react-native";
 import colors from 'styles/colors';
 
 export const textStyles = {
@@ -7,13 +7,13 @@ export const textStyles = {
   color: colors.gray20,
 };
 
-export interface Props {
+export interface Text {
   style?: any;
   [x:string]: any;
 }
 
-const MyText: React.FC<Props> = ({style, ...props}) => (
-  <Text {...props} style={[textStyles, style]} />
+const Text = ({style, ...props}: Text): ReactElement => (
+  <ReactNativeText {...props} style={[textStyles, style]} />
 );
 
-export default MyText;
+export default Text;
