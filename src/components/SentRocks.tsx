@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import RockList from './RockList'
 import { StyleSheet, View, ScrollView} from 'react-native';
 import Text from 'components/Text';
@@ -7,7 +7,7 @@ import { useFirestoreConnect } from 'react-redux-firebase'
 import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 
-const SentRocks = () => {
+const SentRocks = (): ReactElement => {
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
 
   useFirestoreConnect(() => [ {

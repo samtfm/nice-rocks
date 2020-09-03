@@ -5,7 +5,7 @@ import { Alert } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
 import messaging from '@react-native-firebase/messaging';
 import { RootState } from 'reducers/rootReducer';
-import * as RootNavigation from 'RootNavigation.js';
+import * as RootNavigation from 'RootNavigation';
 
 
 const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement => {

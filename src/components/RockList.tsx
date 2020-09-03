@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import RockPreview from './RockPreview'
 import { StyleSheet, View, Image } from 'react-native';
 import { useSelector } from 'react-redux'
@@ -6,13 +6,33 @@ import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+interface TimeStamp {
+  seconds: number,
+  nanoseconds: number,
+}
+
+interface RockDetails {
+  id: string
+  title: string
+  url: string
+  note: string
+  timestamp: TimeStamp
+  fromUserId: string
+  toUserId: string
+  response?: {
+    reaction: string
+    note: string
+    timestamp: TimeStamp
+  }
+}
+
 interface RockListProps {
-  rocks: Array<any>
+  rocks: Array<RockDetails>
   avatarIdKey: 'fromUserId' | 'toUserId'
 }
 
 
-const RockList = ({rocks, avatarIdKey}: RockListProps) => {
+const RockList = ({rocks, avatarIdKey}: RockListProps): ReactElement => {
   const contacts = useSelector(
     ({ firestore: { data } }: RootState) => {
       return data.userData.contacts

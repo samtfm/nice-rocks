@@ -5,7 +5,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "lint": "eslint src",
-    "test": "jest"
+    "typecheck": "tsc",
+    "test": "jest && npm run typecheck && npm run lint"
   },
   "dependencies": {
     "@react-native-community/cli": "^4.12.0",

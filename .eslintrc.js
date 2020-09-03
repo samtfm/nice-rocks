@@ -6,7 +6,7 @@ module.exports = {
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -25,5 +25,11 @@ module.exports = {
     ],
     "rules": {
         '@typescript-eslint/no-explicit-any': 0,
-    }
+        'react/display-name': 0,
+    },
+    "settings": {
+        "react": {
+          "version": "detect", // React version. "detect" automatically picks the version you have installed.
+        },
+    }    
 };

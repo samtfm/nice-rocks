@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import RockDetails from 'components/RockDetails'
 import { ScrollView, View } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
@@ -10,7 +10,7 @@ interface ViewRock{
   route: any
 }
 
-const ViewRock = ({ route }: ViewRock) => {
+const ViewRock = ({ route }: ViewRock): ReactElement => {
   const { rockId, toUserId } = route.params
   const collectionPath = `profiles/${toUserId}/rocks`
   useFirestoreConnect(() => [{collection: collectionPath, doc: rockId, storeAs: `profiles/${toUserId}/rocks/${rockId}`}])

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import RockList from './RockList'
 import { StyleSheet, ScrollView } from 'react-native';
 import Text from 'components/Text';
@@ -7,26 +7,7 @@ import { useFirestoreConnect } from 'react-redux-firebase'
 import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 
-interface RockGroup {
-  attr: string
-  rocks: Array<any>
-}  
-
-const groupRocksByAttr = (rocks : Array<any>, attr: string): Array<RockGroup> => {
-  const userGroupsMap = {}
-  rocks.forEach(rock => {
-    if (!userGroupsMap[rock[attr]]) {
-      userGroupsMap[rock[attr]] = {
-        attr: rock[attr],
-        rocks: [],
-      }
-    }
-    userGroupsMap[rock[attr]].rocks.push(rock)
-  })
-  return Object.values(userGroupsMap)
-}
-
-const ReceivedRocks = () => {
+const ReceivedRocks = (): ReactElement => {
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
   const collectionPath = `profiles/${uid}/rocks`
   useFirestoreConnect(() => [{

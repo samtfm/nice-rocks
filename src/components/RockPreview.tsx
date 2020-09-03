@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { StyleSheet, View, Pressable } from 'react-native';
 import Text from 'components/Text';
 import { relativeTimeFromEpoch } from 'util/time';
@@ -20,7 +20,7 @@ interface RockPreview {
   toUserId: string
 }
 
-const RockPreview = ({title, url, note, timestamp, toUserId, id}: RockPreview) => {
+const RockPreview = ({title, url, note, timestamp, toUserId, id}: RockPreview): ReactElement => {
   const navigation = useNavigation();
 
   return (

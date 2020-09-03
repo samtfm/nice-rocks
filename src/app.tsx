@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -90,7 +90,7 @@ const screenOptions = {
   headerStyle: { backgroundColor: colors.mint },
 }
 
-const LoggedInStack = () => {
+const LoggedInStack = (): ReactElement => {
   return (
     <MainNav.Navigator
       initialRouteName="Home"
@@ -114,7 +114,7 @@ const LoggedInStack = () => {
     </MainNav.Navigator>
   )
 }
-const LoggedOutStack = () => {
+const LoggedOutStack = (): ReactElement => {
   return (
     <MainNav.Navigator initialRouteName="Login" screenOptions={screenOptions}>
       <MainNav.Screen
@@ -126,7 +126,7 @@ const LoggedOutStack = () => {
   )
 }
 
-const MainStack = () => {
+const MainStack = (): ReactElement => {
   const auth = useSelector((state : RootState) => state.firebase.auth)
   return isEmpty(auth) ? (
     <LoggedOutStack/>
@@ -152,7 +152,7 @@ const MainStack = () => {
 }
 
 
-const App = () => {
+const App = (): ReactElement => {
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>

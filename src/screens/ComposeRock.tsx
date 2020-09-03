@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import NewRockForm from 'components/NewRockForm'
 import { StyleSheet, ScrollView } from 'react-native';
 
@@ -6,7 +6,7 @@ interface ComposeRock{
   route: any
 }
 
-const ComposeRock = ({route}: ComposeRock) => {
+const ComposeRock = ({route}: ComposeRock): ReactElement => {
   const toUserId = route && route.params && route.params.toUserId;
 
   return (

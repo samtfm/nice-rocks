@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import ReceivedRocks from 'components/ReceivedRocks'
 import SentRocks from 'components/SentRocks'
 import ArchivedRocks from 'components/ArchivedRocks'
@@ -10,7 +10,7 @@ import colors from 'styles/colors';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const Home = () => {
+const Home = (): ReactElement => {
 
   return (
     <View style={{flex:1}}>

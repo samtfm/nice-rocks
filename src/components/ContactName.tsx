@@ -34,13 +34,13 @@ interface ContactName {
   id: string,
 }
 
-const ContactName = ({style, id}: ContactName) => {
+const ContactName = ({style, id}: ContactName): ReactElement => {
   const contacts = useSelector(
     ({ firestore: { data } }: RootState) => {
       return data.userData.contacts;
     }
   )
-  if (!contacts || !id) {return null;}
+  if (!contacts || !id) {return <></>;}
   return contacts[id] ? (
     <Text style={style || {}}>{contacts[id].displayName}</Text>
   ) : (

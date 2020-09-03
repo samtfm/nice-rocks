@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 import { StyleSheet, View, Button, ActivityIndicator} from 'react-native';
 import { HelperText } from 'react-native-paper';
 
@@ -17,7 +17,7 @@ GoogleSignin.configure(googleSignConfiguration);
 
 
 
-const Login = () => {
+const Login = (): ReactElement => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   async function onGoogleButtonPress() {
