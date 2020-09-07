@@ -34,8 +34,10 @@ const commonInputProps = {
 
 interface NewRockForm{
   toUserId: string
+  title?: string
+  url?: string
 }
-const NewRockForm = ({toUserId}: NewRockForm): ReactElement => {
+const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
   const navigation = useNavigation();
   const firestore = useFirestore();
 
@@ -45,7 +47,11 @@ const NewRockForm = ({toUserId}: NewRockForm): ReactElement => {
   const [errorMessage, setErrorMessage] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [form, setForm] = useState(defaultForm);
+  const [form, setForm] = useState({
+    title: title ? title : '',
+    url: url ? url : '',
+    note: '',
+  });
 
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
 

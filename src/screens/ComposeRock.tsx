@@ -8,10 +8,13 @@ interface ComposeRock{
 
 const ComposeRock = ({route}: ComposeRock): ReactElement => {
   const toUserId = route && route.params && route.params.toUserId;
+  const title = route && route.params && route.params.title;
+  const url = route && route.params && route.params.url;
+
 
   return (
     <ScrollView keyboardShouldPersistTaps={'handled'} style={styles.main}>
-      <NewRockForm toUserId={toUserId}/>
+      <NewRockForm toUserId={toUserId} title={title} url={url} />
     </ScrollView>
   );
 }

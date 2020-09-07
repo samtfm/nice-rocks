@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import Text from 'components/Text';
 import Avatar from 'components/Avatar';
 import { Surface } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from 'styles/colors';
 
 interface Response {
   reaction: string
