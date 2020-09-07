@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   main: {
     flex:1,
     padding: 10,
-    backgroundColor: 'white',
   },
 });
 

@@ -16,8 +16,9 @@ const Home = (): ReactElement => {
     <View style={{flex:1}}>
       <Tab.Navigator
         initialRouteName="Received"
-        activeColor={colors.darkMint}
-        barStyle={{ backgroundColor: 'white' }}
+        activeColor={colors.primaryDark}
+        inactiveColor={colors.gray60}
+        barStyle={{ backgroundColor: 'white', /* elevation: 0, */ }}
       >
         <Tab.Screen
           name="Archive"

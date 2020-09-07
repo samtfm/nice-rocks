@@ -45,7 +45,7 @@ const RockList = ({rocks, avatarIdKey}: RockListProps): ReactElement => {
           rock && (
             <View key={rock.id} style={styles.listItem}>
               {rock.response && (
-                <Icon style={styles.responseIndicator} name={'comment'} color={colors.darkMint} size={14} />
+                <Icon style={styles.responseIndicator} name={'comment'} color={colors.primary} size={14} />
               )}
               {avatarIdKey && contacts && rock[avatarIdKey] && contacts[rock[avatarIdKey]] && (
                 <Image

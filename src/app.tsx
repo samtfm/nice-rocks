@@ -24,6 +24,7 @@ import rootReducer, { RootState } from 'reducers/rootReducer';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Platform, UIManager } from 'react-native';
 import { navigationRef } from './RootNavigation';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const theme = {
   ...DefaultTheme,
@@ -37,8 +38,8 @@ const theme = {
   },
   colors: {
     ...DefaultTheme.colors,
-    primary: colors.blue,
-    accent: colors.mint,
+    primary: colors.primary,
+    accent: colors.blue,
   },
 };
 
@@ -87,7 +88,19 @@ const rrfProps = {
 const MainNav = createStackNavigator();
 const ModalNav = createStackNavigator();
 const screenOptions = {
-  headerStyle: { backgroundColor: colors.mint },
+  headerStyle: { backgroundColor: colors.primaryLight},
+  cardStyle: { backgroundColor: 'white' },
+}
+
+const Hamburger = ({navigation}: any): ReactElement => {
+  return (
+    <Icon 
+      style={{marginLeft: 6}}
+      name="menu" 
+      size={35} 
+      // onPress={ () => navigation.navigate('DrawerOpen') } 
+    />
+  )
 }
 
 const LoggedInStack = (): ReactElement => {
@@ -99,7 +112,13 @@ const LoggedInStack = (): ReactElement => {
       <MainNav.Screen
         name="Home"
         component={Home}
-        options={{ title: 'My collection' }}
+        options={{ 
+          title: 'My collection',
+          // headerStyle: { backgroundColor: 'white'},
+          // headerLeft: Hamburger,
+          // headerRight: () =>  <AvatarMenu uid={uid} />,
+         }}
+         
       />
       <MainNav.Screen
         name="ComposeRock"

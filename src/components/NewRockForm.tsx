@@ -178,7 +178,7 @@ const NewRockForm = ({toUserId}: NewRockForm): ReactElement => {
 
         {submitted && (
           <View style={styles.successOverlay}>
-            <Icon name={'check'} color={colors.mint} size={42} />
+            <Icon name={'check'} color={colors.primary} size={42} />
           </View>
         )}
       </View>
