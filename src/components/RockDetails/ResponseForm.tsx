@@ -3,6 +3,7 @@ import { StyleSheet, View, KeyboardAvoidingView, LayoutAnimation } from 'react-n
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import ReactSelector from './ReactSelector';
 import { useFirestore } from 'react-redux-firebase';
+import colors from 'styles/colors';
 
 const springAnimConfig = {
   duration: 700,
@@ -81,12 +82,14 @@ const ResponseForm = ({profileId, rockId} : ResponseForm) : ReactElement => {
             <View style={styles.buttons}>
               <Button 
                 onPress={onPressCancel}
+                color={colors.gray50}
               >CANCEL</Button>
               <Button 
-                mode='contained'
+                mode='outlined'
                 disabled={!(responseText || reaction) || sending}
                 loading={sending}
                 onPress={onPressSend}
+                color={colors.blue}
               >SEND</Button>
             </View>
           </View>
@@ -97,6 +100,7 @@ const ResponseForm = ({profileId, rockId} : ResponseForm) : ReactElement => {
         {buttonVisible && <Button 
           disabled={formVisible}
           mode={'outlined'}
+          color={colors.blue}
           onPress={() => {
             // do any un-animated changes first:
             setButtonVisible(false);
@@ -122,7 +126,8 @@ const styles = StyleSheet.create({
   responseForm: {
     padding: 10,
     backgroundColor: 'white',
-    width: 300,
+    width: '85%',
+    maxWidth: 400,
     borderRadius: 4,
     justifyContent: 'space-around',
     marginBottom: 10,
