@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RootState } from 'reducers/rootReducer';
+import { OpenGraphParser } from 'react-native-opengraph-kit';
 
 const charLimits = {
   url: 1000,
@@ -124,6 +125,28 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
     setForm(updated)
   }
 
+  const trunc = (str: string, len: length): string => {
+    if (str.length <= len) return str;
+    return str.slice(0,len-3)+'...'
+  }
+
+  const updateUrl = (text: string) => {
+    const url = text.replace(/(\r\n|\n|\r)/gm, "")
+    updateForm({url: url})
+    OpenGraphParser.extractMeta(url)
+    .then((data: any) => {
+      if (!data[0]) return;
+      console.log(data[0].title)
+      if (data[0].title){
+        console.log(data[0].title)
+        updateForm({title: trunc(data[0].title, charLimits.title), url: url})
+      }
+    })
+    .catch(() => {
+      // ignore errors
+    });
+  }
+
   const formIsReady = Boolean(form.title.length && form.note.length && toUserId)
   return (
     <View style={{backgroundColor: 'transparent'}}>
@@ -148,7 +171,7 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
         <TextInput
           style={[styles.input, styles.urlInput]}
           label="URL (optional)"
-          onChangeText={url => updateForm({ url: url.replace(/(\r\n|\n|\r)/gm, "") })}
+          onChangeText={updateUrl}
           value={form.url}
           maxLength={charLimits.url}
           multiline
