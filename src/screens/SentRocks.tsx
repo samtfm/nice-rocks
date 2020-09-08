@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import RockList from './RockList'
+import RockList from 'components/RockList'
 import { StyleSheet, View, ScrollView} from 'react-native';
 import Text from 'components/Text';
 import { useSelector } from 'react-redux'

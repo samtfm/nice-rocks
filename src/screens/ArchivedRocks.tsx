@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
-import RockList from './RockList'
-import { StyleSheet, ScrollView } from 'react-native';
+import RockList from 'components/RockList'
+import { StyleSheet, View, ScrollView} from 'react-native';
 import Text from 'components/Text';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
@@ -9,22 +9,24 @@ import { RootState } from 'reducers/rootReducer';
 import { Button } from 'react-native-paper';
 
 const ITEMS_PER_PAGE = 10
-const ReceivedRocks = (): ReactElement => {
+const ArchivedRocks = (): ReactElement => {
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
   const collectionPath = `profiles/${uid}/rocks`
   const [limit, setLimit] = useState(ITEMS_PER_PAGE)
-  
-  useFirestoreConnect(() => [{
+
+  useFirestoreConnect(() => [ {
     collection: collectionPath,
-    where: ['response', '==', null],
-    orderBy: ["timestamp", "desc"],
-    storeAs: 'receivedRocks',
+    orderBy: [
+      ["timestamp", "desc"],
+      ["response.timestamp", "desc"],
+    ],
+    storeAs: 'archivedRocks',
     limit: limit+1,
-  }])
-  
+  }]);
+
   const rocks = useSelector(
     ({ firestore }: RootState) => {
-      return firestore.ordered['receivedRocks']
+      return firestore.ordered['archivedRocks'];
     }
   ) || []
 
@@ -32,17 +34,19 @@ const ReceivedRocks = (): ReactElement => {
   const showMoreButton = rocks.length == limit+1
 
   return (
-    <ScrollView style={styles.main}>
-      <Text style={styles.title}>Received</Text>
-      <RockList rocks={rocksToShow} avatarIdKey={"fromUserId"}/>
-      {showMoreButton && (
-        <Button 
-          style={{alignSelf: "center"}}
-          mode={'outlined'}
-          onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
-        >Load more</Button>
-      )}
-    </ScrollView>
+    <View style={styles.main}>
+      <ScrollView>
+        <Text style={styles.title}>Archive</Text>
+        <RockList rocks={rocksToShow} avatarIdKey={"fromUserId"}/>
+        {showMoreButton && (
+          <Button 
+            style={{alignSelf: "center"}}
+            mode={'outlined'}
+            onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
+          >Load more</Button>
+        )}
+      </ScrollView>
+    </View>
   );
 }
 
@@ -60,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReceivedRocks;
+export default ArchivedRocks;
