@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react';
 
-import Avatar from 'components/Avatar';
 import { useSelector } from 'react-redux';
 import { RootState } from 'reducers/rootReducer';
 import ContactName from 'components/ContactName';
-import { Button } from 'react-native-paper';
-import { useFirebase } from 'react-redux-firebase';
-import { View, StyleSheet } from 'react-native';
+import { useFirebase, useFirestore } from 'react-redux-firebase';
+import { StyleSheet, View } from 'react-native';
 import colors from 'styles/colors';
+import Avatar from 'components/Avatar';
+import { Button } from 'react-native-paper';
 
 interface DrawerContent{
   // The navigation state of the navigator, state.routes contains list of all routes
@@ -21,7 +21,32 @@ interface DrawerContent{
 }
 const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent): ReactElement => {
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
+  const messagingToken = useSelector(
+    ({ firestore: { data } }: RootState) => {
+      return data.userData.messagingToken;
+    }
+  )
+
   const firebase = useFirebase();
+  const firestore = useFirestore();
+
+  const clearToken = () => {
+    const ref = { collection: 'users', doc: uid }
+    return firestore.update(ref, {
+      messagingToken: null,
+    })
+  }
+
+  const logout = () => {
+    firebase.messaging().getToken().then((myToken: string) => {
+      const shouldClearTokenAfter = myToken == messagingToken
+      firebase.messaging().deleteToken().then(firebase.logout).then(() => {
+        if (shouldClearTokenAfter) {
+          clearToken()
+        }
+      })
+    })
+  }
 
   return (
     <View style={styles.main}>
@@ -31,7 +56,7 @@ const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent
 
       </View>
       <Button
-        onPress={firebase.logout}
+        onPress={logout}
         style={styles.logoutButton}
       >
         Log Out

@@ -15,8 +15,6 @@ import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
 
-
-
 const DrawerNav = createDrawerNavigator();
 
 const MainNav = createStackNavigator();
