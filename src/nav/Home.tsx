@@ -11,6 +11,7 @@ import colors from 'styles/colors';
 const Tab = createMaterialBottomTabNavigator();
 
 const Home = (): ReactElement => {
+
   return (
     <View style={{flex:1}}>
       <Tab.Navigator
