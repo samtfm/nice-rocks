@@ -14,9 +14,9 @@ const Response = ({reaction, note, fromUserId}: Response): ReactElement => {
   return (
     <View style={styles.container}>
       <Surface style={styles.response}>
-        <Avatar id={fromUserId} size={45}/>
+        <Avatar id={fromUserId} size={38}/>
         <Text style={styles.stuff}>
-          <Text style={note ? styles.reaction : styles.reactionBig}>{`${reaction} `}</Text>
+          {reaction && <Text style={note ? styles.reaction : styles.reactionBig}>{`${reaction} `}</Text>}
           <Text style={styles.note}>{note}</Text>
         </Text>
       </Surface>
@@ -27,6 +27,8 @@ const Response = ({reaction, note, fromUserId}: Response): ReactElement => {
 const styles = StyleSheet.create({
   container: {
     padding: 4,
+    marginLeft: 40,
+    marginRight: 40,
   },
   response: {
     elevation: 2,
@@ -39,12 +41,12 @@ const styles = StyleSheet.create({
   },
   stuff: {
     top: -4,
-    maxWidth: 200,
     marginLeft: 6,
+    paddingTop: 12,
+    lineHeight: 18,
   },
   note: {
     fontSize: 14,
-    left: 10,
   },
   reaction: {
     fontSize: 22,

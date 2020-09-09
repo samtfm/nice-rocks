@@ -10,6 +10,7 @@ import Response from './Response';
 import { RootState } from 'reducers/rootReducer';
 import { useSelector } from 'react-redux';
 import Avatar from 'components/Avatar';
+import { useNavigation } from '@react-navigation/native';
 
 interface TimeStamp {
   seconds: number,
@@ -46,12 +47,19 @@ const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, res
       setShowResponse(Boolean(response))
     }, 300)
   },[response])
+  const navigation = useNavigation();
 
   return (
     <View style={{flexDirection: 'column'}}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Avatar id={fromUserId} size={38} />
-        <ContactName style={{paddingLeft: 8}} id={fromUserId}/>
+        <ContactName style={{paddingLeft: 8, flex: 1}} id={fromUserId}/>
+        <Icon 
+          onPress={() => navigation.navigate('ComposeRock', {title: title, url: url})}
+          style={{marginRight: 10}}
+          name={'share'}
+          color={colors.primary} size={26}
+        />
       </View>
       <View style={styles.rockItem}>
         <Text style={styles.title}>{title || url}</Text>

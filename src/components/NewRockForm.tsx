@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { RootState } from 'reducers/rootReducer';
+import { OpenGraphParser } from 'react-native-opengraph-kit';
 
 const charLimits = {
   url: 1000,
@@ -34,8 +35,10 @@ const commonInputProps = {
 
 interface NewRockForm{
   toUserId: string
+  title?: string
+  url?: string
 }
-const NewRockForm = ({toUserId}: NewRockForm): ReactElement => {
+const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
   const navigation = useNavigation();
   const firestore = useFirestore();
 
@@ -45,7 +48,11 @@ const NewRockForm = ({toUserId}: NewRockForm): ReactElement => {
   const [errorMessage, setErrorMessage] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [form, setForm] = useState(defaultForm);
+  const [form, setForm] = useState({
+    title: title ? title : '',
+    url: url ? url : '',
+    note: '',
+  });
 
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
 
@@ -118,6 +125,28 @@ const NewRockForm = ({toUserId}: NewRockForm): ReactElement => {
     setForm(updated)
   }
 
+  const trunc = (str: string, len: length): string => {
+    if (str.length <= len) return str;
+    return str.slice(0,len-3)+'...'
+  }
+
+  const updateUrl = (text: string) => {
+    const url = text.replace(/(\r\n|\n|\r)/gm, "")
+    updateForm({url: url})
+    OpenGraphParser.extractMeta(url)
+    .then((data: any) => {
+      if (!data[0]) return;
+      console.log(data[0].title)
+      if (data[0].title){
+        console.log(data[0].title)
+        updateForm({title: trunc(data[0].title, charLimits.title), url: url})
+      }
+    })
+    .catch(() => {
+      // ignore errors
+    });
+  }
+
   const formIsReady = Boolean(form.title.length && form.note.length && toUserId)
   return (
     <View style={{backgroundColor: 'transparent'}}>
@@ -142,7 +171,7 @@ const NewRockForm = ({toUserId}: NewRockForm): ReactElement => {
         <TextInput
           style={[styles.input, styles.urlInput]}
           label="URL (optional)"
-          onChangeText={url => updateForm({ url: url.replace(/(\r\n|\n|\r)/gm, "") })}
+          onChangeText={updateUrl}
           value={form.url}
           maxLength={charLimits.url}
           multiline
@@ -178,7 +207,7 @@ const NewRockForm = ({toUserId}: NewRockForm): ReactElement => {
 
         {submitted && (
           <View style={styles.successOverlay}>
-            <Icon name={'check'} color={colors.mint} size={42} />
+            <Icon name={'check'} color={colors.primary} size={42} />
           </View>
         )}
       </View>

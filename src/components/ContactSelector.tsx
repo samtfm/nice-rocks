@@ -7,7 +7,7 @@ import functions from '@react-native-firebase/functions';
 import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 import ContactName from './ContactName';
-import { Searchbar, ProgressBar } from 'react-native-paper';
+import { Searchbar, ProgressBar, Surface } from 'react-native-paper';
 
 const searchUser = functions().httpsCallable('searchUser')
 
@@ -48,15 +48,18 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
       setLoading(true)
       emailCheckTimeout = setTimeout(() => {
         searchUser({'email': email}).then(response => {
-            setNewRecipientId(response.data.userId);
-            setLoading(false)
+          setNewRecipientId(response.data.userId);
+          setLoading(false)
+        }, () => {
+          // error
+          setLoading(false)
         });
       }, 600);
     }
   }
 
   return (
-    <View style={{backgroundColor: colors.beige}}>
+    <View style={{flex: 1, backgroundColor: colors.beige}}>
       <View style={styles.searchBar}>
 
       <Searchbar
@@ -66,7 +69,7 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
         value={searchVal}
         maxLength={254}
       />
-      <ProgressBar visible={loading} color={colors.mint} indeterminate/>
+      <ProgressBar visible={loading} color={colors.primary} indeterminate/>
       </View>
       <ScrollView style={styles.contactList}>
         {newRecipientId &&
@@ -77,12 +80,18 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
               }}
               style={({ pressed }) => [
                 {
+                  marginLeft: 10,
+                  marginRight: 10,
+                  marginBottom: 4,
                   backgroundColor: pressed
                     ? 'lightGray'
                     : 'white'
                 },
             ]}>
-              <Text style={styles.contact} ><ContactName id={newRecipientId}/></Text>
+              <Surface style={{elevation: 8}}>
+                <Text style={styles.contact}><ContactName id={newRecipientId}/></Text>
+              </Surface>
+
             </Pressable>
           </View>
         }
@@ -94,12 +103,17 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
               }}
               style={({ pressed }) => [
                 {
+                  marginLeft: 10,
+                  marginRight: 10,
+                  marginBottom: 4,
                   backgroundColor: pressed
                     ? 'lightGray'
                     : 'white'
                 },
             ]}>
-              <Text style={styles.contact}>{contact.displayName}</Text>
+              <Surface style={{elevation: 2}}>
+                <Text style={styles.contact}>{contact.displayName}</Text>
+              </Surface>
             </Pressable>
         ))}
       </ScrollView>
@@ -114,13 +128,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   newContact: {
-    marginBottom: 10,
-    borderBottomColor: 'gray',
-    borderBottomWidth: 1,
+    marginBottom: 8,
+    marginTop: 8,
     borderRadius: 5,
   },
   contactList: {
-    padding: 10,
+    // padding: 10,
+    backgroundColor: 'transparent',
     display: 'flex',
   },
   contact: {

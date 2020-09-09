@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
-import ReceivedRocks from 'components/ReceivedRocks'
-import SentRocks from 'components/SentRocks'
-import ArchivedRocks from 'components/ArchivedRocks'
+import ReceivedRocks from 'screens/ReceivedRocks'
+import SentRocks from 'screens/SentRocks'
+import ArchivedRocks from 'screens/ArchivedRocks'
 import ComposeButton from 'components/ComposeButton'
 import { StyleSheet, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -16,8 +16,9 @@ const Home = (): ReactElement => {
     <View style={{flex:1}}>
       <Tab.Navigator
         initialRouteName="Received"
-        activeColor={colors.darkMint}
-        barStyle={{ backgroundColor: 'white' }}
+        activeColor={colors.primaryDark}
+        inactiveColor={colors.gray60}
+        barStyle={{ backgroundColor: 'white', /* elevation: 0, */ }}
       >
         <Tab.Screen
           name="Archive"
@@ -31,13 +32,13 @@ const Home = (): ReactElement => {
         />
         <Tab.Screen
           name="Received"
+          component={ReceivedRocks}
           options={{
             tabBarLabel: 'Received',
             tabBarIcon: ({ color }: {color: string}) => (
               <Icon style={styles.icon} name={'home'} color={color} size={26} />
             ),
           }}
-          component={ReceivedRocks}
         />
         <Tab.Screen
           name="Sent"
