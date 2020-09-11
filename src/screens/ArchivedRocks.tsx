@@ -34,21 +34,24 @@ const ArchivedRocks = (): ReactElement => {
   const showMoreButton = rocks.length == limit+1
 
   return (
-    <View style={styles.main}>
-      <ScrollView>
-        <Text style={styles.title}>Archive</Text>
-        <RockList rocks={rocksToShow} avatarIdKey={"fromUserId"}/>
-        <View style={{paddingBottom: 40, paddingTop: 10}}>
-          {showMoreButton && (
-            <Button 
-              style={{alignSelf: "center"}}
-              mode={'outlined'}
-              onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
-            >Load more</Button>
-          )}
-        </View>
-      </ScrollView>
-    </View>
+    <ScrollView style={styles.main}>
+      <Text style={styles.title}>Archive</Text>
+      {rocks.length === 0 && (
+        <Text style={styles.emptyTooltip}>
+          {"Your archive is empty. \n Once you respond to a rock it will move here."}
+        </Text>
+      )}
+      <RockList rocks={rocksToShow} avatarIdKey={"fromUserId"}/>
+      <View style={{paddingBottom: 40, paddingTop: 10}}>
+        {showMoreButton && (
+          <Button 
+            style={{alignSelf: "center"}}
+            mode={'outlined'}
+            onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
+          >Load more</Button>
+        )}
+      </View>
+    </ScrollView>
   );
 }
 
@@ -64,6 +67,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
   },
+  emptyTooltip: {
+    alignSelf: 'center',
+    marginTop: 60,
+    lineHeight: 22,
+    textAlign: 'center',
+    color: colors.gray40,
+  },
+
 });
 
 export default ArchivedRocks;
