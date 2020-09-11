@@ -35,14 +35,15 @@ const SentRocks = (): ReactElement => {
       <ScrollView>
         <Text style={styles.title}>Sent</Text>
         <RockList rocks={rocksToShow} avatarIdKey={"toUserId"}/>
-        {showMoreButton && (
-          <Button 
-            style={{alignSelf: "center"}}
-            mode={'outlined'}
-            onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
-          >Load more</Button>
-        )}
-
+        <View style={{paddingBottom: 40, paddingTop: 10}}>
+          {showMoreButton && (
+            <Button 
+              style={{alignSelf: "center"}}
+              mode={'outlined'}
+              onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
+            >Load more</Button>
+          )}
+        </View>
       </ScrollView>
     </View>
   );
