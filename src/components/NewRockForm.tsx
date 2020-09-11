@@ -17,11 +17,6 @@ const charLimits = {
   title: 200,
 }
 
-const defaultForm = {
-  title: '',
-  note: '',
-  url: '',
-}
 interface FormUpdate{
   title?: string,
   note?: string,
@@ -125,7 +120,7 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
     setForm(updated)
   }
 
-  const trunc = (str: string, len: length): string => {
+  const trunc = (str: string, len: number): string => {
     if (str.length <= len) return str;
     return str.slice(0,len-3)+'...'
   }
