@@ -4,6 +4,7 @@ const colors = {
   white: '#FFF',
   // blue: '#00ace6',
   blue: '#12b8ff',
+  blueLight: '#6deaff',
   // blue: '#3AB1E4',
   // blue: '#0BA5E7',
   // mint: 'hsla(126, 45%, 75%, 1)',

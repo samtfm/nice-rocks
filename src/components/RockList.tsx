@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
 import RockPreview from './RockPreview'
-import { StyleSheet, View, Image } from 'react-native';
-import { useSelector } from 'react-redux'
+import { StyleSheet, View } from 'react-native';
 import colors from 'styles/colors';
-import { RootState } from 'reducers/rootReducer';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Avatar from 'components/Avatar';
+import { Surface } from 'react-native-paper';
 
 interface TimeStamp {
   seconds: number,
@@ -33,32 +33,21 @@ interface RockListProps {
 
 
 const RockList = ({rocks, avatarIdKey}: RockListProps): ReactElement => {
-  const contacts = useSelector(
-    ({ firestore: { data } }: RootState) => {
-      return data.userData.contacts
-    }
-  )
-
   return (
     <View>
       {rocks.map(rock => (
           rock && (
-            <View key={rock.id} style={styles.listItem}>
+            <Surface key={rock.id} style={styles.listItem}>
               {rock.response && (
                 <Icon style={styles.responseIndicator} name={'comment'} color={colors.primary} size={14} />
               )}
-              {avatarIdKey && contacts && rock[avatarIdKey] && contacts[rock[avatarIdKey]] && (
-                <Image
-                  style={styles.avatar}
-                  source={{
-                    uri: contacts[rock[avatarIdKey]].photo
-                  }}
-                />
+              {avatarIdKey && rock[avatarIdKey] && (
+                <Avatar id={rock[avatarIdKey]} size={40}/>
               )}
               <View style={styles.preview}>
               <RockPreview {...rock} />
               </View>
-            </View>
+            </Surface>
           )
       ))}
     </View>
@@ -72,19 +61,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 10,
     marginRight: 10,
+    paddingLeft: 10,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.beige,
-
-
-    //android
     elevation: 4,
-
-    //ios
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 2,
   },
 
   preview: {
@@ -92,9 +73,6 @@ const styles = StyleSheet.create({
   },
 
   avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
     marginLeft: 10,
   },
 
