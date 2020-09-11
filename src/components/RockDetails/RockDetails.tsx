@@ -43,7 +43,7 @@ const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, res
   const [showResponse, setShowResponse] = useState(Boolean(response))
   useEffect(() => {
     setTimeout(() => {
-      LayoutAnimation.configureNext(springAnimConfig)
+      if (response) LayoutAnimation.configureNext(springAnimConfig);
       setShowResponse(Boolean(response))
     }, 300)
   },[response])

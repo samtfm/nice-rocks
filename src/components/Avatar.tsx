@@ -58,8 +58,8 @@ const Avatar = ({id, size}: AvatarProps): ReactElement => {
         navigation.navigate('ComposeRock', {toUserId: id})
       }}
       >
-        <Icon name='cube-send' size={24} />
-        <Text style={{marginLeft: 4}}>Send rock</Text>
+        <Icon name='cube-send' size={24} color={colors.black} />
+        <Text style={{marginLeft: 4, color: 'black'}}>Send rock</Text>
       </Pressable>
     </Modal>
     </Portal>
