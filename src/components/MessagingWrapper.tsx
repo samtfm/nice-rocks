@@ -1,12 +1,17 @@
 
-import React, { useEffect, useState, ReactElement } from 'react';
+import React, { useEffect, useState, ReactElement, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
 import messaging from '@react-native-firebase/messaging';
 import { RootState } from 'reducers/rootReducer';
 import * as RootNavigation from 'RootNavigation';
+import ShareMenu, {ShareMenuReactView} from 'react-native-share-menu';
 
+interface SharedItem{
+  mimeType: string,
+  data: string,
+};
 
 const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement => {
   const firebase = useFirebase();
@@ -92,6 +97,49 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
   firebase.messaging().onTokenRefresh((token: string) => {
     ensureMessagingToken(token);
   })
+
+  // const handleShareReplace = useCallback((item: SharedItem | undefined) => {
+  //   if (!item) return;
+  //   console.log(Object.getOwnPropertyNames(ShareMenu))
+  //   console.log(item)
+    
+  //   // ShareMenu.close();
+  //   const {mimeType, data} = item;
+
+  //   // setSharedData(data);
+  //   RootNavigation.reset({
+  //     index: 0,
+  //     routes: [{ name: 'ComposeRock', params: {sharedItem: item}}],
+  //   });
+  // }, []);
+
+  // const handleShare = useCallback((item: SharedItem | undefined) => {
+  //   if (!item) return;
+  //   console.log(Object.getOwnPropertyNames(ShareMenu))
+  //   console.log(item)
+    
+  //   // ShareMenu.close();
+  //   const {mimeType, data} = item;
+
+  //   // setSharedData(data);
+  //   RootNavigation.navigate(
+  //     'ComposeRock', 
+  //     {sharedItem: item},
+  //   );
+  // }, []);
+
+
+  // useEffect(() => {
+  //   ShareMenu.getInitialShare(handleShareReplace);
+  // }, []);
+
+  // useEffect(() => {
+  //   const listener = ShareMenu.addNewShareListener(handleShare);
+  //   return () => {
+  //     listener.remove();
+  //   };
+  // }, []);
+
   return <>{userData && children}</>
 }
 

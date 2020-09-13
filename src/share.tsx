@@ -16,9 +16,8 @@ import rootReducer from 'reducers/rootReducer';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Platform, UIManager } from 'react-native';
 import { navigationRef } from './RootNavigation';
-import MainStack from 'nav/MainStack';
+import ShareStack from 'nav/ShareStack';
 
-console.log("APPP")
 const theme = {
   ...DefaultTheme,
   roundness: 2,
@@ -79,14 +78,14 @@ const rrfProps = {
 }
 
 
-const App = (): ReactElement => {
+const Share = (): ReactElement => {
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <PaperProvider theme={theme}>
           <AuthLoaded>
             <NavigationContainer ref={navigationRef}>
-              <MainStack />
+              <ShareStack />
             </NavigationContainer>
           </AuthLoaded>
         </PaperProvider>
@@ -95,4 +94,4 @@ const App = (): ReactElement => {
   );
 }
 
-export default App;
+export default Share;

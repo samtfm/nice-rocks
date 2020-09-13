@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 import ContactName from './ContactName';
-import { StyleSheet, View, Button, Pressable, Alert} from 'react-native';
+import { StyleSheet, View, Button, Pressable, Alert, BackHandler} from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
 import Text from 'components/Text';
 import { useFirestore } from "react-redux-firebase";
@@ -104,7 +104,11 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
         setHasUnsavedChanges(false);
         setTimeout(() => {
           if (navigation.isFocused()){
-            navigation.goBack();
+            if (navigation.canGoBack()){
+              navigation.goBack();
+            } else {
+              BackHandler.exitApp();
+            }
           }
         }, 1400)
       }, () => {
@@ -124,6 +128,12 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
     if (str.length <= len) return str;
     return str.slice(0,len-3)+'...'
   }
+
+  useEffect(() => {
+    if (url && !title) { 
+      updateUrl(url)
+    }
+  }, [url, title])
 
   const updateUrl = (text: string) => {
     const url = text.replace(/(\r\n|\n|\r)/gm, "")

@@ -7,3 +7,8 @@ export const navigationRef = React.createRef<NavigationContainerRef>();
 export function navigate(name: string, params: any): void {
   navigationRef?.current?.navigate(name, params);
 }
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function reset(state: any): void {
+  navigationRef?.current?.reset(state);
+}

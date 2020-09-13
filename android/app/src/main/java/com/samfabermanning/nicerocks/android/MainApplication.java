@@ -25,6 +25,8 @@ import expo.modules.permissions.PermissionsPackage;
 import expo.modules.filesystem.FileSystemPackage;
 import expo.modules.updates.UpdatesController;
 
+import com.alinz.parkerdan.shareextension.SharePackage;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
