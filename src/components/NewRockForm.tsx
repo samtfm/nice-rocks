@@ -49,7 +49,34 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
     note: '',
   });
 
+
+  const discardAlert = (discardCallback: () => void) => {
+    Alert.alert(
+      'Discard changes?',
+      'You have unsaved changes. Are you sure you want to discard them?',
+      [
+        { text: "Stay", style: 'cancel' },
+        {
+          text: 'Discard',
+          style: 'destructive',
+          onPress: discardCallback,
+        },
+      ]
+    );
+  }
+
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (!hasUnsavedChanges || navigation.canGoBack()) {
+         return false; // regular back button behavior
+      }
+      // Prompt the user before leaving the screen
+      discardAlert(BackHandler.exitApp)
+      return true; // stop event from bubbling
+    });
+    return () => backHandler.remove();
+  }, [navigation, hasUnsavedChanges])
 
   // Add warning before discarding unsaved rock
   useEffect(() => (
@@ -61,18 +88,7 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
       e.preventDefault();
 
       // Prompt the user before leaving the screen
-      Alert.alert(
-        'Discard changes?',
-        'You have unsaved changes. Are you sure you want to discard them?',
-        [
-          { text: "Stay", style: 'cancel' },
-          {
-            text: 'Discard',
-            style: 'destructive',
-            onPress: () => navigation.dispatch(e.data.action),
-          },
-        ]
-      );
+      discardAlert(() => navigation.dispatch(e.data.action))
     })),
     [navigation, hasUnsavedChanges]
   );

@@ -7,11 +7,6 @@ import messaging from '@react-native-firebase/messaging';
 import { RootState } from 'reducers/rootReducer';
 import * as RootNavigation from 'RootNavigation';
 
-interface SharedItem{
-  mimeType: string,
-  data: string,
-};
-
 const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement => {
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -95,48 +90,6 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
   firebase.messaging().onTokenRefresh((token: string) => {
     ensureMessagingToken(token);
   })
-
-  // const handleShareReplace = useCallback((item: SharedItem | undefined) => {
-  //   if (!item) return;
-  //   console.log(Object.getOwnPropertyNames(ShareMenu))
-  //   console.log(item)
-    
-  //   // ShareMenu.close();
-  //   const {mimeType, data} = item;
-
-  //   // setSharedData(data);
-  //   RootNavigation.reset({
-  //     index: 0,
-  //     routes: [{ name: 'ComposeRock', params: {sharedItem: item}}],
-  //   });
-  // }, []);
-
-  // const handleShare = useCallback((item: SharedItem | undefined) => {
-  //   if (!item) return;
-  //   console.log(Object.getOwnPropertyNames(ShareMenu))
-  //   console.log(item)
-    
-  //   // ShareMenu.close();
-  //   const {mimeType, data} = item;
-
-  //   // setSharedData(data);
-  //   RootNavigation.navigate(
-  //     'ComposeRock', 
-  //     {sharedItem: item},
-  //   );
-  // }, []);
-
-
-  // useEffect(() => {
-  //   ShareMenu.getInitialShare(handleShareReplace);
-  // }, []);
-
-  // useEffect(() => {
-  //   const listener = ShareMenu.addNewShareListener(handleShare);
-  //   return () => {
-  //     listener.remove();
-  //   };
-  // }, []);
 
   return <>{userData && children}</>
 }
