@@ -12,13 +12,13 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 import { createFirestoreInstance } from 'redux-firestore' // <- needed if using firestore
 import AuthLoaded from 'components/AuthLoaded'
 import colors from 'styles/colors';
-import rootReducer from 'reducers/rootReducer';
+import rootReducer, {store} from 'reducers/rootReducer';
+
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Platform, UIManager } from 'react-native';
 import { navigationRef } from './RootNavigation';
 import MainStack from 'nav/MainStack';
 
-console.log("APPP")
 const theme = {
   ...DefaultTheme,
   roundness: 2,
@@ -68,7 +68,7 @@ const initialState = {}
 //   },
 // }
 
-const store = createStore(rootReducer, initialState)
+// const store = createStore(rootReducer, initialState)
 
 const rrfProps = {
  firebase: RNFirebase,

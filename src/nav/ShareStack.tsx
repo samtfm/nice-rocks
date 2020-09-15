@@ -8,7 +8,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ComposeRock from 'screens/ComposeRock';
 import Login from 'screens/Login';
 import colors from 'styles/colors';
-
+import { View } from 'react-native';
+import Text from 'components/Text';
 
 const MainNav = createStackNavigator();
 const ModalNav = createStackNavigator();
@@ -52,6 +53,7 @@ const ShareStack = (): ReactElement => {
   ) : (
     <MessagingWrapper>
       <ModalNav.Navigator
+        initialRouteName="Main"
         mode="modal"
         screenOptions={screenOptions}
       >

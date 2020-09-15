@@ -6,7 +6,6 @@ import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-fire
 import messaging from '@react-native-firebase/messaging';
 import { RootState } from 'reducers/rootReducer';
 import * as RootNavigation from 'RootNavigation';
-import ShareMenu, {ShareMenuReactView} from 'react-native-share-menu';
 
 interface SharedItem{
   mimeType: string,
@@ -24,7 +23,6 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
       return data.userData;
     }
   )
-
   const [notificationsAuthorized, setNotificationsAuthorized] = useState(false)
 
   const sendToken = (token: string) => {

@@ -141,9 +141,7 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
     OpenGraphParser.extractMeta(url)
     .then((data: any) => {
       if (!data[0]) return;
-      console.log(data[0].title)
       if (data[0].title){
-        console.log(data[0].title)
         updateForm({title: trunc(data[0].title, charLimits.title), url: url})
       }
     })
