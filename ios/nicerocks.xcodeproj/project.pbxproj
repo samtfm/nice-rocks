@@ -12,12 +12,39 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2271888B24EECEFF00AA71AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2224AC3E24C7AE0D0083B430 /* GoogleService-Info.plist */; };
+		227673712512A169005EC45E /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227673702512A169005EC45E /* ShareViewController.m */; };
+		227673742512A169005EC45E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 227673722512A169005EC45E /* MainInterface.storyboard */; };
+		227673782512A169005EC45E /* ShareEx.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2276736D2512A169005EC45E /* ShareEx.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		5D221E3BA16F4FC1A351AB57 /* Bitter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB29E9EBACB2459C8CE2F42C /* Bitter-Bold.ttf */; };
 		63CBAFB426464131FD3AA35B /* libPods-NiceRocks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 793F4F31C6625F896D1C9C98 /* libPods-NiceRocks.a */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		F20FC7F3AA574DEF9CF15D09 /* Bitter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7BFC26996F14CC7887759C7 /* Bitter-Regular.ttf */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		227673762512A169005EC45E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2276736C2512A169005EC45E;
+			remoteInfo = ShareEx;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		227673792512A169005EC45E /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				227673782512A169005EC45E /* ShareEx.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -35,6 +62,11 @@
 		1E47CFDF50F6414E958B8A8E /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = ../assets/fonts/FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
 		2224AC3E24C7AE0D0083B430 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "NiceRocks/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2271888A24EECC5700AA71AD /* NiceRocks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NiceRocks.entitlements; path = NiceRocks/NiceRocks.entitlements; sourceTree = "<group>"; };
+		2276736D2512A169005EC45E /* ShareEx.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareEx.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2276736F2512A169005EC45E /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		227673702512A169005EC45E /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		227673732512A169005EC45E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		227673752512A169005EC45E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26D07F62E7D84B2FAC3CD672 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2F8AFEA4906F4649889B0EAA /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		42077A86F3AA49F695778352 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = ../assets/fonts/FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
@@ -82,6 +114,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2276736A2512A169005EC45E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -101,6 +140,17 @@
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 			);
 			name = NiceRocks;
+			sourceTree = "<group>";
+		};
+		2276736E2512A169005EC45E /* ShareEx */ = {
+			isa = PBXGroup;
+			children = (
+				2276736F2512A169005EC45E /* ShareViewController.h */,
+				227673702512A169005EC45E /* ShareViewController.m */,
+				227673722512A169005EC45E /* MainInterface.storyboard */,
+				227673752512A169005EC45E /* Info.plist */,
+			);
+			path = ShareEx;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -125,6 +175,7 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* NiceRocks */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				2276736E2512A169005EC45E /* ShareEx */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
@@ -139,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* NiceRocks.app */,
+				2276736D2512A169005EC45E /* ShareEx.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -217,15 +269,34 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				A4544597F07086EF55C9FF17 /* [CP] Copy Pods Resources */,
 				BC52775B1A9B96DC921157C3 /* [CP-User] [RNFB] Core Configuration */,
+				227673792512A169005EC45E /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				227673772512A169005EC45E /* PBXTargetDependency */,
 			);
 			name = NiceRocks;
 			productName = NiceRocks;
 			productReference = 13B07F961A680F5B00A75B9A /* NiceRocks.app */;
 			productType = "com.apple.product-type.application";
+		};
+		2276736C2512A169005EC45E /* ShareEx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2276737C2512A169005EC45E /* Build configuration list for PBXNativeTarget "ShareEx" */;
+			buildPhases = (
+				227673692512A169005EC45E /* Sources */,
+				2276736A2512A169005EC45E /* Frameworks */,
+				2276736B2512A169005EC45E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareEx;
+			productName = ShareEx;
+			productReference = 2276736D2512A169005EC45E /* ShareEx.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -238,6 +309,11 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = BXNFB2FPXQ;
 						LastSwiftMigration = 1120;
+					};
+					2276736C2512A169005EC45E = {
+						CreatedOnToolsVersion = 11.6;
+						DevelopmentTeam = BXNFB2FPXQ;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -255,6 +331,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* NiceRocks */,
+				2276736C2512A169005EC45E /* ShareEx */,
 			);
 		};
 /* End PBXProject section */
@@ -271,6 +348,14 @@
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 				5D221E3BA16F4FC1A351AB57 /* Bitter-Bold.ttf in Resources */,
 				F20FC7F3AA574DEF9CF15D09 /* Bitter-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2276736B2512A169005EC45E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				227673742512A169005EC45E /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,7 +495,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		227673692512A169005EC45E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				227673712512A169005EC45E /* ShareViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		227673772512A169005EC45E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2276736C2512A169005EC45E /* ShareEx */;
+			targetProxy = 227673762512A169005EC45E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
@@ -420,6 +521,14 @@
 			);
 			name = LaunchScreen.xib;
 			path = NiceRocks;
+			sourceTree = "<group>";
+		};
+		227673722512A169005EC45E /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				227673732512A169005EC45E /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -478,6 +587,66 @@
 				PRODUCT_NAME = NiceRocks;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		2276737A2512A169005EC45E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = BXNFB2FPXQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-share-extension/ios/**";
+				INFOPLIST_FILE = ShareEx/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.samfabermanning.nicerocks.ios.ShareEx;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2276737B2512A169005EC45E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = BXNFB2FPXQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-share-extension/ios/**";
+				INFOPLIST_FILE = ShareEx/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.samfabermanning.nicerocks.ios.ShareEx;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -602,6 +771,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2276737C2512A169005EC45E /* Build configuration list for PBXNativeTarget "ShareEx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2276737A2512A169005EC45E /* Debug */,
+				2276737B2512A169005EC45E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

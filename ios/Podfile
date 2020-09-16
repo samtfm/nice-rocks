@@ -25,3 +25,8 @@ target 'NiceRocks' do
   end
 
 end
+
+target 'ShareEx' do 
+  use_native_modules!
+  inherit! :complete
+end
