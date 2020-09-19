@@ -18,7 +18,6 @@ const ComposeRock = ({route}: ComposeRock): ReactElement => {
   const share = route && route.params && route.params.share;
   const [url, setUrl] = useState(route && route.params && route.params.url || '')
   const [title, setTitle] = useState(route && route.params && route.params.title || '')
-
   useEffect(() => {
     if (share) {
       ShareExtension.data().then(({type, value}: SharedItem) => {

@@ -1,11 +1,12 @@
 
 import React, { useEffect, useState, ReactElement, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { Alert } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
 import messaging from '@react-native-firebase/messaging';
 import { RootState } from 'reducers/rootReducer';
 import * as RootNavigation from 'RootNavigation';
+import * as queryString from 'query-string';
 
 const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement => {
   const firebase = useFirebase();
@@ -90,6 +91,43 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
   firebase.messaging().onTokenRefresh((token: string) => {
     ensureMessagingToken(token);
   })
+
+
+  const handleOpenURL = (e: {url: string}) => {
+    console.log('handleOpen', e)
+  }
+  const onInitialUrl = (url: string | null) => {
+    if (url) {
+      const queryStart = url.indexOf('?')
+      if (queryStart) {
+        const qs = (url.slice(queryStart + 1));
+        const args = queryString.parse(qs);
+        if (args.shareUrl) {
+          setTimeout(() => {
+            RootNavigation.navigate(
+              'ComposeRock',
+              { url: args.shareUrl },
+            )      
+  
+          }, 500)
+        }
+      }
+    }
+  }
+  
+  useEffect(() => {
+    Linking.getInitialURL().then(onInitialUrl).catch(err => {
+      console.warn('An error occurred', err);
+    });
+  
+    // Linking.addEventListener('url', handleOpenURL);
+    // return (() => {
+    //   Linking.removeEventListener('url', handleOpenURL);
+    // })
+  }, []);
+  
+
+ 
 
   return <>{userData && children}</>
 }

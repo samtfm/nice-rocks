@@ -27,6 +27,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>nicerocks</string>
 				<string>com.googleusercontent.apps.342705485686-l0ekdnd3op9fq2vk5r3t51bq35a1q3l7</string>
 			</array>
 		</dict>
