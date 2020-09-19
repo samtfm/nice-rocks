@@ -6,16 +6,15 @@ import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
 import '@react-native-firebase/functions';
 import '@react-native-firebase/auth';
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 import { createFirestoreInstance } from 'redux-firestore' // <- needed if using firestore
 import AuthLoaded from 'components/AuthLoaded'
 import colors from 'styles/colors';
-import rootReducer, {store} from 'reducers/rootReducer';
+import {store} from 'reducers/rootReducer';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Platform, UIManager } from 'react-native';
-import { navigationRef } from './RootNavigation';
+import { navigationRef, isReadyRef } from './RootNavigation';
 import ShareStack from 'nav/ShareStack';
 
 const theme = {
@@ -78,12 +77,17 @@ const rrfProps = {
 
 
 const Share = (): ReactElement => {
+  React.useLayoutEffect(() => {
+    return () => {
+      isReadyRef.current = false
+    };
+  }, []);
   return (
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <PaperProvider theme={theme}>
           <AuthLoaded>
-            <NavigationContainer ref={navigationRef}>
+            <NavigationContainer ref={navigationRef} onReady={() => {isReadyRef.current = true;}}>
               <ShareStack />
             </NavigationContainer>
           </AuthLoaded>

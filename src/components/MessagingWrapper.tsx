@@ -94,8 +94,9 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
 
 
   const handleOpenURL = (e: {url: string}) => {
-    console.log('handleOpen', e)
+    onInitialUrl(e.url)
   }
+
   const onInitialUrl = (url: string | null) => {
     if (url) {
       const queryStart = url.indexOf('?')
@@ -103,13 +104,10 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
         const qs = (url.slice(queryStart + 1));
         const args = queryString.parse(qs);
         if (args.shareUrl) {
-          setTimeout(() => {
-            RootNavigation.navigate(
-              'ComposeRock',
-              { url: args.shareUrl },
-            )      
-  
-          }, 500)
+          RootNavigation.navigate(
+            'ComposeRock',
+            { url: args.shareUrl },
+          )      
         }
       }
     }
@@ -120,10 +118,10 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
       console.warn('An error occurred', err);
     });
   
-    // Linking.addEventListener('url', handleOpenURL);
-    // return (() => {
-    //   Linking.removeEventListener('url', handleOpenURL);
-    // })
+    Linking.addEventListener('url', handleOpenURL);
+    return (() => {
+      Linking.removeEventListener('url', handleOpenURL);
+    })
   }, []);
   
 

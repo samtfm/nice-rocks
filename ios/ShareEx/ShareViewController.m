@@ -30,27 +30,6 @@
     //    [ self.extensionContext completeRequestReturningItems: @[] completionHandler: nil ];
 }
 
-//- (NSString *)urlencode {
-//    NSMutableString *output = [NSMutableString string];
-//    const unsigned char *source = (const unsigned char *)[self NSString];
-//    int sourceLen = strlen((const char *)source);
-//    for (int i = 0; i < sourceLen; ++i) {
-//        const unsigned char thisChar = source[i];
-//        if (thisChar == ' '){
-//            [output appendString:@"+"];
-//        } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
-//                   (thisChar >= 'a' && thisChar <= 'z') ||
-//                   (thisChar >= 'A' && thisChar <= 'Z') ||
-//                   (thisChar >= '0' && thisChar <= '9')) {
-//            [output appendFormat:@"%c", thisChar];
-//        } else {
-//            [output appendFormat:@"%%%02X", thisChar];
-//        }
-//    }
-//    return output;
-//}
-
-
 - ( void ) passSelectedItemsToApp {
     NSExtensionItem * item = self.extensionContext.inputItems.firstObject;
     __block NSItemProvider *provider = item.attachments.firstObject;
@@ -58,12 +37,9 @@
     if([provider hasItemConformingToTypeIdentifier:URL_IDENTIFIER]) {
       [provider loadItemForTypeIdentifier:URL_IDENTIFIER options:nil completionHandler:^(id<NSSecureCoding> item, NSError *error) {
         NSURL *url = (NSURL *)item;
-        NSDictionary *result = @{@"data": [url absoluteString], @"type": @"url"};
-        
-      
+//        NSDictionary *result = @{@"data": [url absoluteString], @"type": @"url"};
+
         NSString * urlString = [url absoluteString];  // A string to be passed to your AIR app with information about the attachments.
-//        NSString* encodedUrl = [urlString stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
-//        NSString* encodedUrl = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]];
         NSString* encodedUrl = [[[urlString stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding] stringByReplacingOccurrencesOfString:@"&" withString:@"%26"] stringByReplacingOccurrencesOfString:@"+" withString:@"%2b"];
 
         NSString * m_invokeArgs = [ NSString stringWithFormat: @"?shareUrl=%@", encodedUrl ];
