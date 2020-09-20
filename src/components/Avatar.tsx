@@ -12,9 +12,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 interface AvatarProps {
   id: string,
   size: number,
+  clickable: boolean,
 }
 
-const Avatar = ({id, size}: AvatarProps): ReactElement => {
+const Avatar = ({id, size, clickable=true}: AvatarProps): ReactElement => {
   const [ popupVisible, setPopupVisible ] = useState(false);
   const navigation = useNavigation();
 
@@ -40,7 +41,7 @@ const Avatar = ({id, size}: AvatarProps): ReactElement => {
     <>
 
     <Pressable
-      onPress={() => setPopupVisible(true)}
+      onPress={() => {if (clickable) setPopupVisible(true)}}
     >
       <AvatarBubble />
     </Pressable>

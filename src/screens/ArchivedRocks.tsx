@@ -28,17 +28,17 @@ const ArchivedRocks = (): ReactElement => {
     ({ firestore }: RootState) => {
       return firestore.ordered['archivedRocks'];
     }
-  ) || []
+  );
 
-  const rocksToShow = rocks.slice(0, limit)
-  const showMoreButton = rocks.length == limit+1
+  const rocksToShow = rocks ? rocks.slice(0, limit) : []
+  const showMoreButton = rocks && rocks.length == limit+1
 
   return (
     <ScrollView style={styles.main}>
       <Text style={styles.title}>Archive</Text>
-      {rocks.length === 0 && (
+      {rocks && rocks.length === 0 && (
         <Text style={styles.emptyTooltip}>
-          {"Your archive is empty. \n Once you respond to a rock it will move here."}
+          {"Your archive is empty. Once you respond to a rock you can find it again here."}
         </Text>
       )}
       <RockList rocks={rocksToShow} avatarIdKey={"fromUserId"}/>
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   emptyTooltip: {
     alignSelf: 'center',
     marginTop: 60,
+    width: 280,
     lineHeight: 22,
     textAlign: 'center',
     color: colors.gray40,
