@@ -30,6 +30,18 @@
     //    [ self.extensionContext completeRequestReturningItems: @[] completionHandler: nil ];
 }
 
+- ( void ) viewDidAppear:(BOOL)animated
+{
+    [ super viewDidAppear:animated ];
+}
+
+- ( void ) viewDidLoad
+{
+  [[self navigationController] navigationBar].topItem.rightBarButtonItem.title = @"Continue";
+  [self.textView setHidden:YES];
+  [ super viewDidLoad ];
+}
+
 - ( void ) passSelectedItemsToApp {
     NSExtensionItem * item = self.extensionContext.inputItems.firstObject;
     __block NSItemProvider *provider = item.attachments.firstObject;
@@ -70,7 +82,7 @@
 
 - (NSArray *)configurationItems {
     // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-    return @[];
+  return @[];
 }
 
 @end

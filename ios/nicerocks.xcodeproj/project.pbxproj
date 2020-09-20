@@ -14,7 +14,7 @@
 		2271888B24EECEFF00AA71AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2224AC3E24C7AE0D0083B430 /* GoogleService-Info.plist */; };
 		227673712512A169005EC45E /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227673702512A169005EC45E /* ShareViewController.m */; };
 		227673742512A169005EC45E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 227673722512A169005EC45E /* MainInterface.storyboard */; };
-		227673782512A169005EC45E /* ShareEx.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2276736D2512A169005EC45E /* ShareEx.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		227673782512A169005EC45E /* Share Rock.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2276736D2512A169005EC45E /* Share Rock.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		5D221E3BA16F4FC1A351AB57 /* Bitter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB29E9EBACB2459C8CE2F42C /* Bitter-Bold.ttf */; };
 		768180DBCF0229B17E504B78 /* libPods-ShareEx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF0A68CB3271D5EBF6E2BAE /* libPods-ShareEx.a */; };
@@ -40,7 +40,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				227673782512A169005EC45E /* ShareEx.appex in Embed App Extensions */,
+				227673782512A169005EC45E /* Share Rock.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,7 +65,7 @@
 		215627DD2E3F1A69C07452BA /* Pods-NiceRocks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NiceRocks.release.xcconfig"; path = "Target Support Files/Pods-NiceRocks/Pods-NiceRocks.release.xcconfig"; sourceTree = "<group>"; };
 		2224AC3E24C7AE0D0083B430 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "NiceRocks/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2271888A24EECC5700AA71AD /* NiceRocks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NiceRocks.entitlements; path = NiceRocks/NiceRocks.entitlements; sourceTree = "<group>"; };
-		2276736D2512A169005EC45E /* ShareEx.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareEx.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2276736D2512A169005EC45E /* Share Rock.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Share Rock.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2276736F2512A169005EC45E /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		227673702512A169005EC45E /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		227673732512A169005EC45E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* NiceRocks.app */,
-				2276736D2512A169005EC45E /* ShareEx.appex */,
+				2276736D2512A169005EC45E /* Share Rock.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -306,7 +306,7 @@
 			);
 			name = ShareEx;
 			productName = ShareEx;
-			productReference = 2276736D2512A169005EC45E /* ShareEx.appex */;
+			productReference = 2276736D2512A169005EC45E /* Share Rock.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -708,7 +708,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = ShareEx/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -718,7 +718,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.samfabermanning.nicerocks.ios.ShareEx;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Share Rock";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -744,7 +744,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = ShareEx/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = (
@@ -753,7 +753,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.samfabermanning.nicerocks.ios.ShareEx;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Share Rock";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
