@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState, useCallback } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import NewRockForm from 'components/NewRockForm'
 import { StyleSheet, ScrollView } from 'react-native';
 import ShareExtension from 'react-native-share-extension'
