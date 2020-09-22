@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { isEmpty } from 'react-redux-firebase';
 import { RootState } from 'reducers/rootReducer';
 import { useSelector } from 'react-redux';
@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
+import IsShareExtensionContext from 'IsShareExtensionContext';
 
 const DrawerNav = createDrawerNavigator();
 
@@ -48,13 +49,16 @@ const LoggedInStackWithDrawer = () => (
 )
 
 
-
+interface LoggedInStack {
+  shareExtension?: boolean
+}
 const LoggedInStack = (): ReactElement => {
   const navigation = useNavigation();
+  const isShareExtension = useContext(IsShareExtensionContext);
 
   return (
     <MainNav.Navigator
-      initialRouteName="Home"
+      initialRouteName={isShareExtension ? "ComposeRock" : "Home"}
       screenOptions={screenOptions}
     >
       <MainNav.Screen
@@ -66,12 +70,12 @@ const LoggedInStack = (): ReactElement => {
           headerLeft: () => <Hamburger navigation={navigation}/>,
           // headerRight: () =>  <AvatarMenu uid={uid} />,
          }}
-         
       />
       <MainNav.Screen
         name="ComposeRock"
         component={ComposeRock}
         options={{ title: 'Send a new rock' }}
+        initialParams={isShareExtension ? { share: true } : {} }
       />
       <MainNav.Screen
         name="ViewRock"

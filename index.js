@@ -2,8 +2,7 @@ import { registerRootComponent } from 'expo';
 import messaging from '@react-native-firebase/messaging';
 import { AppRegistry } from 'react-native'
 
-import App from './src/app';
-import Share from './src/share';
+import { MainApp, ShareApp } from './src/app';
 
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';
@@ -30,5 +29,5 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 // It also ensures that whether you load the app in the Expo client or in a native build,
 // the environment is set up appropriately
 // registerRootComponent(App);
-AppRegistry.registerComponent('share', () => Share)
-AppRegistry.registerComponent('main', () => App)
+AppRegistry.registerComponent('share', () => ShareApp)
+AppRegistry.registerComponent('main', () => MainApp)

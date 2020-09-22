@@ -17,6 +17,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Platform, UIManager } from 'react-native';
 import { navigationRef, isReadyRef } from './RootNavigation';
 import MainStack from 'nav/MainStack';
+import IsShareExtensionContext from 'IsShareExtensionContext';
 
 const theme = {
   ...DefaultTheme,
@@ -51,24 +52,6 @@ const rrfConfig = {
 RNFirebase.firestore() // <- needed if using firestore
 RNFirebase.functions() // <- needed if using httpsCallable
 
-// Create store with reducers and initial state
-const initialState = {}
-
-//TODO: replace above with something like this:
-// const initialState: RootState = {
-//   firestore: {
-//     data: {
-//     },
-//     errors: {},
-//     listenerers: {},
-//     ordered: {},
-//     queries: {},
-//     status: {},
-//   },
-// }
-
-// const store = createStore(rootReducer, initialState)
-
 const rrfProps = {
  firebase: RNFirebase,
  config: rrfConfig,
@@ -76,7 +59,6 @@ const rrfProps = {
  createFirestoreInstance, // <- needed if using firestore
  // allowMultipleListeners: true,
 }
-
 
 const App = (): ReactElement => {
   React.useLayoutEffect(() => {
@@ -99,4 +81,17 @@ const App = (): ReactElement => {
   );
 }
 
-export default App;
+export const MainApp = () => {
+  return (
+    <IsShareExtensionContext.Provider value={false}>
+      <App/>
+    </IsShareExtensionContext.Provider>
+  );
+}
+export const ShareApp = () => {
+  return (
+    <IsShareExtensionContext.Provider value={true}>
+      <App/>
+    </IsShareExtensionContext.Provider>
+  );
+}
