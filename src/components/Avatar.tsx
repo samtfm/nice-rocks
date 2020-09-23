@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 interface AvatarProps {
   id: string,
   size: number,
-  clickable: boolean,
+  clickable?: boolean,
 }
 
 const Avatar = ({id, size, clickable=true}: AvatarProps): ReactElement => {

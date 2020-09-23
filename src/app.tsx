@@ -18,6 +18,9 @@ import { Platform, UIManager } from 'react-native';
 import { navigationRef, isReadyRef } from './RootNavigation';
 import MainStack from 'nav/MainStack';
 import IsShareExtensionContext from 'IsShareExtensionContext';
+import messaging from '@react-native-firebase/messaging';
+import { queueNewRock } from 'reducers/notificationsReducer';
+import { updateScheduledPush } from 'scheduledPush';
 
 const theme = {
   ...DefaultTheme,
@@ -59,6 +62,17 @@ const rrfProps = {
  createFirestoreInstance, // <- needed if using firestore
  // allowMultipleListeners: true,
 }
+
+// Register background handler
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  const { data } = remoteMessage;
+  if (data && data.type === 'new-rock') {
+    const { fromDisplayName, profileId, rockId, rockTitle } = data
+    store.dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
+    updateScheduledPush(store.getState())
+  }
+  console.log('Message handled in the background!');
+});
 
 const App = (): ReactElement => {
   React.useLayoutEffect(() => {
