@@ -11,7 +11,7 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 import { createFirestoreInstance } from 'redux-firestore' // <- needed if using firestore
 import AuthLoaded from 'components/AuthLoaded'
 import colors from 'styles/colors';
-import {store} from 'reducers/rootReducer';
+import { store } from 'reducers/rootReducer';
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Platform, UIManager } from 'react-native';
@@ -69,7 +69,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   if (data && data.type === 'new-rock') {
     const { fromDisplayName, profileId, rockId, rockTitle } = data
     store.dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
-    updateScheduledPush(store.getState())
+    updateScheduledPush()
   }
   console.log('Message handled in the background!');
 });

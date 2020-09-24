@@ -1,11 +1,12 @@
-import { RootState } from "reducers/rootReducer"
 var PushNotification = require("react-native-push-notification");
+import { store } from 'reducers/rootReducer';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 
 export const NEW_ROCKS_PUSH_ID = '123456789';
 
-const getNextTime = ({settings: {disableAll, enableInstantRocks, notificationTimes}}: RootState) => {
+const getNextTime = () => {
+  const {settings: {disableAll, enableInstantRocks, notificationTimes}} = store.getState()
   const times = Object.values(notificationTimes)
 
   if (times.length === 0 || disableAll || enableInstantRocks ) { return null }
@@ -22,11 +23,12 @@ const getNextTime = ({settings: {disableAll, enableInstantRocks, notificationTim
   return Date.now() + shortestTimerInSeconds
 }
 
-export const updateScheduledPush = (state: RootState) => {
+export const updateScheduledPush = () => {
+  const state = store.getState()
   PushNotification.cancelLocalNotifications({id: NEW_ROCKS_PUSH_ID});
   const newRocks = Object.values(state.notifications)
 
-  const nextTime = getNextTime(state)
+  const nextTime = getNextTime()
   if (nextTime && newRocks.length) {
     PushNotification.localNotificationSchedule({
       title: `${newRocks.length} new rocks to explore!`,
@@ -39,4 +41,5 @@ export const updateScheduledPush = (state: RootState) => {
       allowWhileIdle: true,
     })  
   }
+  console.log('updated')
 }

@@ -9,6 +9,7 @@ import colors from 'styles/colors';
 import Avatar from 'components/Avatar';
 import { Button } from 'react-native-paper';
 import { actionTypes } from 'redux-firestore'
+import ScheduledPushSwitch from './ScheduledPushSwitch';
 
 interface DrawerContent{
   // The navigation state of the navigator, state.routes contains list of all routes
@@ -27,7 +28,7 @@ const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent
       return data.userData.messagingToken;
     }
   )
-
+  
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();
@@ -58,6 +59,8 @@ const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent
         <ContactName style={{marginTop: 10, fontSize: 18, fontFamily: 'Bitter-Bold'}} id={uid} />
 
       </View>
+      <ScheduledPushSwitch hours={17} minutes={30}/>
+      <ScheduledPushSwitch hours={9} minutes={0}/>
       <Button
         onPress={logout}
         style={styles.logoutButton}
