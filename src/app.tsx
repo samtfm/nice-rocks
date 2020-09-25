@@ -11,7 +11,7 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 import { createFirestoreInstance } from 'redux-firestore' // <- needed if using firestore
 import AuthLoaded from 'components/AuthLoaded'
 import colors from 'styles/colors';
-import { store } from 'reducers/rootReducer';
+import { persistor, store } from 'reducers/rootReducer';
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Platform, UIManager } from 'react-native';
@@ -21,6 +21,8 @@ import IsShareExtensionContext from 'IsShareExtensionContext';
 import messaging from '@react-native-firebase/messaging';
 import { queueNewRock } from 'reducers/newRocksReducer';
 import { setOrUpdateScheduledPush } from 'scheduledPush';
+import { PersistGate } from 'redux-persist/integration/react';
+import Text from 'components/Text';
 
 const theme = {
   ...DefaultTheme,
@@ -82,6 +84,7 @@ const App = (): ReactElement => {
   }, []);
   return (
     <Provider store={store}>
+      <PersistGate loading={<Text>Loading local settings...</Text>} persistor={persistor}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <PaperProvider theme={theme}>
           <AuthLoaded>
@@ -91,6 +94,7 @@ const App = (): ReactElement => {
           </AuthLoaded>
         </PaperProvider>
       </ReactReduxFirebaseProvider>
+      </PersistGate>
     </Provider>
   );
 }
