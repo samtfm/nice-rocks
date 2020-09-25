@@ -9,7 +9,8 @@ import colors from 'styles/colors';
 import Avatar from 'components/Avatar';
 import { Button } from 'react-native-paper';
 import { actionTypes } from 'redux-firestore'
-import ScheduledPushSwitch from './ScheduledPushSwitch';
+import ScheduledPushSwitches from './ScheduledPushSwitches';
+import Text from 'components/Text';
 
 interface DrawerContent{
   // The navigation state of the navigator, state.routes contains list of all routes
@@ -59,8 +60,11 @@ const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent
         <ContactName style={{marginTop: 10, fontSize: 18, fontFamily: 'Bitter-Bold'}} id={uid} />
 
       </View>
-      <ScheduledPushSwitch hours={17} minutes={30}/>
-      <ScheduledPushSwitch hours={9} minutes={0}/>
+      <Text style={styles.title}>Notification Times</Text>
+      <View style={{paddingLeft: 10}}>
+        <ScheduledPushSwitches />
+      </View>
+      <View style={styles.spacer}></View>
       <Button
         onPress={logout}
         style={styles.logoutButton}
@@ -82,6 +86,15 @@ const styles = StyleSheet.create({
     paddingRight: 6,
     paddingTop: 20,
     paddingBottom: 20,
+  },
+  title: {
+    paddingHorizontal: 10,
+    marginBottom: 8,
+    // fontSize: 12,
+    fontFamily: 'Bitter-Bold',
+  },
+  spacer: {
+    flex: 1,
   },
   logoutButton: {
     marginBottom: 30,

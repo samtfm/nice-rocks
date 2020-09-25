@@ -3,12 +3,13 @@ import { createAction, createReducer } from '@reduxjs/toolkit'
 interface Time {
   hours: number,
   minutes: number,
+  disabled?: boolean,
 }
 
 interface NewRocksState {
   rocks: Rock[]
-  nextNotifDateTime: Date | null,
-  notifTimes: {[str: string]: Time}, // str in format `hours:minutes`
+  nextNotifDateTime: Date | null
+  notifTimes: {[str: string]: Time} // str in format `hours:minutes`
 }
 
 interface Rock {
@@ -20,7 +21,7 @@ interface Rock {
 
 export const queueNewRock = createAction<Rock>('newRocks/queueNewRock')
 export const lookedAtRock = createAction<Rock>('newRocks/lookedAtRock')
-export const addNotificationTime = createAction<Time>('settings/addNotificationTime')
+export const setNotificationTime = createAction<Time>('settings/setNotificationTime')
 export const removeNotificationTime = createAction<Time>('settings/removeNotificationTime')
 
 const initialState: NewRocksState = {
@@ -35,7 +36,7 @@ const newRocksReducer = createReducer(initialState, (builder) => {
       const newState = Object.assign({}, state)
       if (!state.nextNotifDateTime || state.nextNotifDateTime < new Date()) {
         newState.rocks = []
-        newState.nextNotifDateTime = getNextTime(Object.values(state.notifTimes))
+        newState.nextNotifDateTime = getNextTime(state.notifTimes)
       }
       newState.rocks = newState.rocks.concat(action.payload)
       return newState
@@ -46,13 +47,12 @@ const newRocksReducer = createReducer(initialState, (builder) => {
       delete newState[rock.id];
       return {...state, rocks: state.rocks.filter(rock => rock.id !== action.payload.id)}
     })
-    .addCase(addNotificationTime, (state, action) => {
+    .addCase(setNotificationTime, (state, action) => {
       const newTime = action.payload
       const newNotifTimes = {...state.notifTimes, [`${newTime.hours}:${newTime.minutes}`]: newTime}
-
       const newState = Object.assign({}, state)
       newState.notifTimes = newNotifTimes
-      newState.nextNotifDateTime = getNextTime(Object.values(newNotifTimes))
+      newState.nextNotifDateTime = getNextTime(newNotifTimes)
       return newState
     })
     .addCase(removeNotificationTime, (state, action) => {
@@ -62,12 +62,13 @@ const newRocksReducer = createReducer(initialState, (builder) => {
       
       const newState = Object.assign({}, state)
       newState.notifTimes = newNotifTimes
-      newState.nextNotifDateTime = getNextTime(Object.values(newNotifTimes))
+      newState.nextNotifDateTime = getNextTime(newNotifTimes)
       return newState
     })
 })
 
-export const getNextTime = (times: Time[]) => {
+export const getNextTime = (notifTimes: {[str: string]: Time}) => {
+  const times = Object.values(notifTimes).filter(time => !time.disabled)
   if (times.length === 0) { return null }
 
   const currentTime = new Date()

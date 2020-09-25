@@ -19,7 +19,7 @@ import { navigationRef, isReadyRef } from './RootNavigation';
 import MainStack from 'nav/MainStack';
 import IsShareExtensionContext from 'IsShareExtensionContext';
 import messaging from '@react-native-firebase/messaging';
-import { queueNewRock } from 'reducers/newRocks';
+import { queueNewRock } from 'reducers/newRocksReducer';
 import { setOrUpdateScheduledPush } from 'scheduledPush';
 
 const theme = {
