@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Pressable, StyleSheet, View } from "react-native";
+import { Platform, Pressable, StyleSheet, View } from "react-native";
 import { setNotificationTime } from 'reducers/newRocksReducer';
 import { RootState } from 'reducers/rootReducer';
 import ScheduledPushSwitch from './ScheduledPushSwitch';
@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from 'styles/colors';
 import Text from 'components/Text';
 import { setOrUpdateScheduledPush } from 'scheduledPush';
+import { Button, Modal, Portal } from 'react-native-paper';
 
 const ScheduledPushSwitches = () => {
   const timeList = useSelector(
@@ -20,17 +21,23 @@ const ScheduledPushSwitches = () => {
   const dispatch = useDispatch();
   const [newTime, setNewTime] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const onPickTime = (e, time) => {
-    setShowTimePicker(false)
+  const onChange = (e, time) => {
+    setShowTimePicker(Platform.OS === 'ios');
     if (time) {
-      dispatch(setNotificationTime({
-        hours: time.getHours(), 
-        minutes: time.getMinutes(),
-        disabled: false,
-      }))
       setNewTime(time)
-      setOrUpdateScheduledPush()
+      if (Platform.OS !== 'ios') {
+        addTimeToggle(time)
+      }
     }
+  }
+
+  const addTimeToggle = (time) => {
+    dispatch(setNotificationTime({
+      hours: time.getHours(), 
+      minutes: time.getMinutes(),
+      disabled: false,
+    }))
+    setOrUpdateScheduledPush()
   }
 
   return (
@@ -42,7 +49,7 @@ const ScheduledPushSwitches = () => {
           minutes={time.minutes}
           enabled={!time.disabled} />
       ))} 
-      <Pressable style={styles.newTimeButton}
+      {timeList.length < 6 && <Pressable style={styles.newTimeButton}
         onPress={() => setShowTimePicker(true)}
       >
         <Icon 
@@ -50,16 +57,34 @@ const ScheduledPushSwitches = () => {
           color={colors.gray60}
           size={22}
         />
-        <Text style={{color: colors.gray60}}>{"add time"}</Text>
+        <Text style={{color: colors.gray50}}>{"add time"}</Text>
       </Pressable>
-      {showTimePicker && (
-        <DateTimePicker
-          testID="dateTimePicker"
+      }
+      {Platform.OS === 'ios' ? (
+        <Portal>
+          <Modal contentContainerStyle={styles.iosTimePickerModal} visible={showTimePicker} onDismiss={() => setShowTimePicker(false)} >
+            <DateTimePicker
+              style={styles.iosTimePicker}
+              value={newTime}
+              mode='time'
+              display='default'
+              onChange={onChange}
+            />
+            <View style={{flexDirection: 'row', marginBottom: 10}}>
+              <Button color={colors.gray70} onPress={() => setShowTimePicker(false)}>cancel</Button>
+              <Button onPress={() => {
+                addTimeToggle(newTime)
+                setShowTimePicker(false)
+              }}>ok</Button>
+            </View>
+          </Modal>
+        </Portal>
+      ) : (
+        showTimePicker && <DateTimePicker
           value={newTime}
           mode='time'
-          is24Hour={true}
-          display="default"
-          onChange={onPickTime}
+          display='default'
+          onChange={onChange}
         />
       )}
     </View>
@@ -79,6 +104,17 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingLeft: 2,
     flexDirection: 'row',
+    marginLeft: 10,
+  },
+  iosTimePickerModal: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    borderRadius: 3,
+  },
+  iosTimePicker: {
+    height: 200,
+    width: 240,
   }
 })
 

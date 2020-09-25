@@ -27,7 +27,18 @@ export const removeNotificationTime = createAction<Time>('settings/removeNotific
 const initialState: NewRocksState = {
   rocks: [],
   nextNotifDateTime: null,
-  notifTimes: {},
+  notifTimes: {
+    '9:0': {
+      hours: 9,
+      minutes: 0,
+      disabled: true,
+    },
+    '17:30': {
+      hours: 17,
+      minutes: 30,
+      disabled: false,
+    }
+  },
 }
 
 const newRocksReducer = createReducer(initialState, (builder) => {

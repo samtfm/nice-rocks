@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { Switch } from "react-native-paper";
 import { setOrUpdateScheduledPush } from "scheduledPush";
 import Text from 'components/Text';
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { removeNotificationTime, setNotificationTime } from "reducers/newRocksReducer";
 import { useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -26,21 +26,25 @@ const ScheduledPushSwitch = ({hours, minutes, enabled}: ScheduledPushSwitch): Re
   const ampm = hours < 12 ? 'am' : 'pm'
   const mins = minutes < 10 ? `0${minutes}` : `${minutes}`
   const hrs = `${[0,12].includes(hours) ? 12: hours%12}`
-  const timeString = `${hrs}:${mins}${ampm}`
+  const timeString = `${hrs}:${mins}${ampm} `
 
 
   return (
     <View style={styles.main}>
-      <Icon
-        name='close'
-        color={colors.gray60}
-        size={14}
-        style={{'backgroundColor': colors.gray90, borderRadius: 50, padding: 3}}
+      <Pressable
         onPress={() => {
           dispatch(removeNotificationTime({hours, minutes}));
           setOrUpdateScheduledPush();
         }}
-      />
+        style={{'backgroundColor': colors.gray90, borderRadius: 50, padding: 3}}
+      >
+        <Icon
+          name='close'
+          color={colors.gray60}
+          size={14}
+        />
+      </Pressable>
+
       <View style={styles.spacer} />
       <Text>{timeString}</Text>
       <Switch value={enabled} onValueChange={onToggleSwitch} />
@@ -52,7 +56,6 @@ const styles = StyleSheet.create({
   main: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
     borderBottomColor: colors.gray90,
     borderRadius: 14, // shrinks the borderBottom
     borderBottomWidth: 1,

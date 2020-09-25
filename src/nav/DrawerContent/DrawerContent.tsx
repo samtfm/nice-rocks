@@ -60,7 +60,7 @@ const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent
         <ContactName style={{marginTop: 10, fontSize: 18, fontFamily: 'Bitter-Bold'}} id={uid} />
 
       </View>
-      <Text style={styles.title}>Notification Times</Text>
+      <Text style={styles.title}>Notification times</Text>
       <View style={{paddingLeft: 10}}>
         <ScheduledPushSwitches />
       </View>
