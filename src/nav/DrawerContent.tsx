@@ -28,7 +28,7 @@ const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent
       return data.userData.messagingToken;
     }
   )
-  
+
   const firebase = useFirebase();
   const firestore = useFirestore();
   const dispatch = useDispatch();

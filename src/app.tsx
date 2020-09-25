@@ -19,8 +19,8 @@ import { navigationRef, isReadyRef } from './RootNavigation';
 import MainStack from 'nav/MainStack';
 import IsShareExtensionContext from 'IsShareExtensionContext';
 import messaging from '@react-native-firebase/messaging';
-import { queueNewRock } from 'reducers/notificationsReducer';
-import { updateScheduledPush } from 'scheduledPush';
+import { queueNewRock } from 'reducers/newRocks';
+import { setOrUpdateScheduledPush } from 'scheduledPush';
 
 const theme = {
   ...DefaultTheme,
@@ -69,9 +69,9 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   if (data && data.type === 'new-rock') {
     const { fromDisplayName, profileId, rockId, rockTitle } = data
     store.dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
-    updateScheduledPush()
+    setOrUpdateScheduledPush()
   }
-  console.log('Message handled in the background!');
+  // console.log('Message handled in the background!', data);
 });
 
 const App = (): ReactElement => {

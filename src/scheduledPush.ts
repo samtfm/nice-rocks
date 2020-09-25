@@ -1,45 +1,50 @@
 var PushNotification = require("react-native-push-notification");
 import { store } from 'reducers/rootReducer';
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
-
 
 export const NEW_ROCKS_PUSH_ID = '123456789';
 
-const getNextTime = () => {
-  const {settings: {disableAll, enableInstantRocks, notificationTimes}} = store.getState()
-  const times = Object.values(notificationTimes)
-
-  if (times.length === 0 || disableAll || enableInstantRocks ) { return null }
-
-  const currentTime = new Date()
-  const currentMinutes = currentTime.getMinutes() + currentTime.getHours() * 60
-  const minuteTimers = times.map(t => {
-    let minutes = t.minutes + t.hours * 60
-    if (minutes < currentMinutes) { minutes += 24 * 60 }
-    return minutes
-  })
-  minuteTimers.sort((a, b) => a - b)
-  const shortestTimerInSeconds = minuteTimers[0] * 1000*60
-  return Date.now() + shortestTimerInSeconds
+const trunc = (str: string, chars: number) => {
+  if (str.length <= chars) {
+    return str;
+  } else {
+    return str.slice(0, chars-3) + '...'
+  }
 }
 
-export const updateScheduledPush = () => {
-  const state = store.getState()
+export const setOrUpdateScheduledPush = () => {
+  // clear any old scheduled push
   PushNotification.cancelLocalNotifications({id: NEW_ROCKS_PUSH_ID});
-  const newRocks = Object.values(state.notifications)
 
-  const nextTime = getNextTime()
-  if (nextTime && newRocks.length) {
-    PushNotification.localNotificationSchedule({
-      title: `${newRocks.length} new rocks to explore!`,
-      message: "check em out!",
-      date: nextTime,
-      id: NEW_ROCKS_PUSH_ID,
-      data: {
-        type: 'new-rocks',
-      },
-      allowWhileIdle: true,
-    })  
+  const state = store.getState()
+  const {settings: {disableAll, enableInstantRocks}} = state
+
+  if (disableAll || enableInstantRocks ) { return }
+
+  const { rocks, nextNotifDateTime } = state.newRocks
+
+  if (nextNotifDateTime) {
+    if (rocks.length === 1) {
+      PushNotification.localNotificationSchedule({
+        title: rocks[0].fromDisplayName,
+        message: rocks[0].title,
+        date: nextNotifDateTime,
+        id: NEW_ROCKS_PUSH_ID,
+        data: {
+          type: 'new-rocks',
+        },
+        allowWhileIdle: true,
+      })    
+    } else if (rocks.length > 1) {
+      PushNotification.localNotificationSchedule({
+        title: `New rocks to explore!`,
+        message: `"${trunc(rocks[0].title, 30)}" and ${rocks.length} more`,
+        date: nextNotifDateTime,
+        id: NEW_ROCKS_PUSH_ID,
+        data: {
+          type: 'new-rocks',
+        },
+        allowWhileIdle: true,
+      })    
+    }
   }
-  console.log('updated')
 }
