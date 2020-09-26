@@ -21,14 +21,14 @@ export const setOrUpdateScheduledPush = () => {
   if (disableAll || enableInstantRocks ) { return }
 
   const { rocks, nextNotifDateTime } = state.newRocks
-
   if (nextNotifDateTime) {
+    const date = new Date(nextNotifDateTime)
     if (rocks.length === 1) {
       const rock = rocks[0]
       PushNotification.localNotificationSchedule({
         title: rock.fromDisplayName,
         message: rock.title,
-        date: nextNotifDateTime,
+        date: date,
         id: NEW_ROCKS_PUSH_ID,
         data: {
           type: 'new-rock',
@@ -41,7 +41,7 @@ export const setOrUpdateScheduledPush = () => {
       PushNotification.localNotificationSchedule({
         title: `New rocks to explore!`,
         message: `"${trunc(rocks[0].title, 30)}" and ${rocks.length} more`,
-        date: nextNotifDateTime,
+        date: date,
         id: NEW_ROCKS_PUSH_ID,
         data: {
           type: 'new-rocks',

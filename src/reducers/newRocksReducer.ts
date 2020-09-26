@@ -8,7 +8,7 @@ interface Time {
 
 interface NewRocksState {
   rocks: Rock[]
-  nextNotifDateTime: Date | null
+  nextNotifDateTime: number | null // stringified date
   notifTimes: {[str: string]: Time} // str in format `hours:minutes`
 }
 
@@ -78,7 +78,7 @@ const newRocksReducer = createReducer(initialState, (builder) => {
     })
 })
 
-export const getNextTime = (notifTimes: {[str: string]: Time}) => {
+export const getNextTime = (notifTimes: {[str: string]: Time}): number | null => {
   const times = Object.values(notifTimes).filter(time => !time.disabled)
   if (times.length === 0) { return null }
 
@@ -94,8 +94,7 @@ export const getNextTime = (notifTimes: {[str: string]: Time}) => {
 
   const currentEpochMinutes = Math.floor(currentTime.getTime() / (60 * 1000))
   const nextTimeEpoch = (currentEpochMinutes + minuteTimers[0]) * 60 * 1000
-
-  return new Date(nextTimeEpoch)
+  return nextTimeEpoch
 }
 
 
