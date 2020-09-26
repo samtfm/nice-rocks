@@ -6,17 +6,24 @@ import RNFirebase from '@react-native-firebase/app';
 import '@react-native-firebase/firestore';
 import '@react-native-firebase/functions';
 import '@react-native-firebase/auth';
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 import { createFirestoreInstance } from 'redux-firestore' // <- needed if using firestore
 import AuthLoaded from 'components/AuthLoaded'
 import colors from 'styles/colors';
-import rootReducer from 'reducers/rootReducer';
+import { persistor, store } from 'reducers/rootReducer';
+
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Platform, UIManager } from 'react-native';
-import { navigationRef } from './RootNavigation';
+import { navigationRef, isReadyRef } from './RootNavigation';
 import MainStack from 'nav/MainStack';
+import IsShareExtensionContext from 'IsShareExtensionContext';
+import messaging from '@react-native-firebase/messaging';
+import { queueNewRock } from 'reducers/newRocksReducer';
+import { setOrUpdateScheduledPush } from 'scheduledPush';
+import { PersistGate } from 'redux-persist/integration/react';
+import Text from 'components/Text';
+var PushNotification = require("react-native-push-notification");
 
 const theme = {
   ...DefaultTheme,
@@ -51,24 +58,6 @@ const rrfConfig = {
 RNFirebase.firestore() // <- needed if using firestore
 RNFirebase.functions() // <- needed if using httpsCallable
 
-// Create store with reducers and initial state
-const initialState = {}
-
-//TODO: replace above with something like this:
-// const initialState: RootState = {
-//   firestore: {
-//     data: {
-//     },
-//     errors: {},
-//     listenerers: {},
-//     ordered: {},
-//     queries: {},
-//     status: {},
-//   },
-// }
-
-const store = createStore(rootReducer, initialState)
-
 const rrfProps = {
  firebase: RNFirebase,
  config: rrfConfig,
@@ -77,21 +66,64 @@ const rrfProps = {
  // allowMultipleListeners: true,
 }
 
+// Register background handler
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  const { data } = remoteMessage;
+  if (data && data.type === 'new-rock') {
+    const { fromDisplayName, profileId, rockId, rockTitle } = data
+    const { enableInstantRocks } = store.getState().settings;
+    if (enableInstantRocks) {
+      PushNotification.localNotification({
+        title: data.fromDisplayName,
+        message: data.title,
+        data: {
+          type: 'new-rock',
+          profileId: data.profileId,
+          rockId: data.rockId,
+        },
+        allowWhileIdle: true,
+      })    
+    } else {
+      store.dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
+      setOrUpdateScheduledPush()  
+    }
+  }
+});
 
 const App = (): ReactElement => {
+  React.useLayoutEffect(() => {
+    return () => {
+      isReadyRef.current = false
+    };
+  }, []);
   return (
     <Provider store={store}>
+      <PersistGate loading={<Text>Loading local settings...</Text>} persistor={persistor}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <PaperProvider theme={theme}>
           <AuthLoaded>
-            <NavigationContainer ref={navigationRef}>
+            <NavigationContainer ref={navigationRef} onReady={() => {isReadyRef.current = true;}}>
               <MainStack />
             </NavigationContainer>
           </AuthLoaded>
         </PaperProvider>
       </ReactReduxFirebaseProvider>
+      </PersistGate>
     </Provider>
   );
 }
 
-export default App;
+export const MainApp = () => {
+  return (
+    <IsShareExtensionContext.Provider value={false}>
+      <App/>
+    </IsShareExtensionContext.Provider>
+  );
+}
+export const ShareApp = () => {
+  return (
+    <IsShareExtensionContext.Provider value={true}>
+      <App/>
+    </IsShareExtensionContext.Provider>
+  );
+}

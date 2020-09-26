@@ -1,10 +1,12 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import RockDetails from 'components/RockDetails'
 import { ScrollView, View } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'reducers/rootReducer';
 import colors from 'styles/colors';
+import { lookedAtRock } from 'reducers/newRocksReducer';
+import { setOrUpdateScheduledPush } from 'scheduledPush';
 
 interface ViewRock{
   route: any
@@ -14,6 +16,17 @@ const ViewRock = ({ route }: ViewRock): ReactElement => {
   const { rockId, toUserId } = route.params
   const collectionPath = `profiles/${toUserId}/rocks`
   useFirestoreConnect(() => [{collection: collectionPath, doc: rockId, storeAs: `profiles/${toUserId}/rocks/${rockId}`}])
+  const dispatch = useDispatch()
+  
+  // remove rock from scheduled push
+  useEffect(() => {
+    dispatch(lookedAtRock({
+      id: rockId,
+      toUserId: toUserId,
+    }))
+    setOrUpdateScheduledPush()
+  }, [rockId, toUserId]);
+
   const rock = useSelector(
     ({ firestore: { data } }: RootState) => {
       return data[`profiles/${toUserId}/rocks/${rockId}`]

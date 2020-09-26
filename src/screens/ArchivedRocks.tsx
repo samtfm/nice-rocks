@@ -28,16 +28,21 @@ const ArchivedRocks = (): ReactElement => {
     ({ firestore }: RootState) => {
       return firestore.ordered['archivedRocks'];
     }
-  ) || []
+  );
 
-  const rocksToShow = rocks.slice(0, limit)
-  const showMoreButton = rocks.length == limit+1
+  const rocksToShow = rocks ? rocks.slice(0, limit) : []
+  const showMoreButton = rocks && rocks.length == limit+1
 
   return (
-    <View style={styles.main}>
-      <ScrollView>
-        <Text style={styles.title}>Archive</Text>
-        <RockList rocks={rocksToShow} avatarIdKey={"fromUserId"}/>
+    <ScrollView style={styles.main}>
+      <Text style={styles.title}>Archive</Text>
+      {rocks && rocks.length === 0 && (
+        <Text style={styles.emptyTooltip}>
+          {"Your archive is empty. Once you respond to a rock you can find it again here."}
+        </Text>
+      )}
+      <RockList rocks={rocksToShow} avatarIdKey={"fromUserId"}/>
+      <View style={{paddingBottom: 40, paddingTop: 10}}>
         {showMoreButton && (
           <Button 
             style={{alignSelf: "center"}}
@@ -45,8 +50,8 @@ const ArchivedRocks = (): ReactElement => {
             onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
           >Load more</Button>
         )}
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -62,6 +67,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
   },
+  emptyTooltip: {
+    alignSelf: 'center',
+    marginTop: 60,
+    width: 280,
+    lineHeight: 22,
+    textAlign: 'center',
+    color: colors.gray40,
+  },
+
 });
 
 export default ArchivedRocks;

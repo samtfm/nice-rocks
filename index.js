@@ -1,11 +1,12 @@
 import { registerRootComponent } from 'expo';
-import messaging from '@react-native-firebase/messaging';
+import { AppRegistry } from 'react-native'
 
-import App from './src/app';
+import { MainApp, ShareApp } from './src/app';
 
 import firestore from '@react-native-firebase/firestore';
 import functions from '@react-native-firebase/functions';
 import RNFirebase from '@react-native-firebase/app';
+
 
 const db = firestore();
 
@@ -17,14 +18,9 @@ if (__DEV__) {
 }
 
 
-
-// Register background handler
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!');
-});
-
-
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in the Expo client or in a native build,
 // the environment is set up appropriately
-registerRootComponent(App);
+// registerRootComponent(App);
+AppRegistry.registerComponent('share', () => ShareApp)
+AppRegistry.registerComponent('main', () => MainApp)

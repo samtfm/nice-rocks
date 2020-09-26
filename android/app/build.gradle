@@ -215,6 +215,9 @@ dependencies {
     }
     addUnimodulesDependencies()
 
+    compile project(':react-native-share-extension')
+    compile "com.facebook.react:react-native:+"
+
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")

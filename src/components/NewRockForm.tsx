@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 import ContactName from './ContactName';
-import { StyleSheet, View, Button, Pressable, Alert} from 'react-native';
+import { StyleSheet, View, Button, Pressable, Alert, BackHandler} from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
 import Text from 'components/Text';
 import { useFirestore } from "react-redux-firebase";
@@ -17,11 +17,6 @@ const charLimits = {
   title: 200,
 }
 
-const defaultForm = {
-  title: '',
-  note: '',
-  url: '',
-}
 interface FormUpdate{
   title?: string,
   note?: string,
@@ -54,7 +49,34 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
     note: '',
   });
 
+
+  const discardAlert = (discardCallback: () => void) => {
+    Alert.alert(
+      'Discard changes?',
+      'You have unsaved changes. Are you sure you want to discard them?',
+      [
+        { text: "Stay", style: 'cancel' },
+        {
+          text: 'Discard',
+          style: 'destructive',
+          onPress: discardCallback,
+        },
+      ]
+    );
+  }
+
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (!hasUnsavedChanges || navigation.canGoBack()) {
+         return false; // regular back button behavior
+      }
+      // Prompt the user before leaving the screen
+      discardAlert(BackHandler.exitApp)
+      return true; // stop event from bubbling
+    });
+    return () => backHandler.remove();
+  }, [navigation, hasUnsavedChanges])
 
   // Add warning before discarding unsaved rock
   useEffect(() => (
@@ -66,18 +88,7 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
       e.preventDefault();
 
       // Prompt the user before leaving the screen
-      Alert.alert(
-        'Discard changes?',
-        'You have unsaved changes. Are you sure you want to discard them?',
-        [
-          { text: "Stay", style: 'cancel' },
-          {
-            text: 'Discard',
-            style: 'destructive',
-            onPress: () => navigation.dispatch(e.data.action),
-          },
-        ]
-      );
+      discardAlert(() => navigation.dispatch(e.data.action))
     })),
     [navigation, hasUnsavedChanges]
   );
@@ -109,7 +120,11 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
         setHasUnsavedChanges(false);
         setTimeout(() => {
           if (navigation.isFocused()){
-            navigation.goBack();
+            if (navigation.canGoBack()){
+              navigation.goBack();
+            } else {
+              BackHandler.exitApp();
+            }
           }
         }, 1400)
       }, () => {
@@ -125,10 +140,16 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
     setForm(updated)
   }
 
-  const trunc = (str: string, len: length): string => {
+  const trunc = (str: string, len: number): string => {
     if (str.length <= len) return str;
     return str.slice(0,len-3)+'...'
   }
+
+  useEffect(() => {
+    if (url && !title) { 
+      updateUrl(url)
+    }
+  }, [url, title])
 
   const updateUrl = (text: string) => {
     const url = text.replace(/(\r\n|\n|\r)/gm, "")
@@ -136,9 +157,7 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
     OpenGraphParser.extractMeta(url)
     .then((data: any) => {
       if (!data[0]) return;
-      console.log(data[0].title)
       if (data[0].title){
-        console.log(data[0].title)
         updateForm({title: trunc(data[0].title, charLimits.title), url: url})
       }
     })

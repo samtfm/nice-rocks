@@ -4,6 +4,8 @@ const colors = {
   white: '#FFF',
   // blue: '#00ace6',
   blue: '#12b8ff',
+  blueLight: '#6deaff',
+  blueDark: '#0088cb',
   // blue: '#3AB1E4',
   // blue: '#0BA5E7',
   // mint: 'hsla(126, 45%, 75%, 1)',
@@ -28,15 +30,32 @@ const colors = {
 
   // primary: '#75b573',
   // mint
-  primary: '#96b995',
-  primaryLight: '#c7ebc6',
-  primaryDark: '#688967',
+  // primary: '#96b995',
+  // primaryLight: '#c7ebc6',
+  // primaryDark: '#688967',
   
   //forest
   // primary: '#809e7d',
   // primaryLight: '#b0cfac',
   // primaryDark: '#537051',
 
+  // fire
+  // primary: '#ffa73b',
+  // primaryLight: '#ffd96c',
+  // primaryDark: '#c77800',
+
+  // fire (lighter) - CURRENT
+  primary: '#f7ad45',
+  primaryLight: '#ffdf75',
+  primaryDark: '#c07e0e',
+
+  
+
+  // primary: '#ff8229',
+  // primaryLight: '#ffb35a',
+  // primaryDark: '#c55300',
+
+  
   footerBackground: '#c7ebc6',
   
   

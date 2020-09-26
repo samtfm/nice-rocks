@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import RockList from 'components/RockList'
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 import Text from 'components/Text';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect } from 'react-redux-firebase'
@@ -35,13 +35,15 @@ const ReceivedRocks = (): ReactElement => {
     <ScrollView style={styles.main}>
       <Text style={styles.title}>Received</Text>
       <RockList rocks={rocksToShow} avatarIdKey={"fromUserId"}/>
-      {showMoreButton && (
-        <Button 
-          style={{alignSelf: "center"}}
-          mode={'outlined'}
-          onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
-        >Load more</Button>
-      )}
+      <View style={{paddingBottom: 40, paddingTop: 10}}>
+        {showMoreButton && (
+          <Button 
+            style={{alignSelf: "center"}}
+            mode={'outlined'}
+            onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
+          >Load more</Button>
+        )}
+      </View>
     </ScrollView>
   );
 }
