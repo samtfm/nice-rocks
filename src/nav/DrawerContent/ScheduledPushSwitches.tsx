@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Platform, Pressable, StyleSheet, View } from "react-native";
 import { setNotificationTime } from 'reducers/newRocksReducer';
@@ -11,7 +11,10 @@ import Text from 'components/Text';
 import { setOrUpdateScheduledPush } from 'scheduledPush';
 import { Button, Modal, Portal } from 'react-native-paper';
 
-const ScheduledPushSwitches = () => {
+interface ScheduledPushSwitches {
+  disableAll: boolean
+}
+const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElement => {
   const timeList = useSelector(
     (state: RootState) => {
       const { notifTimes } = state.newRocks
@@ -47,9 +50,11 @@ const ScheduledPushSwitches = () => {
           key={`${time.hours}${time.minutes}`}
           hours={time.hours} 
           minutes={time.minutes}
-          enabled={!time.disabled} />
+          value={!time.disabled}
+          disabled={disableAll}
+        />
       ))} 
-      {timeList.length < 6 && <Pressable style={styles.newTimeButton}
+      {timeList.length < 6 && !disableAll && <Pressable style={styles.newTimeButton}
         onPress={() => setShowTimePicker(true)}
       >
         <Icon 

@@ -5,8 +5,8 @@ interface SettingsState {
   enableInstantRocks: boolean,  
 }
 interface SimpleSettingsUpdate{
-  disableAll: boolean,
-  enableInstantRocks: boolean,  
+  disableAll?: boolean,
+  enableInstantRocks?: boolean,  
 }
 
 

@@ -12,13 +12,14 @@ import colors from "styles/colors";
 interface ScheduledPushSwitch{
   hours: number
   minutes: number
-  enabled: boolean
+  value: boolean
+  disabled: boolean
 }
-const ScheduledPushSwitch = ({hours, minutes, enabled}: ScheduledPushSwitch): ReactElement => {
+const ScheduledPushSwitch = ({hours, minutes, value, disabled}: ScheduledPushSwitch): ReactElement => {
   const dispatch = useDispatch()
 
   const onToggleSwitch = () => {
-    const newSwitchVal = !enabled
+    const newSwitchVal = !value
     dispatch(setNotificationTime({hours, minutes, disabled: !newSwitchVal}))
     setOrUpdateScheduledPush()
   }
@@ -31,7 +32,7 @@ const ScheduledPushSwitch = ({hours, minutes, enabled}: ScheduledPushSwitch): Re
 
   return (
     <View style={styles.main}>
-      <Pressable
+      {!disabled && <Pressable
         onPress={() => {
           dispatch(removeNotificationTime({hours, minutes}));
           setOrUpdateScheduledPush();
@@ -43,11 +44,11 @@ const ScheduledPushSwitch = ({hours, minutes, enabled}: ScheduledPushSwitch): Re
           color={colors.gray60}
           size={14}
         />
-      </Pressable>
+      </Pressable>}
 
       <View style={styles.spacer} />
-      <Text>{timeString}</Text>
-      <Switch value={enabled} onValueChange={onToggleSwitch} />
+      <Text style={disabled ? {color: colors.gray50}: {}}>{timeString}</Text>
+      <Switch value={value} disabled={disabled} onValueChange={onToggleSwitch} />
     </View>
   );
 
