@@ -1,13 +1,13 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'reducers/rootReducer';
 import ContactName from 'components/ContactName';
 import { useFirebase, useFirestore } from 'react-redux-firebase';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import colors from 'styles/colors';
 import Avatar from 'components/Avatar';
-import { Button, RadioButton, Switch } from 'react-native-paper';
+import { Button, Switch } from 'react-native-paper';
 import { actionTypes } from 'redux-firestore'
 import ScheduledPushSwitches from './ScheduledPushSwitches';
 import Text from 'components/Text';
@@ -24,9 +24,8 @@ interface DrawerContent{
   // Reanimated Node that represents the animated position of the drawer (0 is closed; 1 is open).
   progress: any,
 }
-const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent): ReactElement => {
+const DrawerContent = ({}: DrawerContent): ReactElement => {
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
-
   
   const messagingToken = useSelector(
     ({ firestore: { data } }: RootState) => {
@@ -45,21 +44,7 @@ const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent
     setOrUpdateScheduledPush();  
   }
   const toggleNotifMode = () => {
-    if (enableInstantRocks) {
-      setNotifMode(false)
-    } else {
-      Alert.alert(
-        'Enable instant notifications?',
-        'We recommend setting times you\'d like to receive new content for a more comfortable experience.',
-        [
-          { text: "Cancel", style: 'cancel' },
-          {
-            text: 'Enable',
-            onPress: () => setNotifMode(true),
-          },
-        ]
-      );    
-    }
+    setNotifMode(!enableInstantRocks)
   }
 
   const clearToken = () => {
@@ -89,16 +74,16 @@ const DrawerContent = ({state, navigation, descriptors, progress}: DrawerContent
 
       </View>
 
-      <View style={styles.notifModeToggle}>
-
-      <Text>{"Immediate notifications \n (not recommended)"}</Text>
-      <Switch value={enableInstantRocks} onValueChange={toggleNotifMode}/>
-      </View>
-
-      <Text style={styles.title}>Notification times</Text>
+      <Text style={{...styles.title, color: enableInstantRocks ? colors.gray60 : colors.gray20 }}>Notification times</Text>
       <View style={{paddingLeft: 10}}>
         <ScheduledPushSwitches disableAll={enableInstantRocks}/>
       </View>
+
+      <View style={styles.notifModeToggle}>
+        <Text style={{flex: 1}}>{"Instant new rock notifications"}</Text>
+        <Switch value={enableInstantRocks} onValueChange={toggleNotifMode}/>
+      </View>
+      
       <View style={styles.spacer}></View>
       <Button
         onPress={logout}
@@ -127,7 +112,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 8,
     // fontSize: 12,
-    fontFamily: 'Bitter-Bold',
   },
   spacer: {
     flex: 1,
@@ -144,6 +128,7 @@ const styles = StyleSheet.create({
   },
   notifModeToggle: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 10,
     marginBottom: 20,

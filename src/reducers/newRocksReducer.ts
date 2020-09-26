@@ -45,7 +45,7 @@ const newRocksReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(queueNewRock, (state, action) => {
       const newState = Object.assign({}, state)
-      if (!state.nextNotifDateTime || state.nextNotifDateTime < new Date()) {
+      if (!state.nextNotifDateTime || state.nextNotifDateTime < new Date().getTime()) {
         newState.rocks = []
         newState.nextNotifDateTime = getNextTime(state.notifTimes)
       }

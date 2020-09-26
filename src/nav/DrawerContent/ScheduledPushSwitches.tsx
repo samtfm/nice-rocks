@@ -24,7 +24,7 @@ const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElemen
   const dispatch = useDispatch();
   const [newTime, setNewTime] = useState(new Date());
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const onChange = (e, time) => {
+  const onChange = (_e: any, time: Date | undefined) => {
     setShowTimePicker(Platform.OS === 'ios');
     if (time) {
       setNewTime(time)
@@ -34,7 +34,7 @@ const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElemen
     }
   }
 
-  const addTimeToggle = (time) => {
+  const addTimeToggle = (time: Date) => {
     dispatch(setNotificationTime({
       hours: time.getHours(), 
       minutes: time.getMinutes(),
@@ -63,8 +63,7 @@ const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElemen
           size={22}
         />
         <Text style={{color: colors.gray50}}>{"add time"}</Text>
-      </Pressable>
-      }
+      </Pressable>}
       {Platform.OS === 'ios' ? (
         <Portal>
           <Modal contentContainerStyle={styles.iosTimePickerModal} visible={showTimePicker} onDismiss={() => setShowTimePicker(false)} >
@@ -99,10 +98,14 @@ const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElemen
 const styles = StyleSheet.create({
   main: {
     alignItems: 'flex-end',
+    paddingBottom: 30,
+    marginBottom: 20,
   },
   newTimeButton: {
     alignItems: 'center',
     alignSelf: 'flex-start',
+    position: 'absolute',
+    bottom: 0,
     borderRadius: 50,
     backgroundColor: colors.gray90,
     paddingRight: 10,
