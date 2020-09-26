@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, ReactElement, useCallback } from 'react';
+import React, { useEffect, useState, ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { Alert, Linking } from 'react-native';
 import { useFirebase, useFirestore, useFirestoreConnect } from 'react-redux-firebase'
