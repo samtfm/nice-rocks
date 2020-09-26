@@ -31,8 +31,7 @@ const SentRocks = (): ReactElement => {
   const showMoreButton = rocks.length == limit+1
 
   return (
-    <View style={styles.main}>
-      <ScrollView>
+    <ScrollView style={styles.main}>
         <Text style={styles.title}>Sent</Text>
         <RockList rocks={rocksToShow} avatarIdKey={"toUserId"}/>
         <View style={{paddingBottom: 40, paddingTop: 10}}>
@@ -44,8 +43,7 @@ const SentRocks = (): ReactElement => {
             >Load more</Button>
           )}
         </View>
-      </ScrollView>
-    </View>
+    </ScrollView>
   );
 }
 
