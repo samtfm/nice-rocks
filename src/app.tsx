@@ -23,6 +23,7 @@ import { queueNewRock } from 'reducers/newRocksReducer';
 import { setOrUpdateScheduledPush } from 'scheduledPush';
 import { PersistGate } from 'redux-persist/integration/react';
 import Text from 'components/Text';
+var PushNotification = require("react-native-push-notification");
 
 const theme = {
   ...DefaultTheme,
@@ -70,10 +71,23 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
   const { data } = remoteMessage;
   if (data && data.type === 'new-rock') {
     const { fromDisplayName, profileId, rockId, rockTitle } = data
-    store.dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
-    setOrUpdateScheduledPush()
+    const { enableInstantRocks } = store.getState().settings;
+    if (enableInstantRocks) {
+      PushNotification.localNotification({
+        title: data.fromDisplayName,
+        message: data.title,
+        data: {
+          type: 'new-rock',
+          profileId: data.profileId,
+          rockId: data.rockId,
+        },
+        allowWhileIdle: true,
+      })    
+    } else {
+      store.dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
+      setOrUpdateScheduledPush()  
+    }
   }
-  // console.log('Message handled in the background!', data);
 });
 
 const App = (): ReactElement => {
