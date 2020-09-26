@@ -24,13 +24,16 @@ export const setOrUpdateScheduledPush = () => {
 
   if (nextNotifDateTime) {
     if (rocks.length === 1) {
+      const rock = rocks[0]
       PushNotification.localNotificationSchedule({
-        title: rocks[0].fromDisplayName,
-        message: rocks[0].title,
+        title: rock.fromDisplayName,
+        message: rock.title,
         date: nextNotifDateTime,
         id: NEW_ROCKS_PUSH_ID,
         data: {
-          type: 'new-rocks',
+          type: 'new-rock',
+          profileId: rock.profileId,
+          rockId: rock.rockId,
         },
         allowWhileIdle: true,
       })    
