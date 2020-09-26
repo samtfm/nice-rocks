@@ -91,7 +91,7 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
       >
         Log Out
       </Button>
-      <Text style={styles.versionCode}>{"1.3.0"}</Text>
+      <Text style={styles.versionCode}>{"1.4.0"}</Text>
     </View>
   )
 }
