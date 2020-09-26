@@ -18,9 +18,13 @@ interface Rock {
   title: string
   fromDisplayName: string
 }
+interface RockId {
+  id: string
+  toUserId: string
+}
 
 export const queueNewRock = createAction<Rock>('newRocks/queueNewRock')
-export const lookedAtRock = createAction<Rock>('newRocks/lookedAtRock')
+export const lookedAtRock = createAction<RockId>('newRocks/lookedAtRock')
 export const setNotificationTime = createAction<Time>('settings/setNotificationTime')
 export const removeNotificationTime = createAction<Time>('settings/removeNotificationTime')
 
