@@ -57,9 +57,6 @@ const newRocksReducer = createReducer(initialState, (builder) => {
       return newState
     })
     .addCase(lookedAtRock, (state, action) => {
-      const rock = action.payload
-      const newState = Object.assign({}, state)
-      delete newState[rock.id];
       return {...state, rocks: state.rocks.filter(rock => rock.id !== action.payload.id)}
     })
     .addCase(setNotificationTime, (state, action) => {
