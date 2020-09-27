@@ -7,6 +7,7 @@ platform :ios, '10.0'
 
 target 'NiceRocks' do
   config = use_native_modules!
+  use_react_native!
   use_react_native!(:path => config["reactNativePath"])
 
   # Enables Flipper.
@@ -19,6 +20,9 @@ target 'NiceRocks' do
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
         config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+        if target.name == "React-Core.common-AccessibilityResources"
+          target.remove_from_project
+        end
       end
     end
   end
@@ -26,6 +30,7 @@ target 'NiceRocks' do
 end
 
 target 'ShareEx' do 
+  use_react_native!
   use_native_modules!
   inherit! :complete
 end
