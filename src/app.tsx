@@ -91,7 +91,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 });
 
 PushNotification.configure({
-  onNotification: function (notification) {
+  onNotification: function (notification: any) {
     if (notification.data && notification.data.type) {
       if (['new-response', 'new-rock'].includes(notification.data.type)) {
         const { rockId, profileId } = notification.data

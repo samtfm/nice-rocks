@@ -27,10 +27,10 @@ const persistConfig = {
   stateReconciler: autoMergeLevel2 // see "Merge Process" section for details.
 };
 
-const pReducer = persistReducer(persistConfig, rootReducer);
+const pReducer = persistReducer<RootState>(persistConfig, rootReducer);
 
 function updateScheduledPush() {
-  return next => action => {
+  return (next: any) => (action: any) => {
     // Call the next dispatch method in the middleware chain.
     const returnValue = next(action)
     if ([

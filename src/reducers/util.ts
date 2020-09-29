@@ -1,3 +1,9 @@
+interface Time {
+  hours: number,
+  minutes: number,
+  disabled?: boolean,
+}
+
 export const getNextTime = (notifTimes: {[str: string]: Time}): number | null => {
   const times = Object.values(notifTimes).filter(time => !time.disabled)
   if (times.length === 0) { return null }

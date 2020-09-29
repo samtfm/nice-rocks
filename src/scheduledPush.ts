@@ -31,8 +31,8 @@ export const setOrUpdateScheduledPush = () => {
         id: NEW_ROCKS_PUSH_ID,
         data: {
           type: 'new-rock',
-          profileId: rock.profileId,
-          rockId: rock.rockId,
+          profileId: rock.toUserId,
+          rockId: rock.id,
         },
         allowWhileIdle: true,
       })    
