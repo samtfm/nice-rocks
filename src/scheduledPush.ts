@@ -14,7 +14,6 @@ const trunc = (str: string, chars: number) => {
 export const setOrUpdateScheduledPush = () => {
   // clear any old scheduled push
   PushNotification.cancelLocalNotifications({id: NEW_ROCKS_PUSH_ID});
-
   const state = store.getState()
   const {settings: {disableAll, enableInstantRocks}} = state
 

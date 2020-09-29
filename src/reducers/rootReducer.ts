@@ -1,4 +1,4 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { AsyncStorage } from 'react-native'
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
@@ -7,6 +7,7 @@ import { firestoreReducer } from 'redux-firestore' // <- needed if using firesto
 import { Reducer } from 'redux';
 import newRocksReducer from './newRocksReducer';
 import settingsReducer from './settingsReducer';
+import { setOrUpdateScheduledPush } from 'scheduledPush';
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
@@ -28,5 +29,25 @@ const persistConfig = {
 
 const pReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(pReducer);
+function updateScheduledPush() {
+  return next => action => {
+    // Call the next dispatch method in the middleware chain.
+    const returnValue = next(action)
+    if ([
+      'newRocks/queueNewRock',
+      'newRocks/lookedAtRock',
+      'newRocks/setNotificationTime',
+      'newRocks/removeNotificationTime',
+      'settings/setSettings',
+    ].includes(action.type)){
+      setOrUpdateScheduledPush();
+    }
+    
+    // This will likely be the action itself, unless
+    // a middleware further in chain changed it.
+    return returnValue
+  }
+}
+
+export const store = createStore(pReducer, applyMiddleware(updateScheduledPush));
 export const persistor = persistStore(store);

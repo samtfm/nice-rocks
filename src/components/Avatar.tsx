@@ -37,11 +37,14 @@ const Avatar = ({id, size, clickable=true}: AvatarProps): ReactElement => {
       />
     )
   )
+
   return (
     <>
 
     <Pressable
-      onPress={() => {if (clickable) setPopupVisible(true)}}
+      onPress={() => {
+        if (clickable) setPopupVisible(true)
+      }}
     >
       <AvatarBubble />
     </Pressable>

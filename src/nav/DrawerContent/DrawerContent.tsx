@@ -12,7 +12,6 @@ import { actionTypes } from 'redux-firestore'
 import ScheduledPushSwitches from './ScheduledPushSwitches';
 import Text from 'components/Text';
 import { setSettings } from 'reducers/settingsReducer';
-import { setOrUpdateScheduledPush } from 'scheduledPush';
 
 interface DrawerContent{
   // The navigation state of the navigator, state.routes contains list of all routes
@@ -41,7 +40,6 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
 
   const setNotifMode = (val: boolean) => {
     dispatch(setSettings({enableInstantRocks: val}))
-    setOrUpdateScheduledPush();  
   }
   const toggleNotifMode = () => {
     setNotifMode(!enableInstantRocks)

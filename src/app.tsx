@@ -20,10 +20,11 @@ import MainStack from 'nav/MainStack';
 import IsShareExtensionContext from 'IsShareExtensionContext';
 import messaging from '@react-native-firebase/messaging';
 import { queueNewRock } from 'reducers/newRocksReducer';
-import { setOrUpdateScheduledPush } from 'scheduledPush';
 import { PersistGate } from 'redux-persist/integration/react';
 import Text from 'components/Text';
 var PushNotification = require("react-native-push-notification");
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import * as RootNavigation from 'RootNavigation';
 
 const theme = {
   ...DefaultTheme,
@@ -85,10 +86,24 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
       })    
     } else {
       store.dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
-      setOrUpdateScheduledPush()  
     }
   }
 });
+
+PushNotification.configure({
+  onNotification: function (notification) {
+    if (notification.data && notification.data.type) {
+      if (['new-response', 'new-rock'].includes(notification.data.type)) {
+        const { rockId, profileId } = notification.data
+        RootNavigation.navigate(
+          'ViewRock',
+          { rockId: rockId, toUserId: profileId },
+        )    
+      }
+    }
+    notification.finish(PushNotificationIOS.FetchResult.NoData);
+  },
+})
 
 const App = (): ReactElement => {
   React.useLayoutEffect(() => {

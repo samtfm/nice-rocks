@@ -8,7 +8,6 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from 'styles/colors';
 import Text from 'components/Text';
-import { setOrUpdateScheduledPush } from 'scheduledPush';
 import { Button, Modal, Portal } from 'react-native-paper';
 
 interface ScheduledPushSwitches {
@@ -40,7 +39,6 @@ const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElemen
       minutes: time.getMinutes(),
       disabled: false,
     }))
-    setOrUpdateScheduledPush()
   }
 
   return (

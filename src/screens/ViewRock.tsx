@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'reducers/rootReducer';
 import colors from 'styles/colors';
 import { lookedAtRock } from 'reducers/newRocksReducer';
-import { setOrUpdateScheduledPush } from 'scheduledPush';
 
 interface ViewRock{
   route: any
@@ -24,7 +23,6 @@ const ViewRock = ({ route }: ViewRock): ReactElement => {
       id: rockId,
       toUserId: toUserId,
     }))
-    setOrUpdateScheduledPush()
   }, [rockId, toUserId]);
 
   const rock = useSelector(

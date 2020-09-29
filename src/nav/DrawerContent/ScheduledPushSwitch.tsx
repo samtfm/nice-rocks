@@ -1,7 +1,6 @@
 import React from "react";
 import { ReactElement } from "react";
 import { Switch } from "react-native-paper";
-import { setOrUpdateScheduledPush } from "scheduledPush";
 import Text from 'components/Text';
 import { Pressable, StyleSheet, View } from "react-native";
 import { removeNotificationTime, setNotificationTime } from "reducers/newRocksReducer";
@@ -21,7 +20,6 @@ const ScheduledPushSwitch = ({hours, minutes, value, disabled}: ScheduledPushSwi
   const onToggleSwitch = () => {
     const newSwitchVal = !value
     dispatch(setNotificationTime({hours, minutes, disabled: !newSwitchVal}))
-    setOrUpdateScheduledPush()
   }
 
   const ampm = hours < 12 ? 'am' : 'pm'
@@ -35,7 +33,6 @@ const ScheduledPushSwitch = ({hours, minutes, value, disabled}: ScheduledPushSwi
       {!disabled && <Pressable
         onPress={() => {
           dispatch(removeNotificationTime({hours, minutes}));
-          setOrUpdateScheduledPush();
         }}
         style={{'backgroundColor': colors.gray90, borderRadius: 50, padding: 3}}
       >

@@ -25,8 +25,8 @@ interface RockId {
 
 export const queueNewRock = createAction<Rock>('newRocks/queueNewRock')
 export const lookedAtRock = createAction<RockId>('newRocks/lookedAtRock')
-export const setNotificationTime = createAction<Time>('settings/setNotificationTime')
-export const removeNotificationTime = createAction<Time>('settings/removeNotificationTime')
+export const setNotificationTime = createAction<Time>('newRocks/setNotificationTime')
+export const removeNotificationTime = createAction<Time>('newRocks/removeNotificationTime')
 
 const initialState: NewRocksState = {
   rocks: [],
