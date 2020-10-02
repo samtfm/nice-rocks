@@ -1,5 +1,5 @@
 var PushNotification = require("react-native-push-notification");
-import { store } from 'reducers/rootReducer';
+import { RootState } from 'reducers/rootReducer';
 
 export const NEW_ROCKS_PUSH_ID = '123456789';
 
@@ -11,10 +11,9 @@ const trunc = (str: string, chars: number) => {
   }
 }
 
-export const setOrUpdateScheduledPush = () => {
+export const setOrUpdateScheduledPush = (state: RootState) => {
   // clear any old scheduled push
   PushNotification.cancelLocalNotifications({id: NEW_ROCKS_PUSH_ID});
-  const state = store.getState()
   const {settings: {disableAll, enableInstantRocks}} = state
 
   if (disableAll || enableInstantRocks ) { return }

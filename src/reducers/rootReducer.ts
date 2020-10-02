@@ -29,7 +29,7 @@ const persistConfig = {
 
 const pReducer = persistReducer<RootState>(persistConfig, rootReducer);
 
-function updateScheduledPush() {
+function updateScheduledPush({getState}) {
   return (next: any) => (action: any) => {
     // Call the next dispatch method in the middleware chain.
     const returnValue = next(action)
@@ -40,7 +40,7 @@ function updateScheduledPush() {
       'newRocks/removeNotificationTime',
       'settings/setSettings',
     ].includes(action.type)){
-      setOrUpdateScheduledPush();
+      setOrUpdateScheduledPush(getState());
     }
     
     // This will likely be the action itself, unless

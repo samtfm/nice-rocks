@@ -133,7 +133,6 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
   }, []);
   
 
- 
 
   return <>{userData && children}</>
 }
