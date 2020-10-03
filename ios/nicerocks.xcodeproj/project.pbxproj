@@ -12,7 +12,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1A6FC34DCC114F51D3A7A706 /* libPods-NiceRocks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E7A872F6B0ADCBB4128EDAD /* libPods-NiceRocks.a */; };
-		2271888B24EECEFF00AA71AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2224AC3E24C7AE0D0083B430 /* GoogleService-Info.plist */; };
 		227673712512A169005EC45E /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227673702512A169005EC45E /* ShareViewController.m */; };
 		227673742512A169005EC45E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 227673722512A169005EC45E /* MainInterface.storyboard */; };
 		227673782512A169005EC45E /* Share Rock.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2276736D2512A169005EC45E /* Share Rock.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -52,7 +51,7 @@
 		0144ECE0CB5609AADD78E255 /* libPods-ShareEx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShareEx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0907EE266C2F4E7AB4DA3C84 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		0CFFDF813D3F4A5B852D431F /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* NiceRocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NiceRocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Debug NiceRocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Debug NiceRocks.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = NiceRocks/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = NiceRocks/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -62,13 +61,14 @@
 		17E3E2C89910440BBF28A224 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = ../assets/fonts/Zocial.ttf; sourceTree = "<group>"; };
 		1C8565688E144E79A06223D8 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = ../assets/fonts/FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
 		1E47CFDF50F6414E958B8A8E /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = ../assets/fonts/FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
-		2224AC3E24C7AE0D0083B430 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "NiceRocks/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2271888A24EECC5700AA71AD /* NiceRocks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NiceRocks.entitlements; path = NiceRocks/NiceRocks.entitlements; sourceTree = "<group>"; };
 		2276736D2512A169005EC45E /* Share Rock.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Share Rock.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2276736F2512A169005EC45E /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		227673702512A169005EC45E /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		227673732512A169005EC45E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		227673752512A169005EC45E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22E433E025290107005F43E3 /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-dev.plist"; path = "NiceRocks/firebase/GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
+		22E433E125290128005F43E3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "NiceRocks/firebase/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		26D07F62E7D84B2FAC3CD672 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2F8AFEA4906F4649889B0EAA /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		42077A86F3AA49F695778352 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = ../assets/fonts/FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
@@ -132,8 +132,9 @@
 		13B07FAE1A68108700A75B9A /* NiceRocks */ = {
 			isa = PBXGroup;
 			children = (
+				22E433E125290128005F43E3 /* GoogleService-Info.plist */,
+				22E433E025290107005F43E3 /* GoogleService-Info-dev.plist */,
 				2271888A24EECC5700AA71AD /* NiceRocks.entitlements */,
-				2224AC3E24C7AE0D0083B430 /* GoogleService-Info.plist */,
 				BB2F792B24A3F905000567C9 /* Supporting */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -195,7 +196,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* NiceRocks.app */,
+				13B07F961A680F5B00A75B9A /* Debug NiceRocks.app */,
 				2276736D2512A169005EC45E /* Share Rock.appex */,
 			);
 			name = Products;
@@ -273,6 +274,7 @@
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				22B8232F2528FBB500D31BD6 /* Google plist */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				227673792512A169005EC45E /* Embed App Extensions */,
@@ -286,7 +288,7 @@
 			);
 			name = NiceRocks;
 			productName = NiceRocks;
-			productReference = 13B07F961A680F5B00A75B9A /* NiceRocks.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Debug NiceRocks.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2276736C2512A169005EC45E /* ShareEx */ = {
@@ -354,7 +356,6 @@
 			files = (
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				2271888B24EECEFF00AA71AD /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 				5D221E3BA16F4FC1A351AB57 /* Bitter-Bold.ttf in Resources */,
@@ -386,6 +387,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd $PROJECT_DIR/..\nexport NODE_BINARY=node\n./node_modules/react-native/scripts/react-native-xcode.sh\n./node_modules/expo-updates/scripts/create-manifest-ios.sh\n";
+		};
+		22B8232F2528FBB500D31BD6 /* Google plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Google plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PATH_TO_GOOGLE_PLISTS=\"${PROJECT_DIR}/NiceRocks/firebase\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-dev.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n\n   \"Release\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n\n    *)\n        ;;\nesac\n";
 		};
 		2F9EB4B17A8BFFE3D65DF799 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -657,7 +676,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.samfabermanning.nicerocks.ios;
-				PRODUCT_NAME = NiceRocks;
+				PRODUCT_NAME = "Debug NiceRocks";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

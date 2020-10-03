@@ -65,6 +65,7 @@ web-build/
 # Firebase config
 google-services.json
 GoogleService-Info.plist
+GoogleService-Info-dev.plist
 
 # jest
 coverage
