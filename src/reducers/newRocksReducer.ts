@@ -50,7 +50,7 @@ const newRocksReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(queueNewRock, (state, action) => {
       const newState = Object.assign({}, state)
-      if (!state.nextNotifDateTime || state.nextNotifDateTime < new Date().getTime()) {
+      if (!state.nextNotifDateTime || state.nextNotifDateTime < Date.now()) {
         newState.rocks = []
         newState.nextNotifDateTime = getNextTime(state.notifTimes)
       }
@@ -61,20 +61,29 @@ const newRocksReducer = createReducer(initialState, (builder) => {
       return {...state, rocks: state.rocks.filter(rock => rock.id !== action.payload.id)}
     })
     .addCase(setNotificationTime, (state, action) => {
+      const newState = Object.assign({}, state)
+      if (state.nextNotifDateTime && state.nextNotifDateTime < Date.now()) {
+        newState.nextNotifDateTime = null
+        newState.rocks = []
+      }
+  
       const newTime = action.payload
       newTime.disabled = newTime.disabled || false;
       const newNotifTimes = {...state.notifTimes, [`${newTime.hours}:${newTime.minutes}`]: newTime}
-      const newState = Object.assign({}, state)
       newState.notifTimes = newNotifTimes
       newState.nextNotifDateTime = getNextTime(newNotifTimes)
       return newState
     })
     .addCase(removeNotificationTime, (state, action) => {
+      const newState = Object.assign({}, state)
+      if (state.nextNotifDateTime && state.nextNotifDateTime < Date.now()) {
+        newState.nextNotifDateTime = null
+        newState.rocks = []
+      }
       const toRemove = action.payload
       const newNotifTimes = Object.assign({}, state.notifTimes)
       delete newNotifTimes[`${toRemove.hours}:${toRemove.minutes}`]
       
-      const newState = Object.assign({}, state)
       newState.notifTimes = newNotifTimes
       newState.nextNotifDateTime = getNextTime(newNotifTimes)
       return newState

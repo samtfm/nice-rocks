@@ -12,7 +12,6 @@ import { actionTypes } from 'redux-firestore'
 import ScheduledPushSwitches from './ScheduledPushSwitches';
 import Text from 'components/Text';
 import { setSettings } from 'reducers/settingsReducer';
-import auth from '@react-native-firebase/auth';
 
 
 interface DrawerContent{

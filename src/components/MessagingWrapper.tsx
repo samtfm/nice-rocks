@@ -19,6 +19,7 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
       return data.userData;
     }
   )
+
   const [notificationsAuthorized, setNotificationsAuthorized] = useState(false)
 
   const sendToken = (token: string) => {
@@ -66,7 +67,7 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
   
   useEffect(() => {
     messaging().onNotificationOpenedApp(remoteMessage => {
-      if (remoteMessage.data && remoteMessage.data.type) {
+      if (remoteMessage.data && remoteMessage.data.type && remoteMessage.notification) {
         if (['new-response', 'new-rock'].includes(remoteMessage.data.type)) {
           const { rockId, profileId } = remoteMessage.data
           viewRock(rockId, profileId)
@@ -74,20 +75,13 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
       }
     })
     messaging().getInitialNotification().then(remoteMessage => {
-      if (remoteMessage && remoteMessage.data && remoteMessage.data.type) {
+      if (remoteMessage && remoteMessage.data && remoteMessage.data.type && remoteMessage.notification) {
         if (['new-response', 'new-rock'].includes(remoteMessage.data.type)) {
           const { rockId, profileId } = remoteMessage.data
           viewRock(rockId, profileId)
         }
       }
     });
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = firebase.messaging().onMessage(async (remoteMessage: any) => {
-      remoteMessage.notification && Alert.alert(remoteMessage.notification.title, remoteMessage.notification.body);
-    });
-    return unsubscribe;
   }, []);
 
   useEffect(() => {
