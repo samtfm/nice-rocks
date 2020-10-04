@@ -40,8 +40,8 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
   let emailCheckTimeout : ReturnType<typeof setTimeout> | null = null;
 
   const onChangeEmailInput = (inputText: string) => {
+    setSearchVal(inputText)
     const email = inputText.toLowerCase()
-    setSearchVal(email)
     //simple regex to test if a string might be a valid email address
     if (/\S+@\S+\.\S+/.test(email)){
       if (emailCheckTimeout) clearTimeout(emailCheckTimeout);
@@ -67,6 +67,7 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
         onChangeText={onChangeEmailInput}
         autoCompleteType="off"
         value={searchVal}
+        autoCapitalize="none"
         maxLength={254}
       />
       <ProgressBar visible={loading} color={colors.primary} indeterminate/>
