@@ -1,4 +1,6 @@
 var PushNotification = require("react-native-push-notification");
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import { Platform } from 'react-native';
 import { queueNewRock } from 'reducers/newRocksReducer';
 import { RootState } from 'reducers/rootReducer';
 
@@ -15,6 +17,11 @@ const trunc = (str: string, chars: number) => {
 export const setOrUpdateScheduledPush = (state: RootState) => {
   // clear any old scheduled push
   PushNotification.cancelAllLocalNotifications()
+  if(Platform.OS === 'ios'){
+    PushNotificationIOS.cancelAllLocalNotifications()
+  }
+
+
   // PushNotification.cancelLocalNotifications({id: NEW_ROCKS_PUSH_ID});
   const {settings: {disableAll, enableInstantRocks}} = state
 
@@ -25,7 +32,7 @@ export const setOrUpdateScheduledPush = (state: RootState) => {
     const date = new Date(nextNotifDateTime)
     if (rocks.length === 1) {
       const rock = rocks[0]
-      PushNotification.localNotificationSchedule({
+      schedulePush({
         title: rock.fromDisplayName,
         message: rock.title,
         date: date,
@@ -35,11 +42,10 @@ export const setOrUpdateScheduledPush = (state: RootState) => {
           profileId: rock.toUserId,
           rockId: rock.id,
           local: true,
-        },
-        allowWhileIdle: true,
-      })    
+        }
+      })
     } else if (rocks.length > 1) {
-      PushNotification.localNotificationSchedule({
+      schedulePush({
         title: `New rocks to explore!`,
         message: `"${trunc(rocks[0].title, 30)}" and ${rocks.length-1} more`,
         date: date,
@@ -48,7 +54,6 @@ export const setOrUpdateScheduledPush = (state: RootState) => {
           type: 'new-rocks',
           local: true,
         },
-        allowWhileIdle: true,
       })    
     }
   }
@@ -58,7 +63,7 @@ export const handleIncomingDataPush = (enableInstantRocks: boolean, dispatch: (a
   if (data.type === 'new-rock-data') {
     const { fromDisplayName, profileId, rockId, rockTitle } = data
     if (enableInstantRocks) {
-      PushNotification.localNotification({
+      instantPush({
         title: data.fromDisplayName,
         message: data.rockTitle,
         data: {
@@ -67,10 +72,62 @@ export const handleIncomingDataPush = (enableInstantRocks: boolean, dispatch: (a
           rockId: data.rockId,
           local: true,
         },
-        allowWhileIdle: true,
       })    
     } else {
       dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
     }
   }
 }
+
+interface SchedPushData{
+  title: string
+  message: string
+  date: Date,
+  id?: string,
+  data: {
+    type: string,
+    local: boolean,
+    [other: string]: any
+  },
+}
+const schedulePush = ({title, message, date, id, data}: SchedPushData) => {
+  if (Platform.OS === 'ios') {
+    PushNotificationIOS.scheduleLocalNotification({
+      fireDate: date.toISOString(),
+      alertTitle : title,
+      alertBody : message,
+      userInfo: data,
+    })
+  } else {
+    PushNotification.localNotificationSchedule({
+      title, message, date, id, data,
+      allowWhileIdle: true,
+    }) 
+  }
+}
+
+interface PushData{
+  title: string
+  message: string
+  id?: string,
+  data: {
+    type: string,
+    local: boolean,
+    [other: string]: any
+  },
+}
+const instantPush = ({title, message, id, data}: PushData) => {
+  if (Platform.OS === 'ios') {
+    PushNotificationIOS.presentLocalNotification({
+      alertTitle : title,
+      alertBody : message,
+      userInfo: data,
+    })
+  } else {
+    PushNotification.localNotification({
+      title, message, id, data,
+      allowWhileIdle: true,
+    }) 
+  }
+}
+

@@ -14,17 +14,13 @@ import colors from 'styles/colors';
 import { persistor, store } from 'reducers/rootReducer';
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { Alert, Platform, UIManager } from 'react-native';
+import { Platform, UIManager } from 'react-native';
 import { navigationRef, isReadyRef } from './RootNavigation';
 import MainStack from 'nav/MainStack';
 import IsShareExtensionContext from 'IsShareExtensionContext';
-import messaging from '@react-native-firebase/messaging';
 import { PersistGate } from 'redux-persist/integration/react';
 import Text from 'components/Text';
-var PushNotification = require("react-native-push-notification");
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
-import * as RootNavigation from 'RootNavigation';
-import { handleIncomingDataPush } from 'scheduledPush';
+import { initNotifHandlers } from 'notificationHandlers';
 
 const theme = {
   ...DefaultTheme,
@@ -67,67 +63,7 @@ const rrfProps = {
  // allowMultipleListeners: true,
 }
 
-// Register background handler
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  const { data, notification } = remoteMessage;
-  const { enableInstantRocks } = store.getState().settings;
-  if (!notification) {
-    handleIncomingDataPush(enableInstantRocks, store.dispatch, data)
-  }
-});
-
-const alertFromNotif = (notif: any) => {
-  const { title, message, data: {rockId, profileId} } = notif
-  Alert.alert(
-    title,
-    message,
-    [
-      { text: 'Dismiss'},
-      {
-        text: 'View',
-        onPress: () => {
-          if (rockId && profileId) {
-            openRock(profileId,  rockId)
-          }
-        },
-      },
-    ]
-  );
-}
-
-const openRock = (profileId: string, rockId: string) => {
-  RootNavigation.navigate(
-    'ViewRock',
-    { rockId: rockId, toUserId: profileId },
-  ) 
-}
-
-PushNotification.configure({
-  onNotification: function (notification: any) {
-    // FCM-DATA-ONLY: receive foreground
-    if (notification.foreground && !notification.message) {  // received data notif while open
-      const { enableInstantRocks } = store.getState().settings;
-      handleIncomingDataPush(enableInstantRocks, store.dispatch, notification.data)
-    }
-
-    // FCM-NOTIF: receive foreground
-    if (notification.foreground && notification.message && !notification.data.local) {
-      alertFromNotif(notification);
-    }
-
-    // LOCAL-NOTIF: open (check for message to avoid weirdly triggering on local message recieved in background)
-    if (notification.message && notification.data.local) {
-      if (notification.data.type === "new-rock") {
-        const {profileId, rockId} = notification.data
-        openRock(profileId, rockId)
-      } else if (notification.data.type === "new-rocks") {
-        RootNavigation.navigate("Received", {})
-      }
-    }
-
-    notification.finish(PushNotificationIOS.FetchResult.NoData);
-  },
-})
+initNotifHandlers()
 
 const App = (): ReactElement => {
   React.useLayoutEffect(() => {
