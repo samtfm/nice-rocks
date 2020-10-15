@@ -675,7 +675,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samfabermanning.nicerocks.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samfabermanning.nicerocks.ios.debug;
 				PRODUCT_NAME = "Debug NiceRocks";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -736,7 +736,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samfabermanning.nicerocks.ios.ShareEx;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samfabermanning.nicerocks.ios.debug.ShareEx;
 				PRODUCT_NAME = "Share Rock";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
