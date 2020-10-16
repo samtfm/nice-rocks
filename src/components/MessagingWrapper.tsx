@@ -7,7 +7,6 @@ import messaging from '@react-native-firebase/messaging';
 import { RootState } from 'reducers/rootReducer';
 import * as RootNavigation from 'RootNavigation';
 import * as queryString from 'query-string';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement => {
   const firebase = useFirebase();

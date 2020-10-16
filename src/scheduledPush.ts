@@ -23,9 +23,9 @@ export const setOrUpdateScheduledPush = (state: RootState) => {
 
 
   // PushNotification.cancelLocalNotifications({id: NEW_ROCKS_PUSH_ID});
-  const {settings: {disableAll, enableInstantRocks}} = state
+  const enableInstantRocks  = state.firestore.data?.userData.enableInstantRocks;
 
-  if (disableAll || enableInstantRocks ) { return }
+  if ( enableInstantRocks ) { return }
 
   const { rocks, nextNotifDateTime } = state.newRocks
   if (nextNotifDateTime && nextNotifDateTime > Date.now()) {
@@ -59,23 +59,10 @@ export const setOrUpdateScheduledPush = (state: RootState) => {
   }
 }
 
-export const handleIncomingDataPush = (enableInstantRocks: boolean, dispatch: (action: any) => void, data: any) => {
+export const handleIncomingDataPush = (dispatch: (action: any) => void, data: any) => {
   if (data.type === 'new-rock-data') {
     const { fromDisplayName, profileId, rockId, rockTitle } = data
-    if (enableInstantRocks) {
-      instantPush({
-        title: data.fromDisplayName,
-        message: data.rockTitle,
-        data: {
-          type: 'new-rock',
-          profileId: data.profileId,
-          rockId: data.rockId,
-          local: true,
-        },
-      })    
-    } else {
-      dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
-    }
+    dispatch(queueNewRock({toUserId: profileId, id: rockId, title: rockTitle, fromDisplayName}))
   }
 }
 
@@ -116,18 +103,19 @@ interface PushData{
     [other: string]: any
   },
 }
-const instantPush = ({title, message, id, data}: PushData) => {
-  if (Platform.OS === 'ios') {
-    PushNotificationIOS.presentLocalNotification({
-      alertTitle : title,
-      alertBody : message,
-      userInfo: data,
-    })
-  } else {
-    PushNotification.localNotification({
-      title, message, id, data,
-      allowWhileIdle: true,
-    }) 
-  }
-}
+
+// const instantPush = ({title, message, id, data}: PushData) => {
+//   if (Platform.OS === 'ios') {
+//     PushNotificationIOS.presentLocalNotification({
+//       alertTitle : title,
+//       alertBody : message,
+//       userInfo: data,
+//     })
+//   } else {
+//     PushNotification.localNotification({
+//       title, message, id, data,
+//       allowWhileIdle: true,
+//     }) 
+//   }
+// }
 
