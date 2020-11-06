@@ -66,7 +66,7 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
   const logout = () => {
     firebase.messaging().getToken().then((myToken: string) => {
       const shouldClearTokenAfter = myToken == messagingToken
-      firebase.messaging().deleteToken().then(firebase.logout).then(() => {
+      firebase.messaging().deleteToken().catch(console.log).then(firebase.logout).then(() => {
         dispatch({ type: actionTypes.CLEAR_DATA })
         if (shouldClearTokenAfter) {
           clearToken()
