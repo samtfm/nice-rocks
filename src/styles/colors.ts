@@ -39,14 +39,9 @@ const colors = {
   // primaryLight: '#b0cfac',
   // primaryDark: '#537051',
 
-  // fire
-  // primary: '#ffa73b',
-  // primaryLight: '#ffd96c',
-  // primaryDark: '#c77800',
-
-  // fire (lighter) - CURRENT
-  primary: '#f7ad45',
-  primaryLight: '#ffdf75',
+  // fire - CURRENT
+  primary: '#ffae3d',
+  primaryLight: '#ffde70',
   primaryDark: '#c07e0e',
 
   
