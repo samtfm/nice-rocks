@@ -32,11 +32,9 @@ const ViewRock = ({ route }: ViewRock): ReactElement => {
   )
 
   return (
-    <View style={{flex:1, paddingLeft: 10, paddingRight: 10, paddingTop: 10, backgroundColor: colors.beige}}>
-      <ScrollView keyboardShouldPersistTaps={'handled'}>
-        {rock && <RockDetails {...rock} />}
-      </ScrollView>
-    </View>
+    <ScrollView keyboardShouldPersistTaps={'handled'} style={{flex:1, paddingLeft: 10, paddingRight: 10, paddingTop: 10, backgroundColor: colors.beige}}>
+      {rock && <RockDetails {...rock} />}
+    </ScrollView>
   );
 }
 

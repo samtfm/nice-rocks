@@ -11,6 +11,8 @@ import { RootState } from 'reducers/rootReducer';
 import { useSelector } from 'react-redux';
 import Avatar from 'components/Avatar';
 import { useNavigation } from '@react-navigation/native';
+import Clipboard from '@react-native-community/clipboard';
+import Toast from 'react-native-simple-toast';
 
 interface TimeStamp {
   seconds: number,
@@ -62,12 +64,16 @@ const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, res
         />
       </View>
       <View style={styles.rockItem}>
-        <Text style={styles.title}>{title || url}</Text>
-        <Text style={styles.description}>{note}</Text>
+        <Text selectable={true} style={styles.title}>{title || url}</Text>
+        <Text selectable={true} style={styles.description}>{note}</Text>
         {Boolean(url) && (
           <TouchableOpacity
             style={styles.url}
             onPress={() => Linking.openURL(url)}
+            onLongPress={() => {
+              Clipboard.setString(url)
+              Toast.show('URL copied to clipboard');
+            }}
           >
             <Text style={styles.urlText}>{url}</Text>
             <Icon name={'open-in-new'} color={colors.blue} size={24} />
@@ -100,7 +106,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   description: {
-    marginBottom: 8,
+    marginBottom: 14,
     color: colors.gray40,
   },
   url: {

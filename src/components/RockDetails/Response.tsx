@@ -15,7 +15,7 @@ const Response = ({reaction, note, fromUserId}: Response): ReactElement => {
     <View style={styles.container}>
       <Surface style={styles.response}>
         <Avatar id={fromUserId} size={38}/>
-        <Text style={styles.stuff}>
+        <Text selectable={true} style={styles.stuff}>
           {reaction && <Text style={note ? styles.reaction : styles.reactionBig}>{`${reaction} `}</Text>}
           <Text style={styles.note}>{note}</Text>
         </Text>
