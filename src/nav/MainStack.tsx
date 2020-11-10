@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement, Suspense, useContext, useState } from 'react';
 import { isEmpty } from 'react-redux-firebase';
 import { RootState } from 'reducers/rootReducer';
 import { useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
 import IsShareExtensionContext from 'IsShareExtensionContext';
+import { ActivityIndicator } from 'react-native';
 
 const DrawerNav = createDrawerNavigator();
 
@@ -38,15 +39,28 @@ const Hamburger = ({navigation}: any): ReactElement => {
   )
 }
 
-const LoggedInStackWithDrawer = () => (
-  <DrawerNav.Navigator 
+const useInitialRender = (): boolean => {
+  const [isInitialRender, setIsInitialRender] = useState(false);
+
+  if (!isInitialRender) {
+    setTimeout(() => setIsInitialRender(true), 1);
+    return true;
+  }
+  return false;
+};
+
+const LoggedInStackWithDrawer = () => {
+  const isInitialRender = useInitialRender()
+  return (<DrawerNav.Navigator 
     
     initialRouteName="Main"
     drawerContent={(props) => <DrawerContent {...props} />}
+    drawerStyle={isInitialRender ? { width: 0 } : {}}
     >
     <DrawerNav.Screen name="Main" component={LoggedInStack} />
   </DrawerNav.Navigator>
-)
+  )
+  }
 
 
 interface LoggedInStack {
