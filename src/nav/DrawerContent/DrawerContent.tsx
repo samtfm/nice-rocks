@@ -86,13 +86,13 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
         <Text style={styles.title}>New rock notifications</Text>
         <RadioButton.Group onValueChange={value => setEnableInstantRocks(value === 'instant')} value={enableInstantRocks ? 'instant' : 'scheduled'}>
           <View style={{paddingLeft: 10}}>
-            <RadioButton.Item
-              value="scheduled"
-              label="Scheduled"
-            />
             <RadioButton.Item 
               value="instant" 
               label="Immediate"
+            />
+            <RadioButton.Item
+              value="scheduled"
+              label="Scheduled"
             />
           </View>
         </RadioButton.Group>    
