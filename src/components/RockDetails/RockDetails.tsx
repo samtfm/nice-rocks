@@ -43,12 +43,15 @@ const springAnimConfig = {
 const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, response}: RockDetails) : ReactElement => {
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
   const [showResponse, setShowResponse] = useState(Boolean(response))
+
+  const responseMash = response ? response.reaction + response.note : '';
   useEffect(() => {
     setTimeout(() => {
-      if (response) LayoutAnimation.configureNext(springAnimConfig);
+      if (!showResponse && response) LayoutAnimation.configureNext(springAnimConfig);
       setShowResponse(Boolean(response))
     }, 300)
-  },[response])
+  },[responseMash])
+
   const navigation = useNavigation();
 
   return (
@@ -85,8 +88,8 @@ const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, res
       {showResponse && response && (
         <Response {...response} fromUserId={toUserId} />
       )}
-      {!showResponse && uid === toUserId && (
-        <ResponseForm profileId={toUserId} rockId={id} />
+      {uid === toUserId && (
+        <ResponseForm profileId={toUserId} rockId={id} alreadyResponded={showResponse} />
       )}
     </View>
   );

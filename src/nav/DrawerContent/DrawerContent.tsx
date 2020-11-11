@@ -51,7 +51,6 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
     }).then(() => {
       setTempEnableInstantRocks(null)
     }, (e) => {
-      console.log(e)
       setTempEnableInstantRocks(null)
     });
   }
