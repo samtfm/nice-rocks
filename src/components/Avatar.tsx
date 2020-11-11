@@ -40,14 +40,15 @@ const Avatar = ({id, size, clickable=true}: AvatarProps): ReactElement => {
 
   return (
     <>
-
-    <Pressable
-      onPress={() => {
-        if (clickable) setPopupVisible(true)
-      }}
-    >
+    {clickable ? ( 
+      <Pressable
+        onPress={() => {setPopupVisible(true)}}
+      >
+        <AvatarBubble />
+      </Pressable>
+    ) : (
       <AvatarBubble />
-    </Pressable>
+    )}
     <Portal>
 
     <Modal contentContainerStyle={styles.popup} visible={popupVisible} onDismiss={() => setPopupVisible(false)}>
