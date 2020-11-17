@@ -3,9 +3,9 @@ const colors = {
   black: '#000',
   white: '#FFF',
   // blue: '#00ace6',
-  blue: '#12b8ff',
-  blueLight: '#6deaff',
-  blueDark: '#0088cb',
+  blue: '#00b2ff',
+  blueLight: '#69e4ff',
+  blueDark: '#0083cb',
   // blue: '#3AB1E4',
   // blue: '#0BA5E7',
   // mint: 'hsla(126, 45%, 75%, 1)',
@@ -40,11 +40,16 @@ const colors = {
   // primaryDark: '#537051',
 
   // fire - CURRENT
-  primary: '#ffae3d',
-  primaryLight: '#ffde70',
-  primaryDark: '#c07e0e',
+  // primary: '#ffae3d',
+  // primaryLight: '#ffde70',
+  // primaryDark: '#c07e0e',
 
-  
+  // fire 2 - theory
+  primary: '#ffc228',
+  // primaryLight: '#fff460',
+  primaryDark: '#c79200',
+  primaryLight: '#FFEE7E',
+
 
   // primary: '#ff8229',
   // primaryLight: '#ffb35a',

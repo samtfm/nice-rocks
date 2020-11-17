@@ -15,7 +15,6 @@ import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
 import IsShareExtensionContext from 'IsShareExtensionContext';
-import { ActivityIndicator } from 'react-native';
 
 const DrawerNav = createDrawerNavigator();
 
