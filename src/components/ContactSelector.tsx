@@ -32,7 +32,6 @@ interface ContactSelector{
 
 const ContactItem = ({ id, onPress }: {id: string, onPress: () => void}): ReactElement  => (
   <Pressable
-    key={id}
     onPress={onPress}
     style={({ pressed }) => [
       {
@@ -89,8 +88,8 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
 
   const onChangeEmailInput = (rawInputText: string) => {
     setSearchVal(rawInputText);
-    const inputText = rawInputText.toLowerCase()
-
+    const regSelect = rawInputText.toLowerCase().match(/\s*(\S*)\s*/)
+    const inputText = regSelect && regSelect[1] || ''
     //simple regex to test if a string might be a valid email address
     if (/\S+@\S+\.\S+/.test(inputText)){
       if (emailCheckTimeout) clearTimeout(emailCheckTimeout);
@@ -102,10 +101,14 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
         }, () => {
           // error
           setLoading(false)
+          setNewRecipientId(undefined)
         });
       }, 600);
+    } else {
+      setNewRecipientId(undefined)
     }
   }
+  console.log(displayContacts.map(d => d.id))
 
   return (
     <View style={{flex: 1, backgroundColor: colors.beige}}>
@@ -121,17 +124,21 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
       />
       <ProgressBar visible={loading} color={colors.primary} indeterminate/>
       </View>
-      <ScrollView style={styles.contactList}>
-        {newRecipientId ?
+      {newRecipientId ? (
+        <ScrollView style={styles.contactList}>
           <ContactItem id={newRecipientId} onPress={() => {
             navigation.navigate(targetScreen, {[outputIdParamName]: newRecipientId})
           }}/>
-        : displayContacts.map(({id}) => (
-          <ContactItem id={id} onPress={() => {
-            navigation.navigate(targetScreen, {[outputIdParamName]: id})
-          }}/>
-        ))}
-      </ScrollView>
+        </ScrollView>
+      ) : (
+        <ScrollView>
+          {displayContacts.map(({id}) => (
+            <ContactItem key={id} id={id} onPress={() => {
+              navigation.navigate(targetScreen, {[outputIdParamName]: id})
+            }}/>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }
