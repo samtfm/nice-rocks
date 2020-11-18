@@ -26,10 +26,10 @@ const theme = {
   roundness: 2,
   fonts: { 
     ...DefaultTheme.fonts,
-    regular: {
-      fontFamily: 'Bitter-Regular',
-      fontWeight: 'normal' as const,
-    },
+    // regular: { // somehow all this did was change the footer font, so commented out for now
+    //   fontFamily: 'Bitter-Regular',
+    //   fontWeight: 'normal' as const,
+    // },
   },
   colors: {
     ...DefaultTheme.colors,

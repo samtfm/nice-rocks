@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 import ContactName from './ContactName';
-import { StyleSheet, View, Button, Pressable, Alert, BackHandler} from 'react-native';
-import { HelperText, TextInput } from 'react-native-paper';
+import { StyleSheet, View, Pressable, Alert, BackHandler} from 'react-native';
+import { HelperText, TextInput, Button } from 'react-native-paper';
 import Text from 'components/Text';
 import { useFirestore } from "react-redux-firebase";
 import { useSelector } from "react-redux";
@@ -233,11 +233,11 @@ const NewRockForm = ({toUserId, title, url}: NewRockForm): ReactElement => {
       <View style={styles.sendButton}>
         <Button
           onPress={sendRock}
-          title={submitted ? "Sent!" : "Send!"}
+          mode={'contained'}
           color={colors.blue}
           accessibilityLabel="Send Rock"
           disabled={!formIsReady || disableSubmit}
-        />
+        >{submitted ? "Sent!" : "Send!"}</Button>
       </View>
     </View>
   )
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     color: "red",
   },
   selectContactText: {
-    color: colors.blue,
+    color: colors.primaryDark,
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },

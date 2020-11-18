@@ -39,21 +39,22 @@ const colors = {
   // primaryLight: '#b0cfac',
   // primaryDark: '#537051',
 
-  // fire - CURRENT
+  // fire
   // primary: '#ffae3d',
   // primaryLight: '#ffde70',
   // primaryDark: '#c07e0e',
 
   // fire 2 - theory
+  // primary: '#ffc228',
+  // // primaryLight: '#fff460',
+  // primaryDark: '#c79200',
+  // primaryLight: '#FFEE7E',
+
+
+  // fire 3 - Current
   primary: '#ffc228',
-  // primaryLight: '#fff460',
-  primaryDark: '#c79200',
-  primaryLight: '#FFEE7E',
-
-
-  // primary: '#ff8229',
-  // primaryLight: '#ffb35a',
-  // primaryDark: '#c55300',
+  primaryLight: '#FFD35B',
+  primaryDark: '#e07f00',
 
   
   footerBackground: '#c7ebc6',

@@ -106,6 +106,7 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
       <View style={styles.spacer}></View>
       <Button
         onPress={logout}
+        color={colors.primaryDark}
         style={styles.logoutButton}
       >
         Log Out

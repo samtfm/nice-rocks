@@ -97,7 +97,7 @@ const ResponseForm = ({profileId, rockId, alreadyResponded} : ResponseForm) : Re
         )}
       </KeyboardAvoidingView>
 
-      <View style={{alignSelf: 'center'}}>
+      <View style={{alignSelf: 'center', padding: 2, marginTop: 40}}>
         {buttonVisible && !alreadyResponded && <Button 
           disabled={formVisible}
           mode={'outlined'}

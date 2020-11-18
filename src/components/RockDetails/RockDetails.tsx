@@ -13,6 +13,7 @@ import Avatar from 'components/Avatar';
 import { useNavigation } from '@react-navigation/native';
 import Clipboard from '@react-native-community/clipboard';
 import Toast from 'react-native-simple-toast';
+import { IconButton } from 'react-native-paper';
 
 interface TimeStamp {
   seconds: number,
@@ -59,13 +60,13 @@ const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, res
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Avatar id={fromUserId} size={38} />
         <ContactName style={{paddingLeft: 8, flex: 1}} id={fromUserId}/>
-        <Icon 
+        <IconButton
           onPress={() => navigation.navigate('ComposeRock', {title: title, url: url})}
-          style={{marginRight: 10}}
-          name={'share'}
-          color={colors.primary} size={26}
+          color={colors.primary}
+          size={28}
+          icon="share"
         />
-      </View>
+                </View>
       <View style={styles.rockItem}>
         <Text selectable={true} style={styles.title}>{title || url}</Text>
         <Text selectable={true} style={styles.description}>{note}</Text>
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     paddingBottom: 33,
   },
   title: {
-    fontWeight: 'bold',
+    fontFamily: 'Bitter-Bold',
     color: colors.gray40,
     fontSize: 18,
     marginBottom: 8,

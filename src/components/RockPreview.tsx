@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   title: {
-    fontWeight: 'bold',
+    fontFamily: 'Bitter-Bold',
     color: colors.gray40,
     marginBottom: 8,
     flex: 1,

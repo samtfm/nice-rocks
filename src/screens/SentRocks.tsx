@@ -39,6 +39,7 @@ const SentRocks = (): ReactElement => {
             <Button 
               style={{alignSelf: "center"}}
               mode={'outlined'}
+              color={colors.primaryDark}
               onPress={() => setLimit(limit+ITEMS_PER_PAGE)}
             >Load more</Button>
           )}
