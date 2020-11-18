@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import Text from 'components/Text';
 import Avatar from 'components/Avatar';
 import { Surface } from 'react-native-paper';
+import colors from 'styles/colors';
 
 interface Response {
   reaction: string
@@ -13,12 +14,19 @@ interface Response {
 const Response = ({reaction, note, fromUserId}: Response): ReactElement => {
   return (
     <View style={styles.container}>
-      <Surface style={styles.response}>
+      <View style={styles.avatarContainer}>
         <Avatar id={fromUserId} size={38}/>
-        <Text selectable={true} style={styles.stuff}>
-          {reaction && <Text style={note ? styles.reaction : styles.reactionBig}>{`${reaction} `}</Text>}
-          <Text style={styles.note}>{note}</Text>
-        </Text>
+      </View>
+
+      <Surface style={styles.response}>
+        {(reaction && !note) ? (
+            <View style={styles.reactionBigContainer}><Text style={styles.reactionBig}>{`${reaction} `}</Text></View>
+          ) : (
+          <Text selectable={true} style={styles.stuff}>
+              {reaction && <Text style={styles.reaction}>{`${reaction} `}</Text>}
+              <Text style={styles.note}>{note}</Text>  
+          </Text>
+        )}
       </Surface>
     </View>
   );
@@ -26,16 +34,27 @@ const Response = ({reaction, note, fromUserId}: Response): ReactElement => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 4,
     marginLeft: 40,
-    marginRight: 40,
+    marginRight: 64,
+    marginTop: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  avatarContainer: {
+    paddingTop: 6,
+    paddingRight: 4,
   },
   response: {
-    elevation: 2,
+    elevation: 0,
 
     alignSelf: 'center',
-    padding: 12,
-    backgroundColor: 'hsl(36, 35%, 90%)',
+    paddingVertical: 6,
+    paddingLeft: 6,
+    paddingRight: 12,
+    backgroundColor: colors.white,
+    borderColor: colors.primaryLight,
+    borderLeftWidth: 2,
+    
     borderRadius: 14,
     flexDirection: 'row',
   },
@@ -43,16 +62,21 @@ const styles = StyleSheet.create({
     top: -4,
     marginLeft: 6,
     paddingTop: 12,
-    lineHeight: 18,
+    lineHeight: 19,
   },
   note: {
     fontSize: 14,
+    lineHeight: 24,
   },
   reaction: {
     fontSize: 22,
   },
+  reactionBigContainer: {
+    top: -1,
+    paddingVertical: Platform.OS === "ios" ? 0 : 4,
+  },
   reactionBig: {
-    fontSize: 26,
+    fontSize: 30,  
   }
 });
 
