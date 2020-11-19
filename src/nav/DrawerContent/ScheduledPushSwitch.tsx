@@ -34,17 +34,17 @@ const ScheduledPushSwitch = ({hours, minutes, value, disabled}: ScheduledPushSwi
         onPress={() => {
           dispatch(removeNotificationTime({hours, minutes}));
         }}
-        style={{'backgroundColor': colors.gray90, borderRadius: 50, padding: 3}}
+        style={styles.closeIcon}
       >
         <Icon
           name='close'
-          color={colors.gray60}
+          color={colors.gray40}
           size={14}
         />
       </Pressable>}
 
-      <View style={styles.spacer} />
       <Text style={disabled ? {color: colors.gray50}: {}}>{timeString}</Text>
+      <View style={styles.spacer} />
       <Switch value={value} disabled={disabled} onValueChange={onToggleSwitch} />
     </View>
   );
@@ -60,6 +60,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
     paddingVertical: 8,
+  },
+  closeIcon: {
+    backgroundColor: colors.gray93,
+    borderRadius: 50,
+    padding: 3,
+    marginRight: 10,
   },
   spacer: {
     flex: 1,

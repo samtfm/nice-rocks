@@ -70,6 +70,7 @@ const colors = {
   gray70: 'hsl(0, 0%, 70%)',
   gray80: 'hsl(0, 0%, 80%)',
   gray90: 'hsl(0, 0%, 90%)',
+  gray93: 'hsl(0, 0%, 93%)',
 }
 
 export default colors;

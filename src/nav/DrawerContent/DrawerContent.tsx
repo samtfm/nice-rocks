@@ -12,6 +12,7 @@ import { actionTypes } from 'redux-firestore'
 import ScheduledPushSwitches from './ScheduledPushSwitches';
 import Text from 'components/Text';
 import { RadioButton } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 interface DrawerContent{
@@ -118,7 +119,6 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
 }
 const styles = StyleSheet.create({
   main: {
-    justifyContent: 'space-between',
     flex: 1,
   },
   header: {
@@ -132,14 +132,15 @@ const styles = StyleSheet.create({
   title: {
     paddingHorizontal: 10,
     fontWeight: 'bold',
-    fontFamily: 'sans-serif',
+    fontFamily: 'System',
     fontSize: 14,
   },
   spacer: {
     flex: 1,
   },
   logoutButton: {
-    marginBottom: 30,
+    position: 'absolute',
+    bottom: 30,
     alignSelf: 'center',
   },
   versionCode: {
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   section: {
-    marginBottom: 12,
+    marginBottom: 18,
   },
 })
 export default DrawerContent;

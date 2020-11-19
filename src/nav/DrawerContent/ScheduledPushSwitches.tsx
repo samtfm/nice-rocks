@@ -52,20 +52,22 @@ const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElemen
           disabled={disableAll}
         />
       ))} 
-      {timeList.length < 6 && !disableAll && <Pressable style={styles.newTimeButton}
+      {timeList.length < 5 && !disableAll && <Pressable style={styles.newTimeButton}
         onPress={() => setShowTimePicker(true)}
       >
         <Icon 
           name='plus'
-          color={colors.gray60}
+          color={colors.gray50}
           size={22}
         />
-        <Text style={{color: colors.gray50}}>{"new time"}</Text>
+        <Text style={{color: colors.gray40}}>{"new time"}</Text>
       </Pressable>}
-      <HelperText 
+      {timeList.length < 2 && (
+        <HelperText 
         type="error"
         visible={!disableAll && (timeList.length === 0 || timeList.every(time => time.disabled))}
       >{"No active times. Add or enable a time to receive push notifications."}</HelperText>
+      )}
 
 
       {Platform.OS === 'ios' ? (
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     bottom: 0,
     borderRadius: 50,
-    backgroundColor: colors.gray90,
+    backgroundColor: colors.gray93,
     paddingRight: 10,
     paddingVertical: 2,
     paddingLeft: 2,
