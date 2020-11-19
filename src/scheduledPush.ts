@@ -93,7 +93,7 @@ const schedulePush = ({title, message, date, id, data}: SchedPushData) => {
   }
 }
 
-interface PushData{
+interface PushData {
   title: string
   message: string
   id?: string,
@@ -104,18 +104,20 @@ interface PushData{
   },
 }
 
-// const instantPush = ({title, message, id, data}: PushData) => {
-//   if (Platform.OS === 'ios') {
-//     PushNotificationIOS.presentLocalNotification({
-//       alertTitle : title,
-//       alertBody : message,
-//       userInfo: data,
-//     })
-//   } else {
-//     PushNotification.localNotification({
-//       title, message, id, data,
-//       allowWhileIdle: true,
-//     }) 
-//   }
-// }
+export const instantPush = ({title, message, id, data}: PushData) => {
+  console.log({title, message, id, data})
+  if (Platform.OS === 'ios') {
+    PushNotificationIOS.presentLocalNotification({
+      alertTitle : title,
+      alertBody : message,
+      userInfo: {...data, local: true},
+    })
+  } else {
+    PushNotification.localNotification({
+      title, message, id, 
+      data: {...data, local: true},
+      allowWhileIdle: true,
+    }) 
+  }
+}
 
