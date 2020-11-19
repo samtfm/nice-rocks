@@ -50,7 +50,7 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
       enableInstantRocks: val,
     }).then(() => {
       setTempEnableInstantRocks(null)
-    }, (e) => {
+    }, () => {
       setTempEnableInstantRocks(null)
     });
   }
@@ -78,8 +78,7 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
     <View style={styles.main}>
       <View style={styles.header}>
         <Avatar id={uid} size={45} />
-        <ContactName style={{marginTop: 10, fontSize: 18, fontFamily: 'Bitter-Bold'}} id={uid} />
-
+        <ContactName style={{marginTop: 10, fontSize: 18}} id={uid} />
       </View>
       <View style={styles.section}>
         <Text style={styles.title}>New rock notifications</Text>
@@ -88,10 +87,12 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
             <RadioButton.Item 
               value="instant" 
               label="Immediate"
+              labelStyle={{fontFamily: 'Bitter-Regular', fontSize: 14}}
             />
             <RadioButton.Item
               value="scheduled"
               label="Scheduled"
+              labelStyle={{fontFamily: 'Bitter-Regular', fontSize: 14}}
             />
           </View>
         </RadioButton.Group>    
@@ -130,7 +131,9 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingHorizontal: 10,
-    fontFamily: 'Bitter-Bold',
+    fontWeight: 'bold',
+    fontFamily: 'sans-serif',
+    fontSize: 14,
   },
   spacer: {
     flex: 1,
