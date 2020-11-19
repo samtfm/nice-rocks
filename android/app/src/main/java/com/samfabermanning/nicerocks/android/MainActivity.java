@@ -3,6 +3,8 @@ package com.samfabermanning.nicerocks.android;
 import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
+import android.os.CountDownTimer; 
+import android.graphics.Color;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
@@ -17,6 +19,15 @@ public class MainActivity extends ReactActivity {
     // SplashScreen.show(...) has to be called after super.onCreate(...)
     // Below line is handled by '@expo/configure-splash-screen' command and it's discouraged to modify it manually
     SplashScreen.show(this, SplashScreenImageResizeMode.CONTAIN, false);
+    
+    // Set the Android background to white after 8 seconds 
+    // to fix the splashscreen flash when the keyboard is shown
+    new CountDownTimer(8000, 1000) {
+        public void onTick(long millisUntilFinished) {}
+        public void onFinish() {
+            getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+        }
+    }.start();
   }
 
 
