@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import Text from 'components/Text';
 import Avatar from 'components/Avatar';
-import { Surface } from 'react-native-paper';
 import colors from 'styles/colors';
 
 interface Response {
@@ -18,7 +17,8 @@ const Response = ({reaction, note, fromUserId}: Response): ReactElement => {
         <Avatar id={fromUserId} size={38}/>
       </View>
 
-      <Surface style={styles.response}>
+      <View style={styles.responseContainer}>
+      <View style={styles.response}>
         {(reaction && !note) ? (
             <View style={styles.reactionBigContainer}><Text style={styles.reactionBig}>{`${reaction} `}</Text></View>
           ) : (
@@ -27,7 +27,7 @@ const Response = ({reaction, note, fromUserId}: Response): ReactElement => {
               <Text style={styles.note}>{note}</Text>  
           </Text>
         )}
-      </Surface>
+      </View></View>
     </View>
   );
 }
@@ -41,13 +41,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   avatarContainer: {
-    paddingTop: 6,
+    paddingBottom: 4,
     paddingRight: 4,
+    alignSelf: 'flex-end'
+  },
+  responseContainer: {
+    minWidth: 100,
   },
   response: {
-    elevation: 0,
-
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
     paddingVertical: 6,
     paddingLeft: 6,
     paddingRight: 12,
