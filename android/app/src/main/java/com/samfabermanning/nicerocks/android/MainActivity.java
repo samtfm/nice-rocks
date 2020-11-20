@@ -20,9 +20,9 @@ public class MainActivity extends ReactActivity {
     // Below line is handled by '@expo/configure-splash-screen' command and it's discouraged to modify it manually
     SplashScreen.show(this, SplashScreenImageResizeMode.CONTAIN, false);
     
-    // Set the Android background to white after 8 seconds 
+    // Set the Android background to white after 5 seconds 
     // to fix the splashscreen flash when the keyboard is shown
-    new CountDownTimer(8000, 1000) {
+    new CountDownTimer(5000, 1000) {
         public void onTick(long millisUntilFinished) {}
         public void onFinish() {
             getWindow().getDecorView().setBackgroundColor(Color.WHITE);

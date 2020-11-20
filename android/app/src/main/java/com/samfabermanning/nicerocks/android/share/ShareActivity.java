@@ -1,6 +1,7 @@
 package com.samfabermanning.nicerocks.android.share;
 
-
+import android.graphics.Color;
+import android.os.Bundle;
 // import ReactActivity
 import com.facebook.react.ReactActivity;
 
@@ -12,4 +13,9 @@ public class ShareActivity extends ReactActivity {
         return "share";
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+    }
 }
