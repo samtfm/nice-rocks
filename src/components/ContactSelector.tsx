@@ -1,4 +1,4 @@
-import React, {useState, ReactElement} from 'react';
+import React, {useState, ReactElement, useEffect} from 'react';
 import { StyleSheet, Pressable, View, ScrollView } from 'react-native';
 import Text from 'components/Text';
 import { useNavigation } from '@react-navigation/native';
@@ -8,19 +8,51 @@ import colors from 'styles/colors';
 import { RootState } from 'reducers/rootReducer';
 import ContactName from './ContactName';
 import { Searchbar, ProgressBar, Surface } from 'react-native-paper';
+import Avatar from './Avatar';
 
 const searchUser = functions().httpsCallable('searchUser')
 
 interface Contacts {
   [userId: string]: {
     displayName: string,
-    photo: string,  
+    photo: string, 
+    email?: string,
   }
+}
+interface Contact {
+  displayName: string,
+  photo: string,  
+  email?: string,
+  id: string,
 }
 
 interface ContactSelector{
   route: any
 }
+
+const ContactItem = ({ id, onPress }: {id: string, onPress: () => void}): ReactElement  => (
+  <Pressable
+    onPress={onPress}
+    style={({ pressed }) => [
+      {
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 4,
+        backgroundColor: pressed
+          ? 'lightGray'
+          : 'white'
+      },
+  ]}>
+    <Surface style={styles.contact}>
+      <Avatar 
+        size={36}
+        id={id}
+        clickable={false}
+      />
+      <Text style={styles.contactText}><ContactName id={id}/></Text>
+    </Surface>
+  </Pressable>
+)
 
 const ContactSelector = ({ route }: ContactSelector): ReactElement => {
   const { targetScreen, outputIdParamName } = route.params
@@ -39,31 +71,51 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
 
   let emailCheckTimeout : ReturnType<typeof setTimeout> | null = null;
 
-  const onChangeEmailInput = (inputText: string) => {
-    setSearchVal(inputText)
-    const email = inputText.toLowerCase()
+  const [displayContacts, setDisplayContacts] = useState<Contact[]>([])
+
+  useEffect(() => {
+    const contactList = Object.entries(contacts)
+    .map(([id, {displayName, photo, email}]) => (
+      {displayName, photo, email, id}
+    ))
+    .filter(contact => (
+      contact.displayName.toLowerCase().includes(searchVal) ||
+      (contact.email && contact.email.startsWith(searchVal))
+    ));
+    setDisplayContacts(contactList)
+  }, [contacts, searchVal])
+
+
+  const onChangeEmailInput = (rawInputText: string) => {
+    setSearchVal(rawInputText);
+    const regSelect = rawInputText.toLowerCase().match(/\s*(\S*)\s*/)
+    const inputText = regSelect && regSelect[1] || ''
     //simple regex to test if a string might be a valid email address
-    if (/\S+@\S+\.\S+/.test(email)){
+    if (/\S+@\S+\.\S+/.test(inputText)){
       if (emailCheckTimeout) clearTimeout(emailCheckTimeout);
       setLoading(true)
       emailCheckTimeout = setTimeout(() => {
-        searchUser({'email': email}).then(response => {
+        searchUser({'email': inputText}).then(response => {
           setNewRecipientId(response.data.userId);
           setLoading(false)
         }, () => {
           // error
           setLoading(false)
+          setNewRecipientId(undefined)
         });
       }, 600);
+    } else {
+      setNewRecipientId(undefined)
     }
   }
+  console.log(displayContacts.map(d => d.id))
 
   return (
     <View style={{flex: 1, backgroundColor: colors.beige}}>
       <View style={styles.searchBar}>
 
       <Searchbar
-        placeholder="Search by email"
+        placeholder="Type a name or email"
         onChangeText={onChangeEmailInput}
         autoCompleteType="off"
         value={searchVal}
@@ -72,78 +124,45 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
       />
       <ProgressBar visible={loading} color={colors.primary} indeterminate/>
       </View>
-      <ScrollView style={styles.contactList}>
-        {newRecipientId &&
-          <View style={styles.newContact}>
-            <Pressable
-              onPress={() => {
-                navigation.navigate(targetScreen, {[outputIdParamName]: newRecipientId})
-              }}
-              style={({ pressed }) => [
-                {
-                  marginLeft: 10,
-                  marginRight: 10,
-                  marginBottom: 4,
-                  backgroundColor: pressed
-                    ? 'lightGray'
-                    : 'white'
-                },
-            ]}>
-              <Surface style={{elevation: 8}}>
-                <Text style={styles.contact}><ContactName id={newRecipientId}/></Text>
-              </Surface>
-
-            </Pressable>
-          </View>
-        }
-        {contacts && Object.entries(contacts).map(([id, contact]) => (
-            <Pressable
-              key={id}
-              onPress={() => {
-                navigation.navigate(targetScreen, {[outputIdParamName]: id})
-              }}
-              style={({ pressed }) => [
-                {
-                  marginLeft: 10,
-                  marginRight: 10,
-                  marginBottom: 4,
-                  backgroundColor: pressed
-                    ? 'lightGray'
-                    : 'white'
-                },
-            ]}>
-              <Surface style={{elevation: 2}}>
-                <Text style={styles.contact}>{contact.displayName}</Text>
-              </Surface>
-            </Pressable>
-        ))}
-      </ScrollView>
+      {newRecipientId ? (
+        <ScrollView style={styles.contactList}>
+          <ContactItem id={newRecipientId} onPress={() => {
+            navigation.navigate(targetScreen, {[outputIdParamName]: newRecipientId})
+          }}/>
+        </ScrollView>
+      ) : (
+        <ScrollView>
+          {displayContacts.map(({id}) => (
+            <ContactItem key={id} id={id} onPress={() => {
+              navigation.navigate(targetScreen, {[outputIdParamName]: id})
+            }}/>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   searchBar: {
-    marginLeft: 10,
-    marginRight: 10,
+    marginHorizontal: 10,
     marginTop: 20,
-  },
-  newContact: {
-    marginBottom: 8,
-    marginTop: 8,
-    borderRadius: 5,
+    marginBottom: 10,
   },
   contactList: {
-    // padding: 10,
     backgroundColor: 'transparent',
     display: 'flex',
   },
-  contact: {
-    borderRadius: 5,
-    padding: 20,
+  contactText: {
     fontSize: 18,
-
+    paddingHorizontal: 8,
+  },
+  contact: {
+    elevation: 2,
+    padding: 8,
+    borderRadius: 5,
     alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 

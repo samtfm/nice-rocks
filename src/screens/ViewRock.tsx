@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 import RockDetails from 'components/RockDetails'
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useFirestoreConnect } from 'react-redux-firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'reducers/rootReducer';
@@ -32,11 +32,9 @@ const ViewRock = ({ route }: ViewRock): ReactElement => {
   )
 
   return (
-    <View style={{flex:1, paddingLeft: 10, paddingRight: 10, paddingTop: 10, backgroundColor: colors.beige}}>
-      <ScrollView keyboardShouldPersistTaps={'handled'}>
-        {rock && <RockDetails {...rock} />}
-      </ScrollView>
-    </View>
+    <ScrollView keyboardShouldPersistTaps={'handled'} style={{flex:1, paddingLeft: 10, paddingRight: 10, paddingTop: 10, backgroundColor: colors.beige}}>
+      {rock && <RockDetails {...rock} />}
+    </ScrollView>
   );
 }
 

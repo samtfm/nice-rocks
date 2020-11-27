@@ -11,6 +11,9 @@ import { RootState } from 'reducers/rootReducer';
 import { useSelector } from 'react-redux';
 import Avatar from 'components/Avatar';
 import { useNavigation } from '@react-navigation/native';
+import Clipboard from '@react-native-community/clipboard';
+import Toast from 'react-native-simple-toast';
+import { IconButton } from 'react-native-paper';
 
 interface TimeStamp {
   seconds: number,
@@ -41,12 +44,15 @@ const springAnimConfig = {
 const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, response}: RockDetails) : ReactElement => {
   const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
   const [showResponse, setShowResponse] = useState(Boolean(response))
+
+  const responseMash = response ? response.reaction + response.note : '';
   useEffect(() => {
     setTimeout(() => {
-      if (response) LayoutAnimation.configureNext(springAnimConfig);
+      if (!showResponse && response) LayoutAnimation.configureNext(springAnimConfig);
       setShowResponse(Boolean(response))
     }, 300)
-  },[response])
+  },[responseMash])
+
   const navigation = useNavigation();
 
   return (
@@ -54,20 +60,24 @@ const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, res
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Avatar id={fromUserId} size={38} />
         <ContactName style={{paddingLeft: 8, flex: 1}} id={fromUserId}/>
-        <Icon 
+        <IconButton
           onPress={() => navigation.navigate('ComposeRock', {title: title, url: url})}
-          style={{marginRight: 10}}
-          name={'share'}
-          color={colors.primary} size={26}
+          color={colors.primary}
+          size={28}
+          icon="share"
         />
-      </View>
+                </View>
       <View style={styles.rockItem}>
-        <Text style={styles.title}>{title || url}</Text>
-        <Text style={styles.description}>{note}</Text>
+        <Text selectable={true} style={styles.title}>{title || url}</Text>
+        <Text selectable={true} style={styles.description}>{note}</Text>
         {Boolean(url) && (
           <TouchableOpacity
             style={styles.url}
             onPress={() => Linking.openURL(url)}
+            onLongPress={() => {
+              Clipboard.setString(url)
+              Toast.show('URL copied to clipboard');
+            }}
           >
             <Text style={styles.urlText}>{url}</Text>
             <Icon name={'open-in-new'} color={colors.blue} size={24} />
@@ -79,8 +89,8 @@ const RockDetails = ({id, title, url, note, timestamp, fromUserId, toUserId, res
       {showResponse && response && (
         <Response {...response} fromUserId={toUserId} />
       )}
-      {!showResponse && uid === toUserId && (
-        <ResponseForm profileId={toUserId} rockId={id} />
+      {uid === toUserId && (
+        <ResponseForm profileId={toUserId} rockId={id} alreadyResponded={showResponse} />
       )}
     </View>
   );
@@ -94,13 +104,13 @@ const styles = StyleSheet.create({
     paddingBottom: 33,
   },
   title: {
-    fontWeight: 'bold',
+    fontFamily: 'Bitter-Bold',
     color: colors.gray40,
     fontSize: 18,
     marginBottom: 8,
   },
   description: {
-    marginBottom: 8,
+    marginBottom: 14,
     color: colors.gray40,
   },
   url: {

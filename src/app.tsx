@@ -14,12 +14,11 @@ import colors from 'styles/colors';
 import { persistor, store } from 'reducers/rootReducer';
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { Platform, UIManager } from 'react-native';
+import { ActivityIndicator, Platform, UIManager } from 'react-native';
 import { navigationRef, isReadyRef } from './RootNavigation';
 import MainStack from 'nav/MainStack';
 import IsShareExtensionContext from 'IsShareExtensionContext';
 import { PersistGate } from 'redux-persist/integration/react';
-import Text from 'components/Text';
 import { initNotifHandlers } from 'notificationHandlers';
 
 const theme = {
@@ -27,10 +26,10 @@ const theme = {
   roundness: 2,
   fonts: { 
     ...DefaultTheme.fonts,
-    regular: {
-      fontFamily: 'Bitter-Regular',
-      fontWeight: 'normal' as const,
-    },
+    // regular: { // somehow all this did was change the footer font, so commented out for now
+    //   fontFamily: 'Bitter-Regular',
+    //   fontWeight: 'normal' as const,
+    // },
   },
   colors: {
     ...DefaultTheme.colors,
@@ -73,16 +72,16 @@ const App = (): ReactElement => {
   }, []);
   return (
     <Provider store={store}>
-      <PersistGate loading={<Text>Loading local settings...</Text>} persistor={persistor}>
-      <ReactReduxFirebaseProvider {...rrfProps}>
-        <PaperProvider theme={theme}>
-          <AuthLoaded>
-            <NavigationContainer ref={navigationRef} onReady={() => {isReadyRef.current = true;}}>
-              <MainStack />
-            </NavigationContainer>
-          </AuthLoaded>
-        </PaperProvider>
-      </ReactReduxFirebaseProvider>
+      <PersistGate loading={<ActivityIndicator size="large" color={colors.blue} style={{flex: 1}}/>} persistor={persistor}>
+        <ReactReduxFirebaseProvider {...rrfProps}>
+          <PaperProvider theme={theme}>
+            <AuthLoaded>
+              <NavigationContainer ref={navigationRef} onReady={() => {isReadyRef.current = true;}}>
+                <MainStack />
+              </NavigationContainer>
+            </AuthLoaded>
+          </PaperProvider>
+        </ReactReduxFirebaseProvider>
       </PersistGate>
     </Provider>
   );

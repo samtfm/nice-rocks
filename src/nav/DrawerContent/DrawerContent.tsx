@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'reducers/rootReducer';
@@ -7,11 +7,12 @@ import { useFirebase, useFirestore } from 'react-redux-firebase';
 import { StyleSheet, View } from 'react-native';
 import colors from 'styles/colors';
 import Avatar from 'components/Avatar';
-import { Button, Switch } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { actionTypes } from 'redux-firestore'
 import ScheduledPushSwitches from './ScheduledPushSwitches';
 import Text from 'components/Text';
-import { setSettings } from 'reducers/settingsReducer';
+import { RadioButton } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 interface DrawerContent{
@@ -25,8 +26,13 @@ interface DrawerContent{
   progress: any,
 }
 const DrawerContent = ({}: DrawerContent): ReactElement => {
-  const uid = useSelector((state : RootState) => (state.firestore.data.userData.id));
+  const userData = useSelector((state : RootState) => (state.firestore.data.userData));
+  const uid = userData.id
+  const canonEnableInstantRocks = userData.enableInstantRocks
+
   
+  const [tempEnableInstantRocks, setTempEnableInstantRocks] = useState<Boolean | null>(null)
+  const enableInstantRocks = tempEnableInstantRocks !== null ? tempEnableInstantRocks : canonEnableInstantRocks
   const messagingToken = useSelector(
     ({ firestore: { data } }: RootState) => {
       return data.userData.messagingToken;
@@ -37,13 +43,17 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
   const firestore = useFirestore();
   const dispatch = useDispatch();
   
-  const { enableInstantRocks } = useSelector((state: RootState) => state.settings)
 
-  const setNotifMode = (val: boolean) => {
-    dispatch(setSettings({enableInstantRocks: val}))
-  }
-  const toggleNotifMode = () => {
-    setNotifMode(!enableInstantRocks)
+  const setEnableInstantRocks = (val: boolean) => {
+    const ref = { collection: `users`, doc: uid }
+    setTempEnableInstantRocks(val)
+    firestore.update(ref,{
+      enableInstantRocks: val,
+    }).then(() => {
+      setTempEnableInstantRocks(null)
+    }, () => {
+      setTempEnableInstantRocks(null)
+    });
   }
 
   const clearToken = () => {
@@ -56,7 +66,7 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
   const logout = () => {
     firebase.messaging().getToken().then((myToken: string) => {
       const shouldClearTokenAfter = myToken == messagingToken
-      firebase.messaging().deleteToken().then(firebase.logout).then(() => {
+      firebase.messaging().deleteToken().catch(console.log).then(firebase.logout).then(() => {
         dispatch({ type: actionTypes.CLEAR_DATA })
         if (shouldClearTokenAfter) {
           clearToken()
@@ -69,34 +79,46 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
     <View style={styles.main}>
       <View style={styles.header}>
         <Avatar id={uid} size={45} />
-        <ContactName style={{marginTop: 10, fontSize: 18, fontFamily: 'Bitter-Bold'}} id={uid} />
-
+        <ContactName style={{marginTop: 10, fontSize: 18}} id={uid} />
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.title}>New rock notifications</Text>
+        <RadioButton.Group onValueChange={value => setEnableInstantRocks(value === 'instant')} value={enableInstantRocks ? 'instant' : 'scheduled'}>
+          <View style={{paddingLeft: 10}}>
+            <RadioButton.Item 
+              value="instant" 
+              label="Immediate"
+              labelStyle={{fontFamily: 'Bitter-Regular', fontSize: 14}}
+            />
+            <RadioButton.Item
+              value="scheduled"
+              label="Scheduled"
+              labelStyle={{fontFamily: 'Bitter-Regular', fontSize: 14}}
+            />
+          </View>
+        </RadioButton.Group>    
       </View>
 
-      <Text style={{...styles.title, color: enableInstantRocks ? colors.gray60 : colors.gray20 }}>Notification times</Text>
-      <View style={{paddingLeft: 10}}>
-        <ScheduledPushSwitches disableAll={enableInstantRocks}/>
+      <View style={styles.section}>
+        <Text style={{...styles.title, color: enableInstantRocks ? colors.gray60 : colors.gray20 }}>Notification times</Text>
+        <View style={{paddingLeft: 10}}>
+          <ScheduledPushSwitches disableAll={enableInstantRocks}/>
+        </View>
       </View>
-
-      <View style={styles.notifModeToggle}>
-        <Text style={{flex: 1}}>{"Instant new rock notifications"}</Text>
-        <Switch value={enableInstantRocks} onValueChange={toggleNotifMode}/>
-      </View>
-      
       <View style={styles.spacer}></View>
       <Button
         onPress={logout}
+        color={colors.primaryDark}
         style={styles.logoutButton}
       >
         Log Out
       </Button>
-      <Text style={styles.versionCode}>{"1.4.2"}</Text>
+      <Text style={styles.versionCode}>{"1.4.4" /* nicerocksversion */}</Text>
     </View>
   )
 }
 const styles = StyleSheet.create({
   main: {
-    justifyContent: 'space-between',
     flex: 1,
   },
   header: {
@@ -109,14 +131,16 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingHorizontal: 10,
-    marginBottom: 8,
-    // fontSize: 12,
+    fontWeight: 'bold',
+    fontFamily: 'System',
+    fontSize: 14,
   },
   spacer: {
     flex: 1,
   },
   logoutButton: {
-    marginBottom: 30,
+    position: 'absolute',
+    bottom: 30,
     alignSelf: 'center',
   },
   versionCode: {
@@ -131,6 +155,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 10,
     marginBottom: 20,
+  },
+  section: {
+    marginBottom: 18,
   },
 })
 export default DrawerContent;

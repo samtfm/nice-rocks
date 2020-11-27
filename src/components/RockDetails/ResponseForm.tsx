@@ -13,10 +13,11 @@ const springAnimConfig = {
 }
 
 interface ResponseForm {
-  profileId: string,
-  rockId: string,
+  profileId: string
+  rockId: string
+  alreadyResponded: boolean
 }
-const ResponseForm = ({profileId, rockId} : ResponseForm) : ReactElement => {
+const ResponseForm = ({profileId, rockId, alreadyResponded} : ResponseForm) : ReactElement => {
   const [responseText, setResponseText] = useState('');
   const [formVisible, setFormVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(true);
@@ -96,8 +97,8 @@ const ResponseForm = ({profileId, rockId} : ResponseForm) : ReactElement => {
         )}
       </KeyboardAvoidingView>
 
-        <View style={{alignSelf: 'center'}}>
-        {buttonVisible && <Button 
+      <View style={{alignSelf: 'center', padding: 2, marginTop: 40}}>
+        {buttonVisible && !alreadyResponded && <Button 
           disabled={formVisible}
           mode={'outlined'}
           color={colors.blue}

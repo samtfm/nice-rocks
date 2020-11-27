@@ -6,14 +6,12 @@ import { firebaseReducer, FirestoreReducer } from 'react-redux-firebase'
 import { firestoreReducer } from 'redux-firestore' // <- needed if using firestore
 import { Reducer } from 'redux';
 import newRocksReducer from './newRocksReducer';
-import settingsReducer from './settingsReducer';
 import { setOrUpdateScheduledPush } from 'scheduledPush';
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer as Reducer<FirestoreReducer.Reducer>,
   newRocks: newRocksReducer,
-  settings: settingsReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
@@ -23,13 +21,13 @@ export default rootReducer;
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['newRocks', 'settings'],
+  whitelist: ['newRocks'],
   stateReconciler: autoMergeLevel2 // see "Merge Process" section for details.
 };
 
 const pReducer = persistReducer<RootState>(persistConfig, rootReducer);
 
-function updateScheduledPush({getState}) {
+function updateScheduledPush({getState}: any) {
   return (next: any) => (action: any) => {
     // Call the next dispatch method in the middleware chain.
     const returnValue = next(action)
@@ -38,7 +36,6 @@ function updateScheduledPush({getState}) {
       'newRocks/lookedAtRock',
       'newRocks/setNotificationTime',
       'newRocks/removeNotificationTime',
-      'settings/setSettings',
     ].includes(action.type)){
       setOrUpdateScheduledPush(getState());
     }
