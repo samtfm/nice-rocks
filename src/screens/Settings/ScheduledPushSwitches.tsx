@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from 'styles/colors';
 import Text from 'components/Text';
 import { Button, HelperText, Modal, Portal } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface ScheduledPushSwitches {
   disableAll: boolean
@@ -40,9 +41,8 @@ const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElemen
       disabled: false,
     }))
   }
-
   return (
-    <View style={styles.main}>
+    <ScrollView style={styles.main}>
       {timeList.map(time => (
         <ScheduledPushSwitch 
           key={`${time.hours}${time.minutes}`}
@@ -62,12 +62,10 @@ const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElemen
         />
         <Text style={{color: colors.gray40}}>{"new time"}</Text>
       </Pressable>}
-      {timeList.length < 2 && (
-        <HelperText 
+      <HelperText 
         type="error"
         visible={!disableAll && (timeList.length === 0 || timeList.every(time => time.disabled))}
       >{"No active times. Add or enable a time to receive push notifications."}</HelperText>
-      )}
 
 
       {Platform.OS === 'ios' ? (
@@ -97,13 +95,12 @@ const ScheduledPushSwitches = ({disableAll}: ScheduledPushSwitches): ReactElemen
           onChange={onChange}
         />
       )}
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   main: {
-    alignItems: 'flex-end',
     paddingBottom: 30,
     marginBottom: 20,
     marginTop: 2,

@@ -1,4 +1,4 @@
-import React, { ReactElement, Suspense, useContext, useState } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 import { isEmpty } from 'react-redux-firebase';
 import { RootState } from 'reducers/rootReducer';
 import { useSelector } from 'react-redux';
@@ -15,6 +15,8 @@ import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContent from './DrawerContent';
 import IsShareExtensionContext from 'IsShareExtensionContext';
+import Settings from 'screens/Settings';
+import Support from 'screens/Support';
 
 const DrawerNav = createDrawerNavigator();
 
@@ -129,6 +131,16 @@ const MainStack = (): ReactElement => {
           name="SelectContact"
           component={ContactSelector}
           options={{ title: 'Select contact', headerBackTitle: "Cancel" }}
+        />
+        <ModalNav.Screen
+          name="Settings"
+          component={Settings}
+          options={{ title: 'Settings'}}
+        />
+        <ModalNav.Screen
+          name="Support"
+          component={Support}
+          options={{ title: 'Support' }}
         />
       </ModalNav.Navigator>
     </MessagingWrapper>

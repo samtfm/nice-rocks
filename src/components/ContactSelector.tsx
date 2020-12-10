@@ -108,7 +108,6 @@ const ContactSelector = ({ route }: ContactSelector): ReactElement => {
       setNewRecipientId(undefined)
     }
   }
-  console.log(displayContacts.map(d => d.id))
 
   return (
     <View style={{flex: 1, backgroundColor: colors.beige}}>

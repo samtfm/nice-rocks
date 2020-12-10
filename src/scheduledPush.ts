@@ -105,7 +105,6 @@ interface PushData {
 }
 
 export const instantPush = ({title, message, id, data}: PushData) => {
-  console.log({title, message, id, data})
   if (Platform.OS === 'ios') {
     PushNotificationIOS.presentLocalNotification({
       alertTitle : title,

@@ -43,7 +43,7 @@ const ScheduledPushSwitch = ({hours, minutes, value, disabled}: ScheduledPushSwi
         />
       </Pressable>}
 
-      <Text style={disabled ? {color: colors.gray50}: {}}>{timeString}</Text>
+      <Text style={disabled || !value ? {color: colors.gray50}: {}}>{timeString}</Text>
       <View style={styles.spacer} />
       <Switch value={value} disabled={disabled} onValueChange={onToggleSwitch} />
     </View>
