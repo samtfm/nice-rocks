@@ -31,6 +31,11 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
       return data.userData.messagingToken;
     }
   )
+  const remoteConfig = useSelector(
+    ({ firestore: { data } }: RootState) => {
+      return data.remoteConfig;
+    }
+  )
 
   const firebase = useFirebase();
   const firestore = useFirestore();
@@ -82,8 +87,8 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
       />
       <Drawer.Item
         icon="file-document-box"
-        label="Terms of Service"
-        onPress={() => Linking.openURL("https://www.nice.rocks")}
+        label="Privacy Policy"
+        onPress={() => Linking.openURL(remoteConfig.privacyPolicyUrl)}
       />
 
       <View style={styles.spacer}></View>
