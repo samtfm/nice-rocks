@@ -1,5 +1,7 @@
 {
   "main": "index.js",
+  "versionCode": 11,
+  "versionName": "1.4.4",
   "scripts": {
     "android": "react-native run-android --appId com.samfabermanning.nicerocks.android.debug",
     "ios": "react-native run-ios",

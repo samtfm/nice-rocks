@@ -11,6 +11,7 @@ import { Button, Drawer } from 'react-native-paper';
 import { actionTypes } from 'redux-firestore'
 import Text from 'components/Text';
 import { useNavigation } from '@react-navigation/native';
+import { versionName } from '../../../package.json';
 
 
 interface DrawerContent{
@@ -99,7 +100,7 @@ const DrawerContent = ({}: DrawerContent): ReactElement => {
       >
         Log Out
       </Button>
-      <Text style={styles.versionCode}>{"1.4.4" /* nicerocksversion */}</Text>
+      <Text style={styles.versionCode}>{versionName /* nicerocksversion */}</Text>
     </View>
   )
 }
