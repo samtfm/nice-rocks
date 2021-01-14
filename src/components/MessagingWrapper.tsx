@@ -13,7 +13,6 @@ const MessagingWrapper = ({children}: {children: ReactElement}): ReactElement =>
   const firestore = useFirestore();
   const uid = firebase.auth().currentUser.uid;
   useFirestoreConnect(() => [{ collection: "users", doc: uid, storeAs: 'userData' }])
-  useFirestoreConnect(() => [{ collection: "configs", doc: 'main', storeAs: 'remoteConfig' }])
 
   const userData = useSelector(
     ({ firestore: { data } }: RootState) => {

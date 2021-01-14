@@ -1,5 +1,5 @@
-import React, { ReactElement, useContext, useState } from 'react';
-import { isEmpty } from 'react-redux-firebase';
+import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react';
+import { isEmpty, useFirestoreConnect } from 'react-redux-firebase';
 import { RootState } from 'reducers/rootReducer';
 import { useSelector } from 'react-redux';
 import MessagingWrapper from 'components/MessagingWrapper';
@@ -17,6 +17,9 @@ import DrawerContent from './DrawerContent';
 import IsShareExtensionContext from 'IsShareExtensionContext';
 import Settings from 'screens/Settings';
 import Support from 'screens/Support';
+import { versionCode } from '../../package.json';
+import AppVersionGate from 'screens/AppVersionGate';
+import * as RootNavigation from 'RootNavigation';
 
 const DrawerNav = createDrawerNavigator();
 
@@ -114,6 +117,36 @@ const LoggedOutStack = (): ReactElement => {
 }
 const MainStack = (): ReactElement => {
   const auth = useSelector((state : RootState) => state.firebase.auth)
+  useFirestoreConnect(() => [{ collection: "configs", doc: 'main', storeAs: 'remoteConfig' }])
+  const remoteConfig = useSelector(
+    ({ firestore: { data } }: RootState) => {
+      return data.remoteConfig;
+    }
+  )
+
+  const prevRemoteConfig = useRef(remoteConfig).current;
+  
+  useEffect(() => {
+    if (remoteConfig && versionCode < remoteConfig.minVersionRecommend &&
+        (!prevRemoteConfig || versionCode < prevRemoteConfig.minVersionRecommend) // do not interrupt an active session
+    ) {
+      // TODO: consider storing dismiss timing in redux state
+      RootNavigation.navigate(
+        'VersionGate', 
+        {},
+      ) 
+    }
+  }, [remoteConfig])
+
+
+  if (remoteConfig) {
+    if (versionCode < remoteConfig.minVersionForce) { 
+      return (<>
+        <AppVersionGate force={true}/>
+      </>)
+    }
+  }
+
   return isEmpty(auth) ? (
     <LoggedOutStack/>
   ) : (
@@ -121,7 +154,13 @@ const MainStack = (): ReactElement => {
       <ModalNav.Navigator
         mode="modal"
         screenOptions={screenOptions}
+        initialRouteName="Main"
       >
+        <ModalNav.Screen
+          name="VersionGate"
+          component={AppVersionGate}
+          options={{ headerShown: false }}
+        />
         <ModalNav.Screen
           name="Main"
           component={LoggedInStackWithDrawer}
