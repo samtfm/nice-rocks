@@ -1,6 +1,6 @@
 import React, { useState, ReactElement } from 'react';
-import { StyleSheet, View, Button, ActivityIndicator} from 'react-native';
-import { HelperText } from 'react-native-paper';
+import { StyleSheet, View, ActivityIndicator} from 'react-native';
+import { Button, HelperText } from 'react-native-paper';
 
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-community/google-signin';
@@ -36,28 +36,46 @@ const Login = (): ReactElement => {
     return auth().signInWithCredential(googleCredential);
   }
 
+  async function onAppleButtonPress() {
+    console.log("https://rnfirebase.io/auth/social-auth")
+  }
+
   return (
     <View style={styles.main}>
-      <Text style={styles.titleText}>Nice Rocks</Text>
+      <Text style={styles.titleText}>NiceRocks</Text>
       {loading && <ActivityIndicator style={styles.spinner} size="large" color={colors.blue} />}
-      <View style={styles.loginButton}>
+      <View style={styles.loginButtons}>
         <Button
           disabled={loading}
-          title="Sign in with Google"
+          mode={'contained'}
+          style={{'margin': 8}}
           onPress={() => onGoogleButtonPress().then(
             () => {return;},
             err => {
               setLoading(false)
-              setError(err.message)
+              setError("authentication error")
             }
           )}
-        />
+        >Sign in with Google</Button>
+        <Button
+          disabled={loading}
+          mode={'contained'}
+          style={{'margin': 8}}
+          onPress={() => onAppleButtonPress().then(
+            () => {return;},
+            err => {
+              setLoading(false)
+              setError("authentication error")
+            }
+          )}
+          >Sign in with Apple</Button>
         <HelperText
           type="error"
           visible={Boolean(error)}
         >{error}</HelperText>
 
       </View>
+
     </View>
   );
 }
@@ -73,20 +91,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   titleText: {
     fontSize: 40,
-    marginBottom: 20,
-    position: 'absolute',
-    top: '30%',
+    marginTop: '25%',
+    flex: 1,
   },
-  loginButton: {
-    position: 'absolute',
-    bottom: 120,
+  loginButtons: {
+    justifyContent: 'flex-end',
+    marginBottom: 36,
     alignItems: 'center',
   }
 });
