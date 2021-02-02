@@ -4,6 +4,8 @@ import { Button, HelperText } from 'react-native-paper';
 
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-community/google-signin';
+import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication';
+
 import colors from 'styles/colors';
 import Text from 'components/Text';
 
@@ -20,25 +22,41 @@ const googleSignConfiguration = __DEV__ ?
   offlineAccess: true,
   prompt: 'select-account',
 }
+
 GoogleSignin.configure(googleSignConfiguration);
+
+async function onGoogleButtonPress() {
+  // Get the users ID token
+  const { idToken } = await GoogleSignin.signIn();
+  // Create a Google credential with the token
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  // Sign-in the user with the credential
+  return auth().signInWithCredential(googleCredential);
+}
+
+async function onAppleButtonPress() {
+  // Start the sign-in request
+  const appleAuthRequestResponse = await appleAuth.performRequest({
+    requestedOperation: appleAuth.Operation.LOGIN,
+    requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+  });
+  // Ensure Apple returned a user identityToken
+  if (!appleAuthRequestResponse.identityToken) {
+    throw 'Apple Sign-In failed - no identify token returned';
+  }
+
+  // Create a Firebase credential from the response
+  const { identityToken, nonce } = appleAuthRequestResponse;
+  const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce);
+
+  // Sign the user in with the credential
+  return auth().signInWithCredential(appleCredential);
+}
 
 const Login = (): ReactElement => {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  async function onGoogleButtonPress() {
-    setLoading(true)
-    // Get the users ID token
-    const { idToken } = await GoogleSignin.signIn();
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
-  }
-
-  async function onAppleButtonPress() {
-    console.log("https://rnfirebase.io/auth/social-auth")
-  }
 
   return (
     <View style={styles.main}>
@@ -49,26 +67,38 @@ const Login = (): ReactElement => {
           disabled={loading}
           mode={'contained'}
           style={{'margin': 8}}
-          onPress={() => onGoogleButtonPress().then(
-            () => {return;},
-            err => {
-              setLoading(false)
-              setError("authentication error")
-            }
-          )}
+          onPress={() => {
+            setLoading(true)
+            onGoogleButtonPress().then(
+              () => {return;},
+              err => {
+                setLoading(false)
+                setError("authentication error")
+              }
+            )}
+          }
         >Sign in with Google</Button>
-        <Button
-          disabled={loading}
-          mode={'contained'}
-          style={{'margin': 8}}
-          onPress={() => onAppleButtonPress().then(
-            () => {return;},
-            err => {
-              setLoading(false)
-              setError("authentication error")
+        {appleAuth.isSignUpButtonSupported && appleAuth.isSupported &&
+          <AppleButton
+            buttonStyle={AppleButton.Style.WHITE}
+            buttonType={AppleButton.Type.SIGN_IN}
+            style={{
+              width: 160,
+              height: 45,
+              margin: 8,
+            }}
+            onPress={() => {
+              setLoading(true)
+              onAppleButtonPress().then(
+                () => {return;},
+                err => {
+                  setLoading(false)
+                  setError("authentication error")
+                }
+              )}
             }
-          )}
-          >Sign in with Apple</Button>
+          />
+        }
         <HelperText
           type="error"
           visible={Boolean(error)}
