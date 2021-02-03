@@ -1,13 +1,14 @@
 import React, { useState, ReactElement } from 'react';
-import { StyleSheet, View, ActivityIndicator} from 'react-native';
-import { HelperText } from 'react-native-paper';
+import { StyleSheet, View, ActivityIndicator, Pressable, Image} from 'react-native';
+import { HelperText, Surface } from 'react-native-paper';
 
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
-import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication';
+import { GoogleSignin } from '@react-native-community/google-signin';
+import { appleAuth } from '@invertase/react-native-apple-authentication';
 
 import colors from 'styles/colors';
 import Text from 'components/Text';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const googleSignConfiguration = __DEV__ ? 
 {
@@ -63,46 +64,39 @@ const Login = (): ReactElement => {
       <Text style={styles.titleText}>NiceRocks</Text>
       {loading && <ActivityIndicator style={styles.spinner} size="large" color={colors.blue} />}
       <View style={styles.loginButtons}>
-        <GoogleSigninButton 
-          style={{
-            width: 200,
-            margin: 8,
-          }}
-          size={GoogleSigninButton.Size.Wide}
-          disabled={loading}
+        <LoginButton
           onPress={() => {
-            setLoading(true)
+            setLoading(true);
+            setError('');
             onGoogleButtonPress().then(
               () => {return;},
               err => {
                 setLoading(false)
                 setError("authentication error")
               }
-            )}
+          )}}
+          IconComponent={() =>
+            <Image style={{width: 18, height: 18}} source={require('./google_logo_color.png')} />
           }
+          text={'Sign in with Google'}
+          disabled={loading}
         />
         {appleAuth.isSignUpButtonSupported && appleAuth.isSupported &&
-          <AppleButton
-            buttonStyle={AppleButton.Style.WHITE_OUTLINE}
-            buttonType={AppleButton.Type.SIGN_IN}
-            style={{
-              width: 160,
-              height: 45,
-              margin: 8,
-              elevation: 2,
-              
-            }}
+          <LoginButton
             onPress={() => {
               setLoading(true)
+              setError('');
               onAppleButtonPress().then(
                 () => {return;},
                 err => {
                   setLoading(false)
                   setError("authentication error")
                 }
-              )}
-            }
-          />
+              )}}
+              IconComponent={() => <Icon name={'apple'} size={18}/>}
+              text={'Sign in with Apple'}
+              disabled={loading}
+            />
         }
         <HelperText
           type="error"
@@ -115,6 +109,26 @@ const Login = (): ReactElement => {
   );
 }
 
+const LoginButton = ({IconComponent, text, disabled, onPress}) => {
+  return (
+    <Pressable onPress={onPress}
+      disabled={disabled}
+    >
+      {({pressed}) => (
+        <Surface
+          style={[
+            styles.loginButton,
+            disabled ? styles.loginButtonDisabled : {},
+            pressed ? styles.loginButtonPressed : {},
+          ]}
+        >
+          <IconComponent/>
+          <Text style={{fontFamily: 'System', marginLeft: 12}}>{text}</Text>
+        </Surface>
+      )}
+    </Pressable>
+  )
+}
 const styles = StyleSheet.create({
   spinner: {
     position: 'absolute',
@@ -135,6 +149,25 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginBottom: 40,
     alignItems: 'center',
+  },
+  loginButton: {
+    width: 200,
+    height: 45,
+    margin: 8,
+    elevation: 2,
+    backgroundColor: colors.white,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    borderRadius: 3,
+  },
+  loginButtonDisabled: {
+    backgroundColor: colors.gray93,
+    elevation: 0,
+  },
+  loginButtonPressed: {
+    backgroundColor: colors.gray80,
+    elevation: 0,
   }
 });
 
