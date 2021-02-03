@@ -1,9 +1,9 @@
 import React, { useState, ReactElement } from 'react';
 import { StyleSheet, View, ActivityIndicator} from 'react-native';
-import { Button, HelperText } from 'react-native-paper';
+import { HelperText } from 'react-native-paper';
 
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-community/google-signin';
+import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
 import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication';
 
 import colors from 'styles/colors';
@@ -63,10 +63,13 @@ const Login = (): ReactElement => {
       <Text style={styles.titleText}>NiceRocks</Text>
       {loading && <ActivityIndicator style={styles.spinner} size="large" color={colors.blue} />}
       <View style={styles.loginButtons}>
-        <Button
+        <GoogleSigninButton 
+          style={{
+            width: 200,
+            margin: 8,
+          }}
+          size={GoogleSigninButton.Size.Wide}
           disabled={loading}
-          mode={'contained'}
-          style={{'margin': 8}}
           onPress={() => {
             setLoading(true)
             onGoogleButtonPress().then(
@@ -77,15 +80,17 @@ const Login = (): ReactElement => {
               }
             )}
           }
-        >Sign in with Google</Button>
+        />
         {appleAuth.isSignUpButtonSupported && appleAuth.isSupported &&
           <AppleButton
-            buttonStyle={AppleButton.Style.WHITE}
+            buttonStyle={AppleButton.Style.WHITE_OUTLINE}
             buttonType={AppleButton.Type.SIGN_IN}
             style={{
               width: 160,
               height: 45,
               margin: 8,
+              elevation: 2,
+              
             }}
             onPress={() => {
               setLoading(true)
@@ -128,7 +133,7 @@ const styles = StyleSheet.create({
   },
   loginButtons: {
     justifyContent: 'flex-end',
-    marginBottom: 36,
+    marginBottom: 40,
     alignItems: 'center',
   }
 });
